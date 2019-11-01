@@ -1,7 +1,15 @@
 class GamesController < ApplicationController
 
-def index
+  def new
+  end
 
-end
+  def create
+  end
+
+  def show
+  end
+  
+  def index
+  end
 
 end
