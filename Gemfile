@@ -68,7 +68,7 @@ gem 'rubocop', '~> 0.76.0', require: false
 # Adds Test Support with RSPEC
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
-  gem "factory_bot_rails"
+  gem 'factory_bot_rails'
 end
 
 gem 'jquery-rails'
