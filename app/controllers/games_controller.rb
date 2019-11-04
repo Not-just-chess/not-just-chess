@@ -1,3 +1,4 @@
+# Games Controller
 class GamesController < ApplicationController
   def new; end
 
