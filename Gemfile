@@ -68,7 +68,7 @@ gem 'rubocop', '~> 0.76.0', require: false
 # Adds Test Support with RSPEC
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
-  gem "factory_bot_rails"
+  gem 'factory_bot_rails'
 end
 
 gem 'jquery-rails'
@@ -77,3 +77,5 @@ gem 'popper_js', '~> 1.14.5'
 gem 'bootstrap', '~> 4.3.1'
 gem 'tether-rails'
 gem 'devise'
+
+gem 'travis'
