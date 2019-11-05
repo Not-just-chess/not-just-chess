@@ -79,7 +79,6 @@ gem 'popper_js', '~> 1.14.5'
 gem 'bootstrap', '~> 4.3.1'
 gem 'tether-rails'
 gem 'devise'
-gem 'figaro'
 
 # Gems for Adding Third-Party Authentication
 gem 'omniauth-facebook', '~> 4.0'
