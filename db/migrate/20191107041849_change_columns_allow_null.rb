@@ -1,3 +1,4 @@
+# Add comments here
 class ChangeColumnsAllowNull < ActiveRecord::Migration[5.2]
   def change
     change_column_null :chess_pieces, :game_id, true
