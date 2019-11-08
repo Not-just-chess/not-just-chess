@@ -5,3 +5,6 @@ Metrics/LineLength:
 
 Metrics/BlockLength:
   Max: 300
+
+Documentation:
+  Enabled: false
