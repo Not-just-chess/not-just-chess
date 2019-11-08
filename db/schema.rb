@@ -10,16 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_191_031_203_333) do
+ActiveRecord::Schema.define(version: 20_191_107_041_849) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
-  create_table 'chess_pieces', force: :cascade do |t|
+  create_table 'bishops', force: :cascade do |t|
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
 
+  create_table 'chess_pieces', force: :cascade do |t|
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.string 'type'
+    t.integer 'game_id'
+    t.string 'color'
+    t.boolean 'captured'
+    t.index ['game_id'], name: 'index_chess_pieces_on_game_id'
+  end
+
   create_table 'games', force: :cascade do |t|
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
+  create_table 'kings', force: :cascade do |t|
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
+  create_table 'knights', force: :cascade do |t|
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
+  create_table 'pawns', force: :cascade do |t|
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
+  create_table 'queens', force: :cascade do |t|
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
+  create_table 'rooks', force: :cascade do |t|
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
