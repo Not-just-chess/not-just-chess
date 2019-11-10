@@ -20,7 +20,7 @@
         <div class="add float-right">
           <% if current_user %>
             Welcome, <%= current_user.email %>
-            <%= link_to "New Post", new_game_path %>
+            <%= link_to "Start New Game", new_game_path %>
             <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
           <% else %>
             <%= link_to "Sign In", new_user_session_path %>

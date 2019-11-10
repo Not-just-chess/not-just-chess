@@ -4,6 +4,8 @@ require 'rails_helper'
 RSpec.describe ChessPiecesController, type: :controller do
   describe 'chess_pieces#create' do
     it 'should allow new chess_pieces to be created' do
+      user = FactoryBot.create(:user)
+      sign_in user
       game1 = FactoryBot.create(:game)
 
       post :create, params: { chess_piece: {
