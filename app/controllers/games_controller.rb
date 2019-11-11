@@ -8,7 +8,8 @@ class GamesController < ApplicationController
 
   def create
     @game = current_user.games.create(game_params)
-    redirect_to root_path
+    @game.update_attributes(:white_player_id => current_user.id)
+    redirect_to game_path(@game.id)
   end
 
   def show
@@ -16,12 +17,14 @@ class GamesController < ApplicationController
     return render_not_found if @game.blank?
   end
 
-  def index; end
+  def index
+
+  end
 
   def update
     @game = Game.find(params[:id])
 
-    @game.update_attributes(game_params)
+    @game.update_attributes(:black_player_id => current_user.id)
     if @game.valid?
       redirect_to root_path
     else
