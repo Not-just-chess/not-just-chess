@@ -23,13 +23,8 @@ class GamesController < ApplicationController
 
   def update
     @game = Game.find(params[:id])
-
     @game.update_attributes(:black_player_id => current_user.id)
-    if @game.valid?
-      redirect_to root_path
-    else
-      render :new, status: :unprocessable_entity
-    end
+    redirect_to game_path(@game.id)
   end
 
   private
