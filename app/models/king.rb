@@ -23,7 +23,7 @@ class King < ChessPiece
       move[1] += y1
     end
 
-    if x2 < 0 || x2 > 7 || y2 < 0 || y2 > 7
+    if x2.negative? || x2 > 7 || y2.negative? || y2 > 7
       return false
     end
 
