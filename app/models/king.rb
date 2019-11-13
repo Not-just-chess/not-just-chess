@@ -23,6 +23,8 @@ class King < ChessPiece
       move[1] += y1
     end
 
+    # This can be replaced with a method that checks if the board array contains the value
+
     if x2.negative? || x2 > 7 || y2.negative? || y2 > 7
       return false
     end
