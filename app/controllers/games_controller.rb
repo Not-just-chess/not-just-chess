@@ -10,6 +10,8 @@ class GamesController < ApplicationController
     @game = current_user.games.create(game_params)
     @game.update_attributes(white_player_id: current_user.id)
     redirect_to game_path(@game.id)
+    populate_game
+    redirect_to root_path
   end
 
   def show
