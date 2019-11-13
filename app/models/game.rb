@@ -1,4 +1,3 @@
-# Game model
 class Game < ApplicationRecord
   has_many :chess_pieces
   belongs_to :user
