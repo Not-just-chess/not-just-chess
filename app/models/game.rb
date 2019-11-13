@@ -10,11 +10,11 @@ class Game < ApplicationRecord
     y1 = current_location[1]
     x2 = destination[0]
     y2 = destination[1]
-    
+
     x_delta = x2 - x1
     y_delta = y2 - y1
-    x_dir = x_delta/(x_delta.abs)
-    y_dir = y_delta/(y_delta.abs)
+    x_dir = x_delta / x_delta.abs
+    y_dir = y_delta / y_delta.abs
 
     x_move = x1
     y_move = y1
@@ -23,10 +23,7 @@ class Game < ApplicationRecord
       x_move = x1 + x_dir
       y_move = y1 + y_dir
 
-      if @rows[x_move][y_move] 
-        return true
-      end
+      return true if @rows[x_move][y_move]
     end
   end
-
 end
