@@ -1,6 +1,5 @@
 # Game model
 class Game < ApplicationRecord
-
   has_many :chess_pieces
   belongs_to :user
   delegate :kings, :queens, :knights, :rooks, :bishops, :pawns, to: :chess_pieces
@@ -29,5 +28,5 @@ class Game < ApplicationRecord
       end
     end
   end
-  
+
 end
