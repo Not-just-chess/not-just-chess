@@ -28,7 +28,7 @@ class Game < ApplicationRecord
     x = 0
     8.times do
       x += 1
-      y = 6
+      y = 7
       Pawn.create(game_id: @game.id, y_position: y, x_position: x, color: true)
     end
 
