@@ -39,6 +39,18 @@ RSpec.describe GamesController, type: :controller do
       expect(response).to redirect_to game_path(game.id)
       expect(game.user).to eq(user)
     end
+
+    it 'should successfully populate the game' do
+      user = FactoryBot.create(:user)
+      sign_in user
+
+      post :create
+      game = Game.last
+
+      piece = ChessPiece.last
+      expect(piece.type).to eq('King')
+      expect(piece.game_id).to eq(game.id)
+    end
   end
 
   describe 'games#show action' do
