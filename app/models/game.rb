@@ -6,7 +6,7 @@ class Game < ApplicationRecord
 
   def populate_game
     @game = Game.last
-    
+
     ## Initiates White Pieces
     x = 0
     8.times do

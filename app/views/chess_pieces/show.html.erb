@@ -17,7 +17,9 @@
                   <% y = piece.y_position %>
                   <% type = piece.type %>
                   <% if x == col && y == row %>
-                    <%= link_to piece.piece_unicode.html_safe, chess_piece_path(piece) %>
+                    <%= tag.span title: piece.type, id: piece.id.to_s, class: "#{piece.color} selectable-piece" do %>
+                    <%= piece.piece_unicode.html_safe %>
+                    <% end %>
                   <% end %>
                 <% end %>
               </td>
