@@ -15,7 +15,7 @@ class ChessPiece < ApplicationRecord
 
   def move_to!(new_x, new_y)
     
-    space = @rows[new_x][new_y]
+    space = @game[new_x][new_y]
 
     if space.nil?
       self.update_attributes({ x_position: new_x, y_position: new_y })
