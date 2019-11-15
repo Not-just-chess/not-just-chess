@@ -1,16 +1,25 @@
   <div class="col-10 center offset-1">
     <table id="chessboard">
       <tbody>
-        <% [8, 7, 6, 5, 4, 3, 2, 1].each do |row| %>
+        <% [8,7,6,5,4,3,2,1].each do |row| %>
           <tr>
             <% (1..8).each do |col| %>
-              <td
+              <td data-x_position=<%= col %> data-y_position=<%= row%>
               <% if (col + row).odd? %>
                 class="white"
               <% else %>
                 class="black"
               <% end %>
               >
+              <% render_piece(@game) %>
+                <% @pieces.each do |piece| %>
+                  <% x = piece.x_position %>
+                  <% y = piece.y_position %>
+                  <% type = piece.type %>
+                  <% if x == col && y == row %>
+                    <%= piece.piece_unicode.html_safe %>
+                  <% end %>
+                <% end %>
               </td>
             <% end %>
           </tr>

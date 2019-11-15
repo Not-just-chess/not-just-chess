@@ -1,0 +1,38 @@
+  <div class="col-10 center offset-1">
+    <table id="chessboard">
+<% for y_position in 8.downto(1) %>
+      <% 
+        if y_position % 2 == 0
+          dark_square = false
+        else
+          dark_square = true
+        end
+      %>
+      <tr>
+      <% for x_position in 1..8 %>
+        <% 
+          if dark_square == true
+            color_class = "black"
+            dark_square = false
+          else
+            color_class = "white"
+            dark_square = true
+          end
+        %>
+        <td>
+          <div data-x_position=<%= x_position %> data-y_position=<%= y_position %> >
+            <% is_piece = @game.chess_pieces.where(x_position: x_position, y_position: y_position).first %>
+            <% if is_piece %>
+                <div id="piece-<%=is_piece.id %>" class="piece" data-piece-id=<%=is_piece.id %> data-x_position=<%= is_piece.x_position %> data-y_position=<%= is_piece.y_position %> ></div> 
+            <% end %>
+            
+          </div>
+        </td> 
+      <% end %>
+      </tr> 
+    <% end %>
+
+    </table>
+  </div>
+
+    
