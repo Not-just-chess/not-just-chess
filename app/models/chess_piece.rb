@@ -13,6 +13,25 @@ class ChessPiece < ApplicationRecord
   scope :bishops, -> { where(type: 'Bishop') }
   scope :pawns, -> { where(type: 'Pawn') }
 
+  def move_to!(new_x, new_y)
+    
+    space = @rows[new_x][new_y]
+
+    if space.nil?
+      self.update_attributes({ x_position: new_x, y_position: new_y })
+      return true
+    end
+
+    if self.color !== space.color
+      self.update_attributes({ x_position: new_x, y_position: new_y })
+      space.update_attributes({ x_position: nil, y_position: nil })
+      return true
+    else
+      return false
+    end
+
+  end
+
   def is_obstructed?(current_location, destination)
     x1 = current_location[0]
     y1 = current_location[1]
