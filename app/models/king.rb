@@ -29,7 +29,7 @@ class King < ChessPiece
       return false
     end
 
-    if @moves.include?(destination) && @rows[x2, y2] == false
+    if @moves.include?(destination) && @game[x2, y2] == false
       return true
     end
 
