@@ -48,7 +48,7 @@ RSpec.describe GamesController, type: :controller do
       game = Game.last
 
       piece = ChessPiece.last
-      expect(piece.type).to eq('Queen')
+      expect(piece.type).to eq('King')
       expect(piece.game_id).to eq(game.id)
     end
   end
