@@ -1,7 +1,7 @@
   <div class="col-10 center offset-1">
     <table id="chessboard">
       <tbody>
-        <% [8, 7, 6, 5, 4, 3, 2, 1].each do |row| %>
+        <% [8,7,6,5,4,3,2,1].each do |row| %>
           <tr>
             <% (1..8).each do |col| %>
               <td data-x_position=<%= col %> data-y_position=<%= row%>
@@ -17,7 +17,7 @@
                   <% y = piece.y_position %>
                   <% type = piece.type %>
                   <% if x == col && y == row %>
-                    <%= type %>
+                    <%= piece.piece_unicode.html_safe %>
                   <% end %>
                 <% end %>
               </td>
