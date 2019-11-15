@@ -21,8 +21,8 @@ class Game < ApplicationRecord
     Knight.create(game_id: @game.id, y_position: 1, x_position: 7, color: false)
     Bishop.create(game_id: @game.id, y_position: 1, x_position: 3, color: false)
     Bishop.create(game_id: @game.id, y_position: 1, x_position: 6, color: false)
-    Queen.create(game_id: @game.id, y_position: 1, x_position: 4, color: false)
-    King.create(game_id: @game.id, y_position: 1, x_position: 5, color: false)
+    King.create(game_id: @game.id, y_position: 1, x_position: 4, color: false)
+    Queen.create(game_id: @game.id, y_position: 1, x_position: 5, color: false)
 
     ## Initiates Black Pieces
     x = 0
@@ -38,7 +38,7 @@ class Game < ApplicationRecord
     Knight.create(game_id: @game.id, y_position: 8, x_position: 7, color: true)
     Bishop.create(game_id: @game.id, y_position: 8, x_position: 3, color: true)
     Bishop.create(game_id: @game.id, y_position: 8, x_position: 6, color: true)
-    Queen.create(game_id: @game.id, y_position: 8, x_position: 4, color: true)
-    King.create(game_id: @game.id, y_position: 8, x_position: 5, color: true)
+    King.create(game_id: @game.id, y_position: 8, x_position: 4, color: true)
+    Queen.create(game_id: @game.id, y_position: 8, x_position: 5, color: true)
   end
 end
