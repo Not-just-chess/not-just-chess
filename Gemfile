@@ -82,5 +82,5 @@ gem 'travis'
 
 gem 'omniauth-google-oauth2'
 
-gem "figaro"
+gem 'figaro'
 
