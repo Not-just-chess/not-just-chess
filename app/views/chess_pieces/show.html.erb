@@ -27,5 +27,10 @@
           </tr>
         <% end %>
       </tbody>
+      <td> 
+        <% if [@chess_piece.x_position, @chess_piece.y_position] %>
+          class="selected-piece"
+        <% end %>
+      </td>
     </table>
   </div>

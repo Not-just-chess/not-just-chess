@@ -14,6 +14,9 @@ class ChessPiecesController < ApplicationController
 
   def update
     @chess_piece = ChessPiece.find_by_id(params[:id])
+    @game = @chess_piece.game
+    @chess_piece.update_attributes(data-x_position: 4, data-y_position: 4)
+    redirect_to game_path(@game.id)
   end
 
   private
