@@ -66,6 +66,15 @@ table td {
   background-color: #0F0;
 }
 
-.selected-piece {
-  background-color: red;
+#selected {
+    color: red;
+}
+
+.disappear {
+    font-size: 8px;
+}
+
+
+a {
+  color: inherit;
 }

@@ -1,36 +1,35 @@
-  <div class="col-10 center offset-1">
+<div class="col-10 center offset-1">
     <table id="chessboard">
-      <tbody>
-        <% [8,7,6,5,4,3,2,1].each do |row| %>
-          <tr>
-            <% (1..8).each do |col| %>
-              <td data-x_position=<%= col %> data-y_position=<%= row%>
-              <% if (col + row).odd? %>
-                class="white"
-              <% else %>
-                class="black"
-              <% end %>
-              >
-              <% render_piece(@game) %>
-                <% @pieces.each do |piece| %>
-                  <% x = piece.x_position %>
-                  <% y = piece.y_position %>
-                  <% type = piece.type %>
-                  <% if x == col && y == row %>
-                    <%= tag.span title: piece.type, id: piece.id.to_s, class: "#{piece.color} selectable-piece" do %>
-                    <%= piece.piece_unicode.html_safe %>
+        <tbody>
+            <div id="selected">
+            </div>
+            <% [8,7,6,5,4,3,2,1].each do |row| %>
+            <tr>
+                <% (1..8).each do |col| %>
+                <td data-x_position=<%=col %> data-y_position=
+                    <%= row%>
+                    class="
+                    <%= @chess_piece.board_color(col, row)%>"
+                    >
+                    <div class="disappear">
+                        <%=link_to "here", chess_piece_path(chess_piece: @chess_piece,
+                        x_position: col, y_position: row), action: :update,method: :PUT  %>
+                    </div>
+                    <% render_piece(@game) %>
+                    <% @pieces.each do |piece| %>
+                    <% x = piece.x_position %>
+                    <% y = piece.y_position %>
+                    <% type = piece.type %>
+                    <% if x == col && y == row %>
+                    <div id="<%=piece.selected(piece, @chess_piece)%>">
+                        <%= piece.piece_unicode.html_safe %>
+                    </div>
                     <% end %>
-                  <% end %>
+                    <% end %>
+                </td>
                 <% end %>
-              </td>
+            </tr>
             <% end %>
-          </tr>
-        <% end %>
-      </tbody>
-      <td> 
-        <% if [@chess_piece.x_position, @chess_piece.y_position] %>
-          class="selected-piece"
-        <% end %>
-      </td>
+        </tbody>
     </table>
-  </div>
+</div>

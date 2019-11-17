@@ -13,6 +13,7 @@ class ChessPiece < ApplicationRecord
   scope :bishops, -> { where(type: 'Bishop') }
   scope :pawns, -> { where(type: 'Pawn') }
 
+
   def is_obstructed?(current_location, destination)
     x1 = current_location[0]
     y1 = current_location[1]
@@ -32,6 +33,20 @@ class ChessPiece < ApplicationRecord
       y_move = y1 + y_dir
 
       return true if @game[x_move][y_move]
+    end
+  end
+
+  def selected(piece, chess_piece)
+    if piece == chess_piece
+      "selected"
+    end
+  end
+
+  def board_color(col, row)
+    if (col + row).odd?
+      "white"
+    else
+      "black"
     end
   end
 end

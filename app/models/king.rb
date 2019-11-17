@@ -1,10 +1,7 @@
 # King subclass
 class King < ChessPiece
   def piece_unicode
-<<<<<<< HEAD
     y_position < 5 ? '&#9812;' : '&#9818;'
-=======
-    y_position < 5 ? '&#x2654;' : '&#9818;'
   end
 
   def valid_move?(current_location, destination)
@@ -34,6 +31,5 @@ class King < ChessPiece
     return false if x2.negative? || x2 > 7 || y2.negative? || y2 > 7
 
     return true if @moves.include?(destination) && @game[x2, y2] == false
->>>>>>> a6c335adcacfbd816c311207c4f5f18b0e268b0b
   end
 end
