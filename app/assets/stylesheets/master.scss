@@ -61,3 +61,26 @@ table td {
     display: table-cell;
     vertical-align:middle;
 }
+
+.highlighted a {
+  background-color: #0F0;
+}
+
+#selected {
+    color: red;
+}
+
+.disappear {
+    position: absolute;
+    float: left;
+    width: 80px;
+    height: 80px;
+    text-align:center;
+    display: table-cell;
+    vertical-align:middle;
+}
+
+
+a {
+  color: inherit;
+}

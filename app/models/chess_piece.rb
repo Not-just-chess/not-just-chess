@@ -34,4 +34,16 @@ class ChessPiece < ApplicationRecord
       return true if @game[x_move][y_move]
     end
   end
+
+  def selected(piece, chess_piece)
+    'selected' if piece == chess_piece
+  end
+
+  def board_color(col, row)
+    if (col + row).odd?
+      'white'
+    else
+      'black'
+    end
+  end
 end

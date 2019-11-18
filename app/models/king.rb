@@ -1,8 +1,8 @@
 # King subclass
 class King < ChessPiece
-  def piece_unicode
-    y_position < 5 ? '&#x2654;' : '&#9818;'
-  end
+  # def piece_unicode
+  #  y_position < 5 ? '&#9812;' : '&#9818;'
+  # end
 
   def valid_move?(current_location, destination)
     @moves = [

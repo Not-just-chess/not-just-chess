@@ -4,7 +4,7 @@
         <% [8,7,6,5,4,3,2,1].each do |row| %>
           <tr>
             <% (1..8).each do |col| %>
-              <td data-x_position=<%= col %> data-y_position=<%= row%>
+              <td data-x_position=<%= col %> data-y_position =<%= row%>
               <% if (col + row).odd? %>
                 class="white"
               <% else %>
@@ -15,9 +15,11 @@
                 <% @pieces.each do |piece| %>
                   <% x = piece.x_position %>
                   <% y = piece.y_position %>
-                  <% type = piece.type %>
+                  <% htmlcode = piece.htmlcode %>
                   <% if x == col && y == row %>
-                    <%= piece.piece_unicode.html_safe %>
+                  <div class="pieces_color">
+                    <%= link_to piece.htmlcode.html_safe, chess_piece_path(piece) %>
+                  </div>
                   <% end %>
                 <% end %>
               </td>
