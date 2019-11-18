@@ -9,6 +9,7 @@ class ChessPiecesController < ApplicationController
   def show
     @chess_piece = ChessPiece.find_by_id(params[:id])
     @game = @chess_piece.game
+
     @chess_pieces = @game.chess_pieces
   end
 
@@ -17,13 +18,14 @@ class ChessPiecesController < ApplicationController
     x_position = params[:x_position]
     y_position = params[:y_position]
 
-    @chess_piece.update_attributes(chess_piece_params)
-    redirect_to game_path(@chess_piece.game.id)
+    @chess_piece.update(chess_piece_params)
+
+    redirect_to game_path(@chess_piece.game_id)
   end
 
   private
 
   def chess_piece_params
-    params.permit(:type, :game_id, :x_position, :y_position, :color)
+    params.permit(:x_position, :y_position)
   end
 end

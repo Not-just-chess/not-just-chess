@@ -15,10 +15,10 @@
                 <% @pieces.each do |piece| %>
                   <% x = piece.x_position %>
                   <% y = piece.y_position %>
-                  <% type = piece.type %>
+                  <% htmlcode = piece.htmlcode %>
                   <% if x == col && y == row %>
                   <div class="pieces_color">
-                    <%= link_to piece.piece_unicode.html_safe, chess_piece_path(piece) %>
+                    <%= link_to piece.htmlcode.html_safe, chess_piece_path(piece) %>
                   </div>
                   <% end %>
                 <% end %>
