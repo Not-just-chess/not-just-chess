@@ -29,7 +29,7 @@ class Game < ApplicationRecord
     8.times do
       x += 1
       y = 7
-      Pawn.create(game_id: @game.id, y_position: y, x_position: x, color: false, htmlcode: '&#9823;')
+      Pawn.create(game_id: @game.id, y_position: y, x_position: x, color: false, htmlcode: '&#x265F;')
     end
 
     Rook.create(game_id: @game.id, y_position: 8, x_position: 1, color: false, htmlcode: '&#9820;')
