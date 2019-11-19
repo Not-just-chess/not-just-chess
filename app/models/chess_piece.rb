@@ -22,9 +22,11 @@ class ChessPiece < ApplicationRecord
       return true
     end
 
-    if self.color !== space.color
+    enemyPiece = ChessPiece.where(game_id: @game.id x_position: new_x, y_position: new_y, color: !self.color)
+
+    if enemyPiece
+      enemyPiece.update_attributes({ x_position: nil, y_position: nil, captured: true })
       self.update_attributes({ x_position: new_x, y_position: new_y })
-      space.update_attributes({ x_position: nil, y_position: nil })
       return true
     else
       return false
