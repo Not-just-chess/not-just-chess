@@ -27,9 +27,9 @@ class ChessPiece < ApplicationRecord
     if enemy_piece
       enemy_piece.update_attributes({ x_position: nil, y_position: nil, captured: true })
       self.update_attributes({ x_position: new_x, y_position: new_y })
-      return true
+      true
     else
-      return false
+      false
     end
 
   end
