@@ -33,8 +33,8 @@ class ChessPiece < ApplicationRecord
 
   end
 
-  def find_piece(x, y)
-    return ChessPiece.where(game_id: game_id, x_position: x, y_position: y).first
+  def find_piece(x_position, y_position)
+    return ChessPiece.where(game_id: game_id, x_position: x_position, y_position: y_position).first
   end
 
   def capture_piece(x, y)
