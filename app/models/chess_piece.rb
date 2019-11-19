@@ -37,8 +37,8 @@ class ChessPiece < ApplicationRecord
     return ChessPiece.where(game_id: game_id, x_position: x_position, y_position: y_position).first
   end
 
-  def capture_piece(x, y)
-    target = find_piece(x, y)
+  def capture_piece(x_position, y_position)
+    target = find_piece(x_position, y_position)
     target.update_attributes(captured: true, x_position: nil, y_position: nil)
   end
 
