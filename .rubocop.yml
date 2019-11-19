@@ -20,3 +20,6 @@ Documentation:
 
 Naming/PredicateName:
   Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false

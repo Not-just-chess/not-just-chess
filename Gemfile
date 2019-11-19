@@ -79,3 +79,8 @@ gem 'tether-rails'
 gem 'devise'
 
 gem 'travis'
+
+gem 'omniauth-google-oauth2'
+
+gem 'figaro'
+
