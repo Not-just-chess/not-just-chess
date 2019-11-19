@@ -14,24 +14,32 @@ class ChessPiece < ApplicationRecord
   scope :pawns, -> { where(type: 'Pawn') }
 
   def move_to!(new_x, new_y)
-    
-    space = @game[new_x][new_y]
 
-    if space.nil?
+    
+    space = find_piece(new_x, new_y)
+
+    if space === nil
       self.update_attributes({ x_position: new_x, y_position: new_y })
       return true
     end
 
-    enemy_piece = ChessPiece.where(game_id: @game.id, x_position: new_x, y_position: new_y, color: !self.color)
-
-    if enemy_piece
-      enemy_piece.update_attributes({ x_position: nil, y_position: nil, captured: true })
+    if space.color != self.color
+      capture_piece(new_x, new_y)
       self.update_attributes({ x_position: new_x, y_position: new_y })
       true
     else
       false
     end
 
+  end
+
+  def find_piece(x, y)
+    return ChessPiece.where(game_id: game_id, x_position: x, y_position: y).first
+  end
+
+  def capture_piece(x, y)
+    target = find_piece(x, y)
+    target.update_attributes(captured: true, x_position: nil, y_position: nil)
   end
 
   def is_obstructed?(current_location, destination)
