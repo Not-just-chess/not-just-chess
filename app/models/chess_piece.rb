@@ -13,6 +13,35 @@ class ChessPiece < ApplicationRecord
   scope :bishops, -> { where(type: 'Bishop') }
   scope :pawns, -> { where(type: 'Pawn') }
 
+  def move_to!(new_x, new_y)
+
+    
+    space = find_piece(new_x, new_y)
+
+    if space === nil
+      self.update_attributes({ x_position: new_x, y_position: new_y })
+      return true
+    end
+
+    if space.color != self.color
+      capture_piece(new_x, new_y)
+      self.update_attributes({ x_position: new_x, y_position: new_y })
+      true
+    else
+      false
+    end
+
+  end
+
+  def find_piece(x_position, y_position)
+    return ChessPiece.where(game_id: game_id, x_position: x_position, y_position: y_position).first
+  end
+
+  def capture_piece(x_position, y_position)
+    target = find_piece(x_position, y_position)
+    target.update_attributes(captured: true, x_position: nil, y_position: nil)
+  end
+
   def is_obstructed?(current_location, destination)
     x1 = current_location[0]
     y1 = current_location[1]
