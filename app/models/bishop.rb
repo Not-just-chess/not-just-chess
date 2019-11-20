@@ -18,7 +18,11 @@ class Bishop < ChessPiece
 
     # abs value of slope should always equal 1
     if slope.abs == 1
-      is_obstructed?(current_location, destination)
+      if is_obstructed?(current_location, destination)
+        false
+      else
+        true
+      end
     else
       false
     end
