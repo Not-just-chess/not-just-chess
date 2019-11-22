@@ -39,9 +39,29 @@ class ChessPiece < ApplicationRecord
     target.update_attributes(captured: true, x_position: nil, y_position: nil)
   end
 
-  # def obstructed?(new_x, new_y)
+  def diagonal_move?(new_x, new_y)
+    x_diff = (x_position - new_x).abs
+    y_diff = (y_position - new_y).abs
+    x_diff == y_diff
+  end
 
-  # end
+  def obstructed?(new_x, new_y)
+    return vertical_obstruction(new_y) if x_position == new_X
+    return horizontal_obstruction(new_x) if y_position ==  new_y
+    return diagonal_obstruction(new_x, new_y) if diagonal_move(new_x, new_y)
+  end
+
+  def vertical_obstruction(new_y)
+    x_pos = x_position
+    if x_pos < new_x
+      x_pos += 1
+      return true unless game.chess_pieces.find_by(y_position: [y_position...new_y], x_position: x_position).nil?
+    else
+      new_x += 1
+      return true unless  game.chess_pieces.find_by(y_position: [y_position...new_y], x_position: x_position).nil?
+    end
+    false
+  end
 
   def is_obstructed?(current_location, destination)
     x1 = current_location[0]

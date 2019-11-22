@@ -12,7 +12,7 @@ RSpec.describe Rook, type: :model do
         expect(@rook.valid_move?(3, 6)).to eq(true)
       end
 
-      it 'move down verticalyl' do
+      it 'move down vertically' do
         expect(@rook.valid_move?(3, 2)).to eq(true)
       end
 
