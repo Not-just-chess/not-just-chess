@@ -17,12 +17,14 @@ class ChessPiece < ApplicationRecord
     
     space = @game[new_x][new_y]
 
+    test1 = ChessPiece.where(x_postion: new_x, y_position: new_y)
+
     if space.nil?
       self.update_attributes({ x_position: new_x, y_position: new_y })
       return true
     end
 
-    if self.color !== space.color
+    if self.color != space.color
       self.update_attributes({ x_position: new_x, y_position: new_y })
       space.update_attributes({ x_position: nil, y_position: nil })
       return true
