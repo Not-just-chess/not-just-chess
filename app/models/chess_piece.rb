@@ -14,33 +14,34 @@ class ChessPiece < ApplicationRecord
   scope :pawns, -> { where(type: 'Pawn') }
 
   def move_to!(new_x, new_y)
-
-    
     space = find_piece(new_x, new_y)
 
-    if space === nil
-      self.update_attributes({ x_position: new_x, y_position: new_y })
+    if space.nil?
+      update_attributes(x_position: new_x, y_position: new_y)
       return true
     end
 
-    if space.color != self.color
+    if space.color != color
       capture_piece(new_x, new_y)
-      self.update_attributes({ x_position: new_x, y_position: new_y })
+      update_attributes(x_position: new_x, y_position: new_y)
       true
     else
       false
     end
-
   end
 
   def find_piece(x_position, y_position)
-    return ChessPiece.where(game_id: game_id, x_position: x_position, y_position: y_position).first
+    ChessPiece.where(game_id: game_id, x_position: x_position, y_position: y_position).first
   end
 
   def capture_piece(x_position, y_position)
     target = find_piece(x_position, y_position)
     target.update_attributes(captured: true, x_position: nil, y_position: nil)
   end
+
+  # def obstructed?(new_x, new_y)
+
+  # end
 
   def is_obstructed?(current_location, destination)
     x1 = current_location[0]
@@ -56,11 +57,11 @@ class ChessPiece < ApplicationRecord
     x_move = x1
     y_move = y1
 
-    while x_move != x2 || y_move != y2
+    while x_move <= x2 || y_move <= y2
       x_move = x1 + x_dir
       y_move = y1 + y_dir
 
-      return true if @game[x_move][y_move]
+      return true if ChessPiece.where(game_id: @game.id, x_position: x_move, y_position: y_move)
     end
   end
 
@@ -74,5 +75,9 @@ class ChessPiece < ApplicationRecord
     else
       'black'
     end
+  end
+
+  def off_board?(new_x, new_y)
+    (new_x < 1 || new_x > 8) || (new_y < 1 || new_y > 8)
   end
 end
