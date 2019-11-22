@@ -14,24 +14,22 @@ class ChessPiece < ApplicationRecord
   scope :pawns, -> { where(type: 'Pawn') }
 
   def move_to!(new_x, new_y)
-    
     space = @game[new_x][new_y]
 
     test1 = ChessPiece.where(x_postion: new_x, y_position: new_y)
 
     if space.nil?
-      self.update_attributes({ x_position: new_x, y_position: new_y })
+      update_attributes(x_position: new_x, y_position: new_y)
       return true
     end
 
-    if self.color != space.color
-      self.update_attributes({ x_position: new_x, y_position: new_y })
-      space.update_attributes({ x_position: nil, y_position: nil })
+    if color != space.color
+      update_attributes(x_position: new_x, y_position: new_y)
+      space.update_attributes(x_position: nil, y_position: nil)
       return true
     else
       return false
     end
-
   end
 
   def is_obstructed?(current_location, destination)
