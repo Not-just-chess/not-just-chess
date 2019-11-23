@@ -57,6 +57,7 @@ class ChessPiece < ApplicationRecord
       x_move = x1 + x_dir
       y_move = y1 + y_dir
 
+      #return true if @game[x_move][y_move]
       return true if ChessPiece.where(game_id: game_id, x_position: x_move, y_position: y_move)
     end
   end
