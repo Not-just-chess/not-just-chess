@@ -39,49 +39,25 @@ class ChessPiece < ApplicationRecord
     target.update_attributes(captured: true, x_position: nil, y_position: nil)
   end
 
-  def diagonal_move?(new_x, new_y)
-    x_diff = (x_position - new_x).abs
-    y_diff = (y_position - new_y).abs
-    x_diff == y_diff
-  end
-
-  def obstructed?(new_x, new_y)
-    return vertical_obstruction(new_y) if x_position == new_X
-    return horizontal_obstruction(new_x) if y_position ==  new_y
-    return diagonal_obstruction(new_x, new_y) if diagonal_move(new_x, new_y)
-  end
-
-  def vertical_obstruction(new_y)
-    x_pos = x_position
-    if x_pos < new_x
-      x_pos += 1
-      return true unless game.chess_pieces.find_by(y_position: [y_position...new_y], x_position: x_position).nil?
-    else
-      new_x += 1
-      return true unless  game.chess_pieces.find_by(y_position: [y_position...new_y], x_position: x_position).nil?
-    end
-    false
-  end
-
   def is_obstructed?(current_location, destination)
     x1 = current_location[0]
-    y1 = current_location[1]
+    y1 = current_location[1]        
     x2 = destination[0]
-    y2 = destination[1]
+    y2 = destination[1]           
 
-    x_delta = x2 - x1
-    y_delta = y2 - y1
-    x_dir = x_delta / x_delta.abs
-    y_dir = y_delta / y_delta.abs
+    x_delta = x2 - x1   
+    y_delta = y2 - y1 
+    x_dir = x_delta == 0 ? 0 : x_delta / x_delta.abs  
+    y_dir = y_delta == 0 ? 0 : y_delta / y_delta.abs   
 
-    x_move = x1
-    y_move = y1
+    x_move = x1 
+    y_move = y1 
 
     while x_move <= x2 || y_move <= y2
-      x_move = x1 + x_dir
-      y_move = y1 + y_dir
+      x_move = x1 + x_dir  
+      y_move = y1 + y_dir  
 
-      return true if ChessPiece.where(game_id: @game.id, x_position: x_move, y_position: y_move)
+      return true if ChessPiece.where(game_id: @game.id, x_position: x_move, y_position: y_move) 
     end
   end
 

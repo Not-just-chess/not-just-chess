@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe Rook, type: :model do
   describe 'valid_move?' do
     before :each do
-      @g = FactoryBot.create(:game)
-      @rook = Rook.create(x_position: 3, y_position: 3, game: @g, color: true)
+      @game_id = FactoryBot.create(:game)
+      @rook = Rook.create(x_position: 3, y_position: 3, game: @game_id, color: true)
     end
 
     context 'valid move' do
