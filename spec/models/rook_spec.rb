@@ -36,8 +36,13 @@ RSpec.describe Rook, type: :model do
 
       # Below Test Fails, returns true instead of false
       it 'obstruction' do
-        @pawn = ChessPiece.create(type: Pawn, x_position: 3, y_position: 5, game_id: @game.id)
-        expect(@rook.valid_move?([3, 3], [3, 8])).to eq(false)
+        rook = Rook.create(x_position: 0, y_position: 0, game: @game)
+        pawn = Pawn.create(x_position: 0, y_position: 1, game: @game)
+        
+        @game.chess_pieces << rook
+        @game.chess_pieces << pawn
+        
+        expect(@rook.valid_move?([0, 0], [0, 4])).to eq(false)
       end
     end
   end
