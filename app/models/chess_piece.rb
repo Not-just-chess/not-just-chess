@@ -47,8 +47,8 @@ class ChessPiece < ApplicationRecord
 
     x_delta = x2 - x1
     y_delta = y2 - y1
-    x_dir = x_delta / x_delta.abs
-    y_dir = y_delta / y_delta.abs
+    x_dir = x_delta.zero? ? 0 : x_delta / x_delta.abs
+    y_dir = y_delta.zero? ? 0 : y_delta / y_delta.abs
 
     x_move = x1
     y_move = y1
