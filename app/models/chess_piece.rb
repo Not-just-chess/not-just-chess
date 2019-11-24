@@ -14,8 +14,6 @@ class ChessPiece < ApplicationRecord
   scope :pawns, -> { where(type: 'Pawn') }
 
   def move_to!(new_x, new_y)
-
-    
     space = find_piece(new_x, new_y)
 
     if space === nil
@@ -30,7 +28,6 @@ class ChessPiece < ApplicationRecord
     else
       false
     end
-
   end
 
   def find_piece(x_position, y_position)
@@ -50,17 +47,17 @@ class ChessPiece < ApplicationRecord
 
     x_delta = x2 - x1
     y_delta = y2 - y1
-    x_dir = x_delta / x_delta.abs
-    y_dir = y_delta / y_delta.abs
+    x_dir = x_delta.zero? ? 0 : x_delta / x_delta.abs
+    y_dir = y_delta.zero? ? 0 : y_delta / y_delta.abs
 
     x_move = x1
     y_move = y1
 
-    while x_move != x2 || y_move != y2
+    while x_move <= x2 || y_move <= y2
       x_move = x1 + x_dir
       y_move = y1 + y_dir
 
-      return true if @game[x_move][y_move]
+      return true if ChessPiece.where(game_id: @game.id, x_position: x_move, y_position: y_move)
     end
   end
 
