@@ -15,15 +15,14 @@ class ChessPiece < ApplicationRecord
 
   def move_to!(new_x, new_y)
     space = find_piece(new_x, new_y)
-
-    if space === nil
-      self.update_attributes({ x_position: new_x, y_position: new_y })
+    if space.nil?
+      update_attributes(x_position: new_x, y_position: new_y)
       return true
     end
 
-    if space.color != self.color
+    if space.color != color
       capture_piece(new_x, new_y)
-      self.update_attributes({ x_position: new_x, y_position: new_y })
+      update_attributes(x_position: new_x, y_position: new_y)
       true
     else
       false
@@ -31,7 +30,7 @@ class ChessPiece < ApplicationRecord
   end
 
   def find_piece(x_position, y_position)
-    return ChessPiece.where(game_id: game_id, x_position: x_position, y_position: y_position).first
+    ChessPiece.where(game_id: game.id, x_position: x_position, y_position: y_position)
   end
 
   def capture_piece(x_position, y_position)
@@ -47,8 +46,9 @@ class ChessPiece < ApplicationRecord
 
     x_delta = x2 - x1
     y_delta = y2 - y1
-    x_dir = x_delta.zero? ? 0 : x_delta / x_delta.abs
-    y_dir = y_delta.zero? ? 0 : y_delta / y_delta.abs
+
+    x_dir = x_delta / x_delta.abs
+    y_dir = y_delta / y_delta.abs
 
     x_move = x1
     y_move = y1
@@ -57,7 +57,7 @@ class ChessPiece < ApplicationRecord
       x_move = x1 + x_dir
       y_move = y1 + y_dir
 
-      return true if ChessPiece.where(game_id: @game.id, x_position: x_move, y_position: y_move)
+      return true if find_piece(x_move, y_move)
     end
   end
 
@@ -71,5 +71,9 @@ class ChessPiece < ApplicationRecord
     else
       'black'
     end
+  end
+
+  def off_board?(new_x, new_y)
+    (new_x < 1 || new_x > 8) || (new_y < 1 || new_y > 8)
   end
 end
