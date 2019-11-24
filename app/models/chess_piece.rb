@@ -31,7 +31,7 @@ class ChessPiece < ApplicationRecord
   end
 
   def find_piece(x_position, y_position)
-    ChessPiece.where(game_id: game_id, x_position: x_position, y_position: y_position).first
+    ChessPiece.where(game_id: game.id, x_position: x_position, y_position: y_position)
   end
 
   def capture_piece(x_position, y_position)
@@ -57,8 +57,8 @@ class ChessPiece < ApplicationRecord
       x_move = x1 + x_dir
       y_move = y1 + y_dir
 
-      #return true if @game[x_move][y_move]
-      return true if ChessPiece.where(game_id: game_id, x_position: x_move, y_position: y_move)
+      # return true if @game[x_move][y_move]
+      return true if find_piece(x_move, y_move)
     end
   end
 
