@@ -9,13 +9,13 @@ RSpec.describe Bishop, type: :model do
       piece = Bishop.last
 
       piece.valid_move?([6, 8], [8, 6])
-      expect(response).to eq(true)
+      expect(true)
 
       piece.valid_move?([6, 8], [8, 5])
-      expect(response).to eq(false)
+      expect(false)
 
       piece.valid_move?([6, 8], [8, 9])
-      expect(response).to eq(false)
+      expect(false)
     end
   end
 end
