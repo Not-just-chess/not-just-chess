@@ -47,6 +47,7 @@ class ChessPiece < ApplicationRecord
 
     x_delta = x2 - x1
     y_delta = y2 - y1
+
     x_dir = x_delta.zero? ? 0 : x_delta / x_delta.abs
     y_dir = y_delta.zero? ? 0 : y_delta / y_delta.abs
 
@@ -57,7 +58,6 @@ class ChessPiece < ApplicationRecord
       x_move = x1 + x_dir
       y_move = y1 + y_dir
 
-      # return true if @game[x_move][y_move]
       return true if find_piece(x_move, y_move)
     end
   end
