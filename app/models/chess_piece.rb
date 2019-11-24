@@ -15,14 +15,14 @@ class ChessPiece < ApplicationRecord
 
   def move_to!(new_x, new_y)
     space = find_piece(new_x, new_y)
-    if space === nil
-      self.update_attributes({ x_position: new_x, y_position: new_y })
+    if space.nil?
+      update_attributes(x_position: new_x, y_position: new_y)
       return true
     end
 
-    if space.color != self.color
+    if space.color != color
       capture_piece(new_x, new_y)
-      self.update_attributes({ x_position: new_x, y_position: new_y })
+      update_attributes(x_position: new_x, y_position: new_y)
       true
     else
       false
@@ -52,7 +52,7 @@ class ChessPiece < ApplicationRecord
 
     x_move = x1
     y_move = y1
-    
+
     while x_move <= x2 || y_move <= y2
       x_move = x1 + x_dir
       y_move = y1 + y_dir

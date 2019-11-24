@@ -30,5 +30,4 @@ class Knight < ChessPiece
 
     return true if @moves.include?(destination) && @game[x2, y2] == false
   end
-
 end

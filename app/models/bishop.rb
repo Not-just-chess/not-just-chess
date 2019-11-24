@@ -12,7 +12,7 @@ class Bishop < ChessPiece
     y2 = destination[1]
 
     # verify that destination is on the board
-    !off_board?(x2, y2)
+    return false if off_board?(x2, y2)
 
     # take delta/slope
     x_delta = (x2 - x1) * 1.0
