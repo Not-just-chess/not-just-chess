@@ -58,11 +58,9 @@ class ChessPiece < ApplicationRecord
       y_move = y1 + y_dir
 
       blocker = ChessPiece.where(game_id: game.id, x_position: x_move, y_position: y_move, captured: nil).count
-      if blocker == 0
-        return false
-      else
-        return true
-      end
+      return false if blocker.zero?
+
+      return true
     end
   end
 
