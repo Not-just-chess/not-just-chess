@@ -22,7 +22,7 @@ class Bishop < ChessPiece
     # abs value of slope should always equal 1
     if slope.abs == 1
       # check if move is obstructed
-      return false if is_obstructed?(@current_location, @destination)
+      # return true if !is_obstructed?([x1, y1], [x2, y2])
       true
     else
       false
