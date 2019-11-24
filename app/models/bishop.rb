@@ -12,20 +12,16 @@ class Bishop < ChessPiece
     y2 = destination[1]
 
     # verify that destination is on the board
-    return false if (x2 < 1 || x2 > 8) || (y2 < 1 || y2 > 8)
+    !off_board?(x2, y2)
 
     # take delta/slope
-    x_delta = x2 - x1
-    y_delta = y2 - y1
+    x_delta = (x2 - x1) * 1.0
+    y_delta = (y2 - y1) * 1.0
     slope = y_delta / x_delta
 
     # abs value of slope should always equal 1
-    if slope.abs == 1
-      # check if move is obstructed
-      # return true if !is_obstructed?([x1, y1], [x2, y2])
-      true
-    else
-      false
-    end
+    # check if move is obstructed
+    is_obstructed?([x1, y1], [x2, y2])
+    slope.abs == 1
   end
 end

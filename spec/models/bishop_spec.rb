@@ -3,14 +3,18 @@ require 'rails_helper'
 RSpec.describe Bishop, type: :model do
   describe 'valid_move?' do
     it 'verifies valid moves' do
+      game = FactoryBot.create(:game)
+      game.populate_game
+      ChessPiece.where(game_id: game.id, type: 'Pawn').destroy_all
       piece = Bishop.last
-      piece.valid_move?([3, 1], [6, 4])
+
+      piece.valid_move?([6, 8], [8, 6])
       expect(response).to eq(true)
 
-      piece.valid_move?([3, 1], [6, 5])
+      piece.valid_move?([6, 8], [8, 5])
       expect(response).to eq(false)
 
-      piece.valid_move?([3, 1], [6, 9])
+      piece.valid_move?([6, 8], [8, 9])
       expect(response).to eq(false)
     end
   end
