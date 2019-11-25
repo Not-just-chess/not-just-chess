@@ -12,13 +12,18 @@ class Queen < ChessPiece
 
     y_delta = (y2 - y1)
     x_delta = (x2 - x1)
-    slope = y_delta / x_delta
+    
+    if y_delta == 0 || x_delta == 0
+      slope = 0
+    else
+      slope = y_delta.abs / x_delta.abs
+    end
 
     # Check if the destination location is of off the board
-    return false if x2.negative? || x2 > 7 || y2.negative? || y2 > 7
+    return false if off_board?(x2, y2)
 
     # Vertical Check || Horizontal Check || Diagonal Check
     return false unless y1 == y2 || x1 == x2 || slope == 1
-    return false if ChessPiece.isobstructed?
+    return false if isobstructed?([x1,y1], [x2,y2])
   end
 end
