@@ -1,45 +1,30 @@
 require 'rails_helper'
 
 RSpec.describe Rook, type: :model do
-  before :each do
-    game = FactoryBot.create(:game)
-    game.populate_game
-    ChessPiece.where(game_id: game.id, type: 'Pawn').destroy_all
-  end
-
-  describe 'valid moves' do
-    it 'move up vertically' do
+  describe 'valid_move?' do
+    it 'checks for vertical or horizontal moves' do
+      game = FactoryBot.create(:game)
+      game.populate_game
+      ChessPiece.where(game_id: game.id, type: 'Pawn').destroy_all
       piece = Rook.last
+
+      # Vertical Move Up
       expect(piece.valid_move?([3, 3], [3, 6])).to eq(true)
-    end
 
-    it 'move down vertically' do
-      piece = Rook.last
+      # Vertical Move Down
       expect(piece.valid_move?([3, 3], [3, 2])).to eq(true)
-    end
 
-    it 'move left horizontally' do
-      piece = Rook.last
+      # Horizontal Move Left
       expect(piece.valid_move?([3, 3], [2, 3])).to eq(true)
-    end
 
-    it 'move right horizontally' do
-      piece = Rook.last
+      # Horizontal Move right
       expect(piece.valid_move?([3, 3], [4, 3])).to eq(true)
-    end
-  end
 
-  describe 'invalid moves' do
-    it 'does not move' do
-      piece = Rook.last
+      # Invalid: Does Not Move
       expect(piece.valid_move?([3, 3], [3, 3])).to eq(false)
-    end
 
-    it 'moves diagonally' do
-      piece = Rook.last
+      # Invalid: Diagonal Move
       expect(piece.valid_move?([3, 3], [4, 4])).to eq(false)
     end
-
-
   end
 end
