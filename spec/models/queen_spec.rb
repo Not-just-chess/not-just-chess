@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Queen, type: :model do
-    describe 'valid_move?' do
+  describe 'valid_move?' do
     it 'verifies valid moves' do
       game = FactoryBot.create(:game)
       game.populate_game
@@ -12,7 +12,7 @@ RSpec.describe Queen, type: :model do
       piece.valid_move?([4, 8], [4, 4])
       expect(true)
 
-      #checking diagonal move
+      # checking diagonal move
       piece.valid_move?([4, 8], [8, 4])
       expect(true)
 
@@ -21,11 +21,11 @@ RSpec.describe Queen, type: :model do
       expect(false)
 
       # checking for a move of the board
-      piece.valid_move?([4,8], [9,9])
+      piece.valid_move?([4, 8], [9, 9])
       expect(false)
 
       # checking for a move that is obstructed
-      piece.valid_move?([4,8], [3,8])
+      piece.valid_move?([4, 8], [3, 8])
       expect(false)
     end
   end
