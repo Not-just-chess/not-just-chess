@@ -28,8 +28,8 @@ class King < ChessPiece
 
     # This can be replaced with a method that checks if the board array contains the value
 
-    return false if x2.negative? || x2 > 7 || y2.negative? || y2 > 7
+    return false if off_board?(x2, y2)
 
-    return true if @moves.include?(destination) && @game[x2, y2] == false
+    return true if @moves.include?(destination)
   end
 end
