@@ -16,10 +16,9 @@ class Queen < ChessPiece
             end
 
     # Check if the destination location is of off the board
-    return false if off_board?(x2, y2)
-
+    off_board?(x2, y2)
     # Vertical Check || Horizontal Check || Diagonal Check
-    return false unless y1 == y2 || x1 == x2 || slope == 1
-    return false if is_obstructed?([x1, y1], [x2, y2])
+    y1 == y2 || x1 == x2 || slope == 1 ? true : false
+    is_obstructed?([x1, y1], [x2, y2])
   end
 end
