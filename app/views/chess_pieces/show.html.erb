@@ -1,8 +1,6 @@
 <div class="col-10 center offset-1">
     <table id="chessboard">
         <tbody>
-            <div id="selected">
-            </div>
             <% [8,7,6,5,4,3,2,1].each do |row| %>
             <tr>
                 <% (1..8).each do |col| %>
@@ -13,9 +11,7 @@
                     >
                       <%=link_to chess_piece_path(chess_piece: @chess_piece,
                         x_position: col, y_position: row), action: :update,method: :PUT do %>
-                         <div class="disappear">
-                          Here
-                    </div>
+                      <div class="disappear"></div>
                     <% end %>
                     <% render_piece(@game) %>
                     <% @pieces.each do |piece| %>

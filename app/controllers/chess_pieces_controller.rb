@@ -15,8 +15,8 @@ class ChessPiecesController < ApplicationController
 
   def update
     @chess_piece = ChessPiece.find_by_id(params[:id])
-    x_position = params[:x_position]
-    y_position = params[:y_position]
+    params[:y_position]
+    params[:x_position]
 
     @chess_piece.update(chess_piece_params)
 
