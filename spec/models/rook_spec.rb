@@ -39,5 +39,7 @@ RSpec.describe Rook, type: :model do
       piece = Rook.last
       expect(piece.valid_move?([3, 3], [4, 4])).to eq(false)
     end
+
+
   end
 end
