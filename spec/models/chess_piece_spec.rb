@@ -34,7 +34,7 @@ RSpec.describe ChessPiece, type: :model do
   end
 
   describe 'move_to!' do
-    it 'determines if there is a piece already in destination square' do
+    it 'moves piece if space empty or captures opposing team' do
       game = FactoryBot.create(:game)
       game.populate_game
       ChessPiece.where(game_id: game.id, type: 'Pawn').destroy_all
@@ -48,12 +48,6 @@ RSpec.describe ChessPiece, type: :model do
 
       expect(piece.x_position).to eq(8)
       expect(piece.y_position).to eq(6)
-    end
-
-    it 'updates current location if destination empty' do
-    end
-
-    it 'captures opposing piece & updates current location if destination empty' do
     end
   end
 end
