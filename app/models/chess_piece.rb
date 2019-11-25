@@ -15,6 +15,7 @@ class ChessPiece < ApplicationRecord
 
   def move_to!(new_x, new_y)
     space = find_piece(new_x, new_y)
+
     if space.nil?
       update_attributes(x_position: new_x, y_position: new_y)
       return true
