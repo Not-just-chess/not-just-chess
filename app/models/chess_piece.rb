@@ -14,7 +14,7 @@ class ChessPiece < ApplicationRecord
   scope :pawns, -> { where(type: 'Pawn') }
 
   def move_to!(new_x, new_y)
-    space = find_piece(new_x, new_y)
+    space = find_piece(game.id, new_x, new_y)
     if space.nil?
       update_attributes(x_position: new_x, y_position: new_y)
       return true
@@ -30,7 +30,7 @@ class ChessPiece < ApplicationRecord
   end
 
   def find_piece(x_position, y_position)
-    ChessPiece.where(game_id: game.id, x_position: x_position, y_position: y_position)
+    ChessPiece.where(game_id: game_id, x_position: x_position, y_position: y_position)
   end
 
   def capture_piece(x_position, y_position)

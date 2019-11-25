@@ -5,16 +5,29 @@ RSpec.describe ChessPiece, type: :model do
     it 'finds piece in given location and game' do
       game = FactoryBot.create(:game)
       game.populate_game
+      og_piece = ChessPiece.last
 
-      piece = ChessPiece.where(game_id: game.id, x_position: 8, y_position: 8).first
+      piece = og_piece.find_piece(8, 8).first
       expect(piece.type).to eq('Rook')
-      expect(piece.game_id).to eq(game.id)
+      expect(piece.x_position).to eq(8)
+      expect(piece.y_position).to eq(8)
     end
   end
 
   describe 'capture_piece' do
-    it '' do
-      
+    it 'updates target piece to captured and removes positions' do
+      # game = FactoryBot.create(:game)
+      # game.populate_game
+
+      # piece = Pawn.where(game_id: game.id).first
+      # expect(piece.x_position).to eq(1)
+      # expect(piece.y_position).to eq(2)
+      # expect(piece.captured).to eq(nil)
+
+      # piece.capture_piece(1, 2)
+      # expect(piece.x_position).to eq(nil)
+      # expect(piece.y_position).to eq(nil)
+      # expect(piece.captured).to eq(true)
     end
   end
 
