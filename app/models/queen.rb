@@ -1,8 +1,5 @@
 # Queen subclass
 class Queen < ChessPiece
-  # def piece_unicode
-  #  y_position < 5 ? '&#9813;' : '&#9819;'
-  # end
 
   def valid_move?(current_location, destination)
     x1 = current_location[0]
@@ -24,6 +21,6 @@ class Queen < ChessPiece
 
     # Vertical Check || Horizontal Check || Diagonal Check
     return false unless y1 == y2 || x1 == x2 || slope == 1
-    return false if isobstructed?([x1,y1], [x2,y2])
+    return false if is_obstructed?([x1,y1], [x2,y2])
   end
 end
