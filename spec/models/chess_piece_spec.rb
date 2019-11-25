@@ -35,7 +35,19 @@ RSpec.describe ChessPiece, type: :model do
 
   describe 'move_to!' do
     it 'determines if there is a piece already in destination square' do
-      # move_to!(new_x, new_y)
+      game = FactoryBot.create(:game)
+      game.populate_game
+      ChessPiece.where(game_id: game.id, type: 'Pawn').destroy_all
+      piece = Bishop.last
+
+      expect(piece.x_position).to eq(6)
+      expect(piece.y_position).to eq(8)
+
+      piece.move_to!([6, 8], [8, 6])
+      piece.reload
+
+      expect(piece.x_position).to eq(8)
+      expect(piece.y_position).to eq(6)
     end
 
     it 'updates current location if destination empty' do
