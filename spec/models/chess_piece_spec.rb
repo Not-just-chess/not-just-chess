@@ -6,7 +6,7 @@ RSpec.describe ChessPiece, type: :model do
       game = FactoryBot.create(:game)
       game.populate_game
 
-      piece = ChessPiece.where(game_id: game.id, x_position: 8, y_position: 8)
+      piece = ChessPiece.where(game_id: game.id, x_position: 8, y_position: 8).first
       expect(piece.type).to eq('Rook')
       expect(piece.game_id).to eq(game.id)
     end
@@ -14,7 +14,7 @@ RSpec.describe ChessPiece, type: :model do
 
   describe 'capture_piece' do
     it '' do
-
+      
     end
   end
 
