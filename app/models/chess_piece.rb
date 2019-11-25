@@ -34,7 +34,7 @@ class ChessPiece < ApplicationRecord
   end
 
   def capture_piece(x_position, y_position)
-    target = find_piece(x_position, y_position)
+    target = find_piece(x_position, y_position).first
     target.update_attributes(captured: true, x_position: nil, y_position: nil)
   end
 
