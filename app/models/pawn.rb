@@ -8,17 +8,16 @@ class Pawn < ChessPiece
 
     moves = []
     if is_obstructed?([x1, y1], [x2, y2])
-      # White
+      # White moves forward diagonally to capture
       if color == true
         moves.push([x1 - 1, y1 + 1])
         moves.push([x1 + 1, y1 + 1])
-      # Black
+      # Black moves forward diagonally to capture
       elsif color == false
         moves.push([x1 - 1, y1 - 1])
         moves.push([x1 + 1, y1 - 1])
       end
-      moves.include?([x2, y2])
-    else
+    elsif !is_obstructed?([x1, y1], [x2, y2])
       # White
       if color == true
         moves.push([x1, y1 + 1])

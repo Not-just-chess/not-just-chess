@@ -13,7 +13,10 @@ Metrics/MethodLength:
   Max: 35
 
 Metrics/CyclomaticComplexity:
-  Max: 7
+  Max: 12
+
+Metrics/PerceivedComplexity:
+  Max: 13
 
 Documentation:
   Enabled: false
