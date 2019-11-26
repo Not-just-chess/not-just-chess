@@ -4,24 +4,34 @@ RSpec.describe Pawn, type: :model do
   describe 'valid_move?' do
     it 'verifies valid moves' do
       game = FactoryBot.create(:game)
-      game.populate_game
-      piece = Pawn.last
+      pawn = FactoryBot.create(:pawn, x_position: 2, y_position: 2, game_id: game.id, color: true)
 
       # Move up 2 spaces on first move
-      piece.valid_move?([2, 2], [2, 4])
-      expect(true)
+      expect(pawn.valid_move?([2, 2], [2, 4])).to eq(true)
 
       # Move 1 space vertically
-      piece.valid_move?([1, 1], [1, 2])
-      expect(true)
+      expect(pawn.valid_move?([2, 2], [2, 4])).to eq(true)
 
-      # checking for a non-diagonal/vertical/horizontal move
-      piece.valid_move?([4, 8], [5, 6])
-      expect(false)
+      # Move forward diagonally
+      expect(pawn.valid_move?([2, 2], [3, 3])).to eq(true)
+    end
+
+    it 'verifies invalid moves' do
+      game = FactoryBot.create(:game)
+      pawn = FactoryBot.create(:pawn, x_position: 4, y_position: 4, game_id: game.id, color: true)
+      FactoryBot.create(:bishop, x_position: 2, y_position: 4, game_id: game.id, color: false)
+
+      # Invalid Horizontal Move
+      expect(pawn.valid_move?([4, 4], [5, 4])).to eq(false)
+
+      # checking for a move that is obstructed
+      expect(pawn.valid_move?([2, 3], [2, 5])).to eq(false)
 
       # checking for a move of the board
-      piece.valid_move?([4, 8], [9, 9])
-      expect(false)
+      expect(pawn.valid_move?([4, 8], [9, 9])).to eq(false)
+
+      # checking for a non-diagonal/vertical/horizontal move
+      expect(pawn.valid_move?([4, 8], [5, 6])).to eq(false)
     end
   end
 end

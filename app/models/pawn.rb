@@ -6,7 +6,7 @@ class Pawn < ChessPiece
     x2 = destination[0]
     y2 = destination[1]
 
-    return false if off_board?(x2, y2)
+    return false if off_board?(x2, y2) || is_obstructed?([x1, y1], [x2, y2])
 
     moves = []
 
@@ -16,6 +16,7 @@ class Pawn < ChessPiece
       moves.push([x1 - 1, y1 + 1])
       moves.push([x1 + 1, y1 + 1])
       moves.push([x1, y1 + 2]) if y1 == 2
+
     # Black
     elsif color == false
       moves.push([x1, y1 - 1])
