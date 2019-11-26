@@ -5,6 +5,7 @@ RSpec.describe Pawn, type: :model do
     it 'verifies valid moves' do
       game = FactoryBot.create(:game)
       pawn = FactoryBot.create(:pawn, x_position: 2, y_position: 2, game_id: game.id, color: true)
+      FactoryBot.create(:bishop, x_position: 2, y_position: 3, game_id: game.id, color: false)
 
       # Move up 2 spaces on first move
       expect(pawn.valid_move?([2, 2], [2, 4])).to eq(true)
