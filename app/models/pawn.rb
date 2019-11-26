@@ -23,7 +23,7 @@ class Pawn < ChessPiece
         moves.push([x1, y1 + 1])
         if y_position == 2
           moves.push([x1, y1 + 2])
-          moves.push([x1, y1 + 1])
+          moves.push([x1, y1 + 1]) 
         end
       # Black
       elsif color == false
