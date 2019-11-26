@@ -50,7 +50,7 @@ RSpec.describe ChessPiece, type: :model do
       expect(piece.y_position).to eq(6)
     end
   end
-  
+
   describe 'is_obstructed?' do
     it 'checks if bishop is obstructed during a move' do
       game = FactoryBot.create(:game)
