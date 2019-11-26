@@ -1,39 +1,36 @@
 class Pawn < ChessPiece
+  attr_accessor :can_capture
   def valid_move?(current_location, destination)
     x1 = current_location[0]
     y1 = current_location[1]
     x2 = destination[0]
     y2 = destination[1]
-    return false if off_board?(x2, y2)
+    return false if off_board?(x2, y2) || y2 == y1
 
+    # take delta/slope
+    slope = ((x2 - x1) * 1.0) / ((y2 - y1) * 1.0)
     moves = []
-    if is_obstructed?([x1, y1], [x2, y2])
-      # White moves forward diagonally to capture
-      if color == true
+    # White
+    if color == true
+      moves.push([x1, y1 + 1])
+      moves.push([x1, y1 + 2]) if y1 == 2
+      if slope.abs == 1
         moves.push([x1 - 1, y1 + 1])
         moves.push([x1 + 1, y1 + 1])
-      # Black moves forward diagonally to capture
-      elsif color == false
+      end
+      return false unless moves.include?([x2, y2])
+    # Black
+    elsif color == false
+      moves.push([x1, y1 - 1])
+      moves.push([x1, y1 - 2]) if y1 == 7
+      if slope.abs == 1
         moves.push([x1 - 1, y1 - 1])
         moves.push([x1 + 1, y1 - 1])
       end
-    elsif !is_obstructed?([x1, y1], [x2, y2])
-      # White
-      if color == true
-        moves.push([x1, y1 + 1])
-        if y_position == 2
-          moves.push([x1, y1 + 2])
-          moves.push([x1, y1 + 1]) 
-        end
-      # Black
-      elsif color == false
-        moves.push([x1, y1 - 1])
-        if y_position == 7
-          moves.push([x1, y1 - 2])
-          moves.push([x1, y1 - 1])
-        end
-      end
+      return false unless moves.include?([x2, y2])
     end
-    moves.include?([x2, y2])
+    is_obstructed?([x1, y1], [x2, y2]) && slope.abs != 1
+    @can_capture = true if is_obstructed?([x1, y1], [x2, y2]) && slope.abs == 1
+    true
   end
 end
