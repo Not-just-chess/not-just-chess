@@ -13,29 +13,31 @@ class ChessPiece < ApplicationRecord
   scope :bishops, -> { where(type: 'Bishop') }
   scope :pawns, -> { where(type: 'Pawn') }
 
-  def move_to!(new_x, new_y)
-    space = find_piece(new_x, new_y)
+  def move_to!(current_location, destination)
+    x1 = current_location[0]
+    y1 = current_location[1]
+    x2 = destination[0]
+    y2 = destination[1]
+    space = find_piece(x2, y2).first
+    puts space
 
+    valid_move?([x1, y1], [x2, y2])
     if space.nil?
-      update_attributes(x_position: new_x, y_position: new_y)
-      return true
-    end
-
-    if space.color != color
-      capture_piece(new_x, new_y)
-      update_attributes(x_position: new_x, y_position: new_y)
-      true
+      update_attributes(x_position: x2, y_position: y2)
+    elsif space.color != color
+      update_attributes(x_position: x2, y_position: y2)
+      space.capture_piece(x2, y2)
     else
-      false
+      return false
     end
   end
 
   def find_piece(x_position, y_position)
-    ChessPiece.where(game_id: game.id, x_position: x_position, y_position: y_position)
+    ChessPiece.where(game_id: game_id, x_position: x_position, y_position: y_position)
   end
 
   def capture_piece(x_position, y_position)
-    target = find_piece(x_position, y_position)
+    target = find_piece(x_position, y_position).first
     target.update_attributes(captured: true, x_position: nil, y_position: nil)
   end
 
