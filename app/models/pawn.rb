@@ -12,17 +12,17 @@ class Pawn < ChessPiece
 
     # White
     if color == true
-      moves.push([x1.to_i, y1.to_i + 1])
-      moves.push([x1.to_i - 1, y1.to_i + 1])
-      moves.push([x1.to_i + 1, y1.to_i + 1])
-      moves.push([x1.to_i, y1.to_i + 2]) if y1 == 2
+      moves.push([x1, y1 + 1])
+      moves.push([x1 - 1, y1 + 1])
+      moves.push([x1 + 1, y1 + 1])
+      moves.push([x1, y1 + 2]) if y1 == 2
     # Black
     elsif color == false
-      moves.push([x1.to_i, y1.to_i - 1])
-      moves.push([x1.to_i - 1, y1.to_i - 1])
-      moves.push([x1.to_i + 1, y1.to_i - 1])
-      moves.push([x1.to_i, y1.to_i - 2]) if y_position == 7
+      moves.push([x1, y1 - 1])
+      moves.push([x1 - 1, y1 - 1])
+      moves.push([x1 + 1, y1 - 1])
+      moves.push([x1, y1 - 2]) if y_position == 7
     end
-    moves.include?([x2.to_i, y2.to_i])
+    moves.include?([x2, y2])
   end
 end
