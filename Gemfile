@@ -72,6 +72,7 @@ group :development, :test do
 end
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 gem 'popper_js', '~> 1.14.5'
 gem 'bootstrap', '~> 4.3.1'
