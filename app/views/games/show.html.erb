@@ -12,13 +12,19 @@
                     class=" droppable black"
                     <% end %>
                     >
-                    <% if board_piece = @chess_pieces.where("(x_position = ? AND y_position = ?)", col, row).first %>
+                    <% render_piece(@game) %>
+                    <% @pieces.each do |piece| %>
+                    <% x = piece.x_position %>
+                    <% y = piece.y_position %>
+                    <% htmlcode = piece.htmlcode %>
+                    <% if x == col && y == row %>
                     <div class="piece" data-x-coord=<%=col%> data-y-coord=
                         <%= row%> data-piece-id=
-                        <%=board_piece.id%>
+                        <%=piece.id%>
                         >
-                        <%=  board_piece.htmlcode.html_safe  %>
+                        <%=  piece.htmlcode.html_safe  %>
                     </div>
+                    <% end %>
                     <% end %>
                 </td>
                 <% end %>
