@@ -22,7 +22,7 @@ class Game < ApplicationRecord
     Bishop.create(game_id: @game.id, y_position: 1, x_position: 3, color: true, htmlcode: '&#9815;')
     Bishop.create(game_id: @game.id, y_position: 1, x_position: 6, color: true, htmlcode: '&#9815;')
     Queen.create(game_id: @game.id, y_position: 1, x_position: 4, color: true, htmlcode: '&#9813;')
-    King.create(game_id: @game.id, y_position: 1, x_position: 5, color: true, htmlcode: '&#9812;')
+    King.create(game_id: @game.id, y_position: 1, x_position: 5, color: true, htmlcode: '&#9812;', has_moved: false)
 
     ## Initiates Black Pieces
     x = 0
