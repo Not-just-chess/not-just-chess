@@ -12,7 +12,7 @@ class ChessPiecesController < ApplicationController
 
 
     @chess_piece.update(chess_piece_params)
-    byebug
+    
     respond_to do |format|
       format.html {render :show }
       format.json {render json: @chess_piece, status: :ok }
