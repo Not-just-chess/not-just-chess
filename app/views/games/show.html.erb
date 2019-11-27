@@ -1,31 +1,75 @@
-  <div class="col-10 center offset-1">
+<div class="col-10 center offset-1">
     <table id="chessboard">
-      <tbody>
-        <% [8,7,6,5,4,3,2,1].each do |row| %>
-          <tr>
-            <% (1..8).each do |col| %>
-              <td data-x_position=<%= col %> data-y_position =<%= row%>
-              <% if (col + row).odd? %>
-                class="white"
-              <% else %>
-                class="black"
-              <% end %>
-              >
-              <% render_piece(@game) %>
-                <% @pieces.each do |piece| %>
-                  <% x = piece.x_position %>
-                  <% y = piece.y_position %>
-                  <% htmlcode = piece.htmlcode %>
-                  <% if x == col && y == row %>
-                  <div class="pieces_color">
-                    <%= link_to piece.htmlcode.html_safe, chess_piece_path(piece) %>
-                  </div>
-                  <% end %>
+        <tbody>
+            <% [8,7,6,5,4,3,2,1].each do |row| %>
+            <tr>
+                <% (1..8).each do |col| %>
+                <td data-x_position=<%=col %> data-y_position =
+                    <%= row%>
+                    <% if (col + row).odd? %>
+                    class="droppable white"
+                    <% else %>
+                    class=" droppable black"
+                    <% end %>
+                    >
+                    <% @chess_pieces.each do |piece| %>
+                    <% x = piece.x_position %>
+                    <% y = piece.y_position %>
+                    <% htmlcode = piece.htmlcode %>
+                    <% if x == col && y == row %>
+                    <div class="piece" data-x-coord=<%=col%> data-y-coord=
+                        <%= row%> data-piece-id=
+                        <%=piece.id%>>
+                        <%=  piece.htmlcode.html_safe  %>
+                    </div>
+                    <% end %>
+                    <% end %>
+                </td>
                 <% end %>
-              </td>
+            </tr>
             <% end %>
-          </tr>
-        <% end %>
-      </tbody>
+        </tbody>
     </table>
-  </div>
+</div>
+<script>
+$(document).ready($(function() {
+    $('.piece').draggable({
+        snap: '.droppable',
+        revert: 'invalid'
+    });
+
+    $('.droppable').droppable({
+        drop: function(event, ui) {
+            let piece = ui.draggable
+            let destination_square = $(this);
+            console.log($(this));
+            var update_piece = {
+                id: piece.data('piece-id'),
+                game_id: piece.data('game-id'),
+                x_position: destination_square.data('x-coord'),
+                y_position: destination_square.data('y-coord')
+            }
+
+
+
+            $.ajax({
+                type: 'PUT',
+                url: '/chess_pieces/' + update_piece.id,
+                beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')) },
+                dataType: 'json',
+                data: {
+                    id: update_piece.id,
+                    x_position: update_piece.x_position,
+                    y_position: update_piece.y_position
+                },
+                success: function(data) {
+                    destination_square.empty();
+                    location.reload(true);
+                }
+            });
+
+        }
+    });
+
+}));
+</script>
