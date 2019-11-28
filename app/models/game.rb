@@ -41,4 +41,12 @@ class Game < ApplicationRecord
     Queen.create(game_id: @game.id, y_position: 8, x_position: 4, color: false, htmlcode: '&#9819;')
     King.create(game_id: @game.id, y_position: 8, x_position: 5, color: false, htmlcode: '&#9818;')
   end
+
+  def in_check?(color)
+    king = ChessPiece.find_by(type: 'King', color: true)
+    ChessPiece.where(game_id: @game.id, color: false).find_each do |chess_piece|
+      return true if chess_piece.valid_move?(king.x_position, king.y_position)
+    end
+    false
+  end
 end
