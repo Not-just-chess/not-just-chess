@@ -1,6 +1,6 @@
 # Games Controller
 class GamesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :update]
+  before_action :authenticate_user!, only: [:new, :create, :update, :forfeit]
 
   def new
     @game = Game.new
@@ -26,6 +26,12 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     @game.update_attributes(black_player_id: current_user.id)
     redirect_to game_path(@game.id)
+  end
+
+  def forfeit
+    @game = Game.find(params[:id])
+    @game.forfeit_game(current_user)
+    redirect_to root_path
   end
 
   private

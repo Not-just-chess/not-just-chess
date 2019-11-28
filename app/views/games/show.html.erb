@@ -1,31 +1,64 @@
-  <div class="col-10 center offset-1">
-    <table id="chessboard">
-      <tbody>
-        <% [8,7,6,5,4,3,2,1].each do |row| %>
-          <tr>
-            <% (1..8).each do |col| %>
-              <td data-x_position=<%= col %> data-y_position =<%= row%>
-              <% if (col + row).odd? %>
-                class="white"
-              <% else %>
-                class="black"
-              <% end %>
-              >
-              <% render_piece(@game) %>
-                <% @pieces.each do |piece| %>
-                  <% x = piece.x_position %>
-                  <% y = piece.y_position %>
-                  <% htmlcode = piece.htmlcode %>
-                  <% if x == col && y == row %>
-                  <div class="pieces_color">
-                    <%= link_to piece.htmlcode.html_safe, chess_piece_path(piece) %>
-                  </div>
-                  <% end %>
-                <% end %>
-              </td>
+<div class="col-10 center offset-1">
+  <table id="chessboard">
+    <tbody>
+      <% [8,7,6,5,4,3,2,1].each do |row| %>
+        <tr>
+          <% (1..8).each do |col| %>
+            <td data-x_position=<%= col %> data-y_position =<%= row%>
+            <% if (col + row).odd? %>
+              class="white"
+            <% else %>
+              class="black"
             <% end %>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+            >
+            <% render_piece(@game) %>
+              <% @pieces.each do |piece| %>
+                <% x = piece.x_position %>
+                <% y = piece.y_position %>
+                <% htmlcode = piece.htmlcode %>
+                <% if x == col && y == row %>
+                <div class="pieces_color">
+                  <%= link_to piece.htmlcode.html_safe, chess_piece_path(piece) %>
+                </div>
+                <% end %>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br/>
+<br/>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-danger btn-lg col-2 offset-3" data-toggle="modal" data-target="#forfeitModal">
+  Forfeit Game
+</button>
+<br/>
+<br/>
+
+
+<!-- Forfeit Modal -->
+<div class="modal fade" id="forfeitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <%= simple_form_for @game, url: forfeit_game_path(@game.id) do |f| %>
+        <div class="modal-body">
+          Are you sure you want to forfeit?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <%= f.submit "Forfeit Game", class: 'btn btn-dark' %>
+        </div>
+      <% end %>
+    </div>
   </div>
+</div>
+
