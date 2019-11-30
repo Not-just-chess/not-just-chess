@@ -13,15 +13,14 @@ class ChessPiece < ApplicationRecord
   scope :bishops, -> { where(type: 'Bishop') }
   scope :pawns, -> { where(type: 'Pawn') }
 
-  def move_to!(current_location, destination)
-    x1 = current_location[0]
-    y1 = current_location[1]
+  def move_to!(destination)
     x2 = destination[0]
     y2 = destination[1]
     space = find_piece(x2, y2).first
     puts space
 
-    valid_move?([x1, y1], [x2, y2])
+    return false unless valid_move?(destination)
+
     if space.nil?
       update_attributes(x_position: x2, y_position: y2)
     elsif space.color != color
@@ -61,10 +60,9 @@ class ChessPiece < ApplicationRecord
       y_move = y1 + y_dir
 
       blocker = ChessPiece.where(game_id: game.id, x_position: x_move, y_position: y_move, captured: nil).count
-      return false if blocker.zero?
-
-      return true
+      return true if !blocker.zero?      
     end
+    return false
   end
 
   def selected(piece, chess_piece)
