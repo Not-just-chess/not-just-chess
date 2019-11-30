@@ -82,4 +82,11 @@ class ChessPiece < ApplicationRecord
   def off_board?(new_x, new_y)
     (new_x < 1 || new_x > 8) || (new_y < 1 || new_y > 8)
   end
+
+  def valid_move?(new_x, new_y)
+    return false if off_board?(new_x, new_y)
+    return false if is_obstructed?([x1, y1], [x2, y2])
+    true
+  end
+
 end

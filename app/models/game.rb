@@ -43,10 +43,40 @@ class Game < ApplicationRecord
   end
 
   def in_check?(color)
-    king = ChessPiece.find_by(type: 'King', color: true)
-    ChessPiece.where(game_id: @game.id, color: false).find_each do |chess_piece|
-      return true if chess_piece.valid_move?(king.x_position, king.y_position)
+    king = chess_pieces.find_by(type: 'King', user_id: current_user.id)
+    king = self
+    x_king = king.x_position
+    y_king = king.y_position
+
+    if !user_id
+      self.game.chess_pieces.each do |piece|
+        if piece.valid_move?(x_king, y_king)
+          return true
+        end
+      end
     end
-    false
+      false
+  end
+  
+    
+    #ChessPiece.where(game_id: @game.id, color: false).find_each do |chess_piece|
+    #  return true if chess_piece.valid_move?(x_position: king.x_position, y_position: king.y_position)
+    #end
+    #false
+  
+
+  def pieces_remaining(color)
+    chess_pieces.includes(:game).where(
+      "color = ?",
+      color).to_a
+  end
+
+    def opponents_pieces(color)
+    opposing_color = if color == true
+                       false
+                     else
+                       true
+                     end
+    chess_pieces.where(color: opposing_color).to_a
   end
 end
