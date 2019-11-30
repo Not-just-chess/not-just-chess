@@ -14,8 +14,8 @@ class ChessPiece < ApplicationRecord
   scope :pawns, -> { where(type: 'Pawn') }
 
   def move_to!(destination)
-    x2 = destination[0]
-    y2 = destination[1]
+    x2 = destination[0].to_i
+    y2 = destination[1].to_i
     space = find_piece(x2, y2).first
     puts space
 
@@ -40,24 +40,22 @@ class ChessPiece < ApplicationRecord
     target.update_attributes(captured: true, x_position: nil, y_position: nil)
   end
 
-  def is_obstructed?(current_location, destination)
-    x1 = current_location[0]
-    y1 = current_location[1]
-    x2 = destination[0]
-    y2 = destination[1]
+  def is_obstructed?(destination)
+    x2 = destination[0].to_i
+    y2 = destination[1].to_i
 
-    x_delta = x2 - x1
-    y_delta = y2 - y1
+    x_delta = x2 - x_position
+    y_delta = y2 - y_position
 
     x_dir = x_delta.zero? ? 0 : x_delta / x_delta.abs
     y_dir = y_delta.zero? ? 0 : y_delta / y_delta.abs
 
-    x_move = x1
-    y_move = y1
+    x_move = x_position
+    y_move = y_position
 
     while x_move <= x2 || y_move <= y2
-      x_move = x1 + x_dir
-      y_move = y1 + y_dir
+      x_move = x_position + x_dir
+      y_move = y_position + y_dir
 
       blocker = ChessPiece.where(game_id: game.id, x_position: x_move, y_position: y_move, captured: nil).count
       return true if !blocker.zero?      
