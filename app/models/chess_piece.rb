@@ -56,13 +56,13 @@ class ChessPiece < ApplicationRecord
     while x_move <= x2 || y_move <= y2
       x_move = x_position + x_dir
       y_move = y_position + y_dir
-  
+
       blocker = ChessPiece.where(game_id: game_id, x_position: x_move, y_position: y_move, captured: nil).count
       return false if blocker.zero?
 
       return true
     end
-    return false
+    false
   end
 
   def selected(piece, chess_piece)
