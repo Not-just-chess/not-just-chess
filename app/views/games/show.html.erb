@@ -1,3 +1,36 @@
+<br/>
+<br/>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-danger btn-lg col-2 offset-3" data-toggle="modal" data-target="#forfeitModal">
+  Forfeit Game
+</button>
+<br/>
+<br/>
+
+
+<!-- Forfeit Modal -->
+<div class="modal fade" id="forfeitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <%= simple_form_for @game, url: forfeit_game_path(@game.id) do |f| %>
+        <div class="modal-body">
+          Are you sure you want to forfeit?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <%= f.submit "Forfeit Game", class: 'btn btn-dark' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+=======
 <div class="col-10 center offset-1 game" data-game-id=<%=@game.id %>>
     <table id="chessboard">
         <tbody>

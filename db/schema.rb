@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_191_118_001_935) do
+ActiveRecord::Schema.define(version: 20_191_128_162_714) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -38,9 +38,13 @@ ActiveRecord::Schema.define(version: 20_191_118_001_935) do
     t.integer 'user_id'
     t.integer 'white_player_id'
     t.integer 'black_player_id'
+    t.integer 'winner'
+    t.boolean 'checkmate', default: false
+    t.boolean 'forfeited', default: false
     t.index ['black_player_id'], name: 'index_games_on_black_player_id'
     t.index ['user_id'], name: 'index_games_on_user_id'
     t.index ['white_player_id'], name: 'index_games_on_white_player_id'
+    t.index ['winner'], name: 'index_games_on_winner'
   end
 
   create_table 'kings', force: :cascade do |t|
