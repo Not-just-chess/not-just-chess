@@ -72,7 +72,6 @@ group :development, :test do
 end
 
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
 
 gem 'popper_js', '~> 1.14.5'
 gem 'bootstrap', '~> 4.3.1'
@@ -87,3 +86,4 @@ gem 'figaro'
 
 # Add Rails' inbuilt CSRF protection to the POST requests
 gem 'omniauth-rails_csrf_protection', '~> 0.1'
+gem 'jquery-ui-rails'
