@@ -20,6 +20,7 @@ class ChessPiece < ApplicationRecord
     puts space
 
     return false unless valid_move?(destination)
+    
 
     if space.nil?
       update_attributes(x_position: x2, y_position: y2)

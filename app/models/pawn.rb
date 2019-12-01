@@ -1,6 +1,7 @@
 class Pawn < ChessPiece
   attr_accessor :can_capture
   def valid_move?(destination)
+    
     x2 = destination[0].to_i
     y2 = destination[1].to_i
     return false if off_board?(x2, y2) || y2 == y_position

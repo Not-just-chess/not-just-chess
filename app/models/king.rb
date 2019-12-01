@@ -8,21 +8,14 @@ class King < ChessPiece
     @moves = [
       [1, 1],
       [1, 0],
-      [1, -1],
       [0, 1],
-      [0, -1],
-      [-1, 1],
-      [-1, 0],
-      [-1, -1]
     ]
 
     x2 = destination[0].to_i
     y2 = destination[1].to_i
-
-    @moves.each do |move|
-      move[0] += x_position
-      move[1] += y_position
-    end
+    x_abs = (x2 - x_position).abs
+    y_abs = (y2 - y_position).abs
+    destination = [x_abs, y_abs]
 
     # This can be replaced with a method that checks if the board array contains the value
 
