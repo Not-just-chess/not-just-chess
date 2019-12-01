@@ -1,16 +1,14 @@
 # Rook subclass
 class Rook < ChessPiece
-  def valid_move?(current_location, destination)
+  def valid_move?(destination)
     # Rook can move horizontally and vertically without obstructions
-    x1 = current_location[0]
-    x2 = current_location[1]
-    y1 = destination[0]
-    y2 = destination[1]
+    x2 = destination[0].to_i
+    y2 = destination[1].to_i
 
-    x_delta = (x2 - x1).abs
-    y_delta = (y2 - y1).abs
+    x_delta = (x2 - x_position).abs
+    y_delta = (y2 - y_position).abs
 
-    return true if !is_obstructed?([x1, y1], [x2, y2]) && !off_board?(x2, y2) &&
+    return true if !is_obstructed?([x2, y2]) && !off_board?(x2, y2) &&
                    (x_delta >= 1 && y_delta.zero?) || (y_delta >= 1 && x_delta.zero?)
 
     false
