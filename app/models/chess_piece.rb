@@ -52,8 +52,8 @@ class ChessPiece < ApplicationRecord
     x_delta = x2 - x_position
     y_delta = y2 - y_position
 
-    x_dir = x_delta.zero? ? 0 : x_delta / x_delta.abs
-    y_dir = y_delta.zero? ? 0 : y_delta / y_delta.abs
+    x_dir = x_delta.zero? ? 0 : x_delta / x_delta.abs # -1
+    y_dir = y_delta.zero? ? 0 : y_delta / y_delta.abs # 1
 
     x_move = x_position
     y_move = y_position
