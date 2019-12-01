@@ -22,7 +22,7 @@ class ChessPiece < ApplicationRecord
     return false unless valid_move?(destination)
 
     if space.nil?
-      update_attributes(x_position: x2, y_position: y2)
+      update_attributes(x_position: x2, y_position: y2, has_moved: true)
     elsif space.color != color
       update_attributes(x_position: x2, y_position: y2)
       space.capture_piece(x2, y2)
