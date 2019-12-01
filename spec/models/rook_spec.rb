@@ -6,7 +6,8 @@ RSpec.describe Rook, type: :model do
       game = FactoryBot.create(:game)
       game.populate_game
       ChessPiece.where(game_id: game.id, type: 'Pawn').destroy_all
-      piece = Rook.last.update_attributes(x_position: 3, y_position: 3)
+      piece = Rook.last
+      piece.update_attributes(x_position: 3, y_position: 3)
 
       # Vertical Move Up
       expect(piece.valid_move?([3, 6])).to eq(true)
