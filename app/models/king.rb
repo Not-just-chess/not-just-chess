@@ -28,6 +28,6 @@ class King < ChessPiece
 
     return false if off_board?(x2, y2)
 
-    return true if @moves.include?(destination)
+    return true if @moves.include?([x2, y2])
   end
 end
