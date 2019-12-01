@@ -8,13 +8,13 @@ RSpec.describe Bishop, type: :model do
       ChessPiece.where(game_id: game.id, type: 'Pawn').destroy_all
       piece = Bishop.last
 
-      piece.valid_move?([8, 6])
+      piece.valid_move?([6, 8], [8, 6])
       expect(true)
 
-      piece.valid_move?([8, 5])
+      piece.valid_move?([6, 8], [8, 5])
       expect(false)
 
-      piece.valid_move?([8, 9])
+      piece.valid_move?([6, 8], [8, 9])
       expect(false)
     end
   end

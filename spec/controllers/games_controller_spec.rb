@@ -204,26 +204,4 @@ RSpec.describe GamesController, type: :controller do
       expect(game.chess_pieces.find_by(x_position: 5, y_position: 1).type).to eq('King')
     end
   end
-
-  describe 'forfeit_game' do
-    it 'marks a game as forfeited and indicates a winner' do
-      user1 = FactoryBot.create(:user)
-      user2 = FactoryBot.create(:user)
-      game = FactoryBot.create(:game)
-
-      sign_in user1
-      sign_in user2
-      patch :forfeit, params: { id: game.id }
-      game.update_attributes(white_player_id: user1.id, black_player_id: user2.id)
-
-      expect(game.white_player_id).to eq(user1.id)
-      expect(game.black_player_id).to eq(user2.id)
-      expect(game.forfeited).to eq(false)
-      expect(game.winner).to eq(nil)
-
-      game.forfeit_game(user2)
-      expect(game.forfeited).to eq(true)
-      expect(game.winner).to eq(user1.id)
-    end
-  end
 end

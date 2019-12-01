@@ -41,12 +41,4 @@ class Game < ApplicationRecord
     Queen.create(game_id: @game.id, y_position: 8, x_position: 4, color: false, htmlcode: '&#9819;')
     King.create(game_id: @game.id, y_position: 8, x_position: 5, color: false, htmlcode: '&#9818;')
   end
-
-  def forfeit_game(forfeiting_user)
-    if forfeiting_user.id == white_player_id
-      update_attributes(forfeited: true, winner: black_player_id)
-    elsif forfeiting_user.id == black_player_id
-      update_attributes(forfeited: true, winner: white_player_id)
-    end
-  end
 end

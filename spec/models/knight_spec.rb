@@ -8,10 +8,10 @@ RSpec.describe Knight, type: :model do
       piece = Knight.last
 
       # checking moves
-      piece.valid_move?([3, 6])
+      piece.valid_move?([2, 8], [3, 6])
       expect(true)
 
-      piece.valid_move?([7, 6])
+      piece.valid_move?([2, 8], [7, 6])
       expect(false)
     end
   end
