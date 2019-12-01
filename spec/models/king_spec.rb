@@ -16,4 +16,19 @@ RSpec.describe King, type: :model do
       expect(false)
     end
   end
+
+  describe 'castling' do
+    it 'can castle' do
+      game = FactoryBot.create(:game)
+      game.populate_game
+      ChessPiece.where(game_id: game.id, type: 'Pawn').destroy_all
+      ChessPiece.where(game_id: game.id, type: 'Bishop').destroy_all
+      ChessPiece.where(game_id: game.id, type: 'Knight').destroy_all
+      ChessPiece.where(game_id: game.id, type: 'Queen').destroy_all
+      piece = King.last
+
+      piece.can_castle?(1)
+      expect(true)
+    end
+  end
 end
