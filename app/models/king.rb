@@ -26,7 +26,7 @@ class King < ChessPiece
 
     # This can be replaced with a method that checks if the board array contains the value
 
-    return false if off_board?(x2, y2)
+    return false if off_board?(x2, y2) || is_obstructed?(destination)
 
     return true if @moves.include?([x2, y2])
   end
