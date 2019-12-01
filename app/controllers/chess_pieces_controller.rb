@@ -12,10 +12,9 @@ class ChessPiecesController < ApplicationController
 
     @chess_piece = ChessPiece.find_by_id(params[:id])
     
-    @chess_piece.move_to!([params[:x_position], params[:y_position]])
-    ## flash notice where not valid 
-
-    @chess_piece.update(chess_piece_params)
+    if @chess_piece.move_to!([params[:x_position], params[:y_position]])
+      @chess_piece.update(chess_piece_params)
+    end
 
     respond_to do |format|
       format.html { render :show }
