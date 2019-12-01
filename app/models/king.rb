@@ -33,19 +33,31 @@ class King < ChessPiece
     return true if @moves.include?(destination)
   end
 
-  def can_castle?(y)
-    has_moved? == false && (castle_kingside?(y) || castle_queenside?(y))
+  castle!(rook_x, rook_y)
+    if castle_kingside?(rook_y)
+      rook_kingside.update_attributes(x_position: 6, y_position: rook_y)
+    end
+    if castle_queenside?(rook_y)
+      rook_queenside.update_attributes(x_position: 4, y_position: rook_y)
+    end
+    update_attributes(x_position: rook_x, y_position: rook_y)
+  end
+
+  # rook_y is just a y coordinate because the x will always have to be 1 or 8 for castling to work
+
+  def can_castle?(rook_y)
+    has_moved? == false && (castle_kingside?(rook_y) || castle_queenside?(rook_y))
 
     # A king cannot castle if it is in check and cannot castle if castling will put it in check.
 
   end
 
-  def castle_kingside?(y)
-    rook_kingside.has_moved? == false && rook_kingside.is_obstructed(8, y) == false
+  def castle_kingside?(rook_y)
+    rook_kingside.has_moved? == false && rook_kingside.is_obstructed(5, rook_y) == false
   end
 
-  def castle_queenside?(x, y)
-    rook_queenside.has_moved? == false && rook_queenside.is_obstructed(1, y) == false
+  def castle_queenside?(rook_y)
+    rook_queenside.has_moved? == false && rook_queenside.is_obstructed(5, rook_y) == false
   end
 
   def rook_kingside
