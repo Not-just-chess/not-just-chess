@@ -36,7 +36,11 @@ class ChessPiece < ApplicationRecord
   end
 
   def capture_piece(x_position, y_position)
-    target = find_piece(x_position, y_position).first
+    if color == true 
+      target = find_piece(x_position, y_position).first
+    else 
+      target = find_piece(x_position, y_position).last
+    end
     target.update_attributes(captured: true, x_position: nil, y_position: nil)
   end
 
