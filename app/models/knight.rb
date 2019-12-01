@@ -4,6 +4,7 @@ class Knight < ChessPiece
   #  y_position < 5 ? '&#9816;' : '&#9822;'
   # end
 
+
   def valid_move?(current_location, destination)
     x1 = current_location[0]
     y1 = current_location[1]
@@ -17,12 +18,15 @@ class Knight < ChessPiece
 
     if ((x_delta == 2) && (y_delta == 1))
       return true
+
     end
 
     if ((x_delta == 1) && (y_delta == 2))
       return true
     end
 
+
     return false
+
   end
 end

@@ -9,10 +9,10 @@ RSpec.describe King, type: :model do
       piece = King.last
 
       # checking moves
-      piece.valid_move?([5, 8], [5, 7])
+      piece.valid_move?([5, 7])
       expect(true)
 
-      piece.valid_move?([5, 8], [7, 6])
+      piece.valid_move?([7, 6])
       expect(false)
     end
   end

@@ -43,14 +43,14 @@ RSpec.describe ChessPiece, type: :model do
       expect(piece.x_position).to eq(6)
       expect(piece.y_position).to eq(8)
 
-      piece.move_to!([6, 8], [8, 6])
+      piece.move_to!([8, 6])
       piece.reload
 
       expect(piece.x_position).to eq(8)
       expect(piece.y_position).to eq(6)
     end
   end
-  
+
   describe 'is_obstructed?' do
     it 'checks if bishop is obstructed during a move' do
       game = FactoryBot.create(:game)
@@ -60,7 +60,7 @@ RSpec.describe ChessPiece, type: :model do
       expect(bishop.y_position).to eq(8)
       expect(bishop.game_id).to eq(game.id)
 
-      is_obs = bishop.is_obstructed?([6, 8], [8, 6])
+      is_obs = bishop.is_obstructed?([8, 6])
       expect(is_obs).to be_truthy
     end
 
@@ -72,7 +72,7 @@ RSpec.describe ChessPiece, type: :model do
       expect(pawn.y_position).to eq(7)
       expect(pawn.game_id).to eq(game.id)
 
-      is_obs = pawn.is_obstructed?([8, 7], [8, 5])
+      is_obs = pawn.is_obstructed?([8, 5])
       expect(is_obs).to be_falsey
     end
 
@@ -84,7 +84,7 @@ RSpec.describe ChessPiece, type: :model do
       expect(rook.y_position).to eq(8)
       expect(rook.game_id).to eq(game.id)
 
-      is_obs = rook.is_obstructed?([8, 8], [8, 5])
+      is_obs = rook.is_obstructed?([8, 5])
       expect(is_obs).to be_truthy
     end
 
@@ -96,7 +96,7 @@ RSpec.describe ChessPiece, type: :model do
       expect(queen.y_position).to eq(8)
       expect(queen.game_id).to eq(game.id)
 
-      is_obs = queen.is_obstructed?([4, 8], [4, 4])
+      is_obs = queen.is_obstructed?([4, 4])
       expect(is_obs).to be_truthy
     end
 
@@ -108,7 +108,7 @@ RSpec.describe ChessPiece, type: :model do
       expect(king.y_position).to eq(8)
       expect(king.game_id).to eq(game.id)
 
-      is_obs = king.is_obstructed?([5, 8], [5, 7])
+      is_obs = king.is_obstructed?([5, 7])
       expect(is_obs).to be_truthy
     end
   end
