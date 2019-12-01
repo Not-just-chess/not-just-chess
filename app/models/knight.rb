@@ -5,27 +5,22 @@ class Knight < ChessPiece
   # end
 
   def valid_move?(destination)
-    @moves = [
-      [2, 1],
-      [2, -1],
-      [-2, 1],
-      [-2, -1],
-      [1, 2],
-      [1, -2],
-      [-1, 2],
-      [-1, -2]
-    ]
-
-    x2 = destination[0].to_i
-    y2 = destination[1].to_i
-
-    @moves.each do |move|
-      move[0] += x_position
-      move[1] += y_position
-    end
+    x2 = destination[0]
+    y2 = destination[1]
 
     return false if off_board?(x2, y2)
 
-    return true if @moves.include?([x2, y2])
+    x_delta = (x2 - x_position).abs
+    y_delta = (y2 - y_position).abs
+
+    if ((x_delta == 2) && (y_delta == 1))
+      return true
+    end
+
+    if ((x_delta == 1) && (y_delta == 2))
+      return true
+    end
+
+    return false
   end
 end
