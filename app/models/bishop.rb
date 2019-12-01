@@ -17,7 +17,8 @@ class Bishop < ChessPiece
 
     # abs value of slope should always equal 1
     # check if move is obstructed
-    is_obstructed?([x2, y2])
+    return false if is_obstructed?(destination)
+
     slope.abs == 1
   end
 end

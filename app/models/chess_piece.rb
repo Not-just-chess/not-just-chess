@@ -36,11 +36,11 @@ class ChessPiece < ApplicationRecord
   end
 
   def capture_piece(x_position, y_position)
-    if color == true 
-      target = find_piece(x_position, y_position).first
-    else 
-      target = find_piece(x_position, y_position).last
-    end
+    target = if color == true
+               find_piece(x_position, y_position).first
+             else
+               find_piece(x_position, y_position).last
+             end
     target.update_attributes(captured: true, x_position: nil, y_position: nil)
   end
 
@@ -62,6 +62,7 @@ class ChessPiece < ApplicationRecord
       y_move = y_position + y_dir
 
       blocker = ChessPiece.where(game_id: game_id, x_position: x_move, y_position: y_move, captured: nil).count
+
       return false if blocker.zero?
 
       return true

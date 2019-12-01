@@ -2,12 +2,10 @@
 class ChessPiecesController < ApplicationController
   def new; end
 
-  def update 
+  def update
     @chess_piece = ChessPiece.find_by_id(params[:id])
-    
-    if @chess_piece.move_to!([params[:x_position], params[:y_position]])
-      @chess_piece.update(chess_piece_params)
-    end
+
+    @chess_piece.update(chess_piece_params) if @chess_piece.move_to!([params[:x_position], params[:y_position]])
 
     respond_to do |format|
       format.html { render :show }

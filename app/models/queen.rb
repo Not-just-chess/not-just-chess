@@ -19,6 +19,8 @@ class Queen < ChessPiece
     # Vertical Check || Horizontal Check || Diagonal Check
     return false unless y_position == y2 || x_position == x2 || slope == 1
 
-    return true
+    return false if is_obstructed?(destination)
+
+    true
   end
 end
