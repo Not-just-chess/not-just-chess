@@ -43,12 +43,12 @@ class Game < ApplicationRecord
   end
 
   def in_check?(color)
-    king = chess_pieces.find_by(type: 'King', color: color)
+    king = chess_pieces.find_by(type: 'King', color: [true, false])
     king_x = king.x_position
     king_y = king.y_position
-
+    destination = [king_x, king_y]
     chess_pieces.each do |piece|
-      return true if piece.color == !color && piece.valid_move?([king_x, king_y])
+      return true if piece.color == !color && piece.valid_move?(destination)
     end
     false
   end
