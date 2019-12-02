@@ -48,7 +48,7 @@ class Game < ApplicationRecord
     king_y = king.y_position
 
     chess_pieces.each do |piece|
-      if piece.color == !color && piece.valid_move?(king_x, king_y)
+      if piece.color == !color && piece.valid_move?(king_x, king_y) 
         return true
       end
     end
