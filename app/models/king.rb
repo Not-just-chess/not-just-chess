@@ -35,11 +35,11 @@ class King < ChessPiece
   end
 
   def castle_kingside?(x, y)
-    x == 7 && y = y_position && rook_kingside.has_moved == false && rook_kingside.is_obstructed(5, y) == false
+    x == 7 && y = y_position && rook_kingside.has_moved == false && rook_kingside.is_obstructed?([5, y]) == false
   end
 
   def castle_queenside?(x,y)
-    x == 2 && y = y_position && rook_queenside.has_moved == false && rook_queenside.is_obstructed(5, y) == false
+    x == 2 && y = y_position && rook_queenside.has_moved == false && rook_queenside.is_obstructed?([5, y]) == false
   end
 
   def rook_kingside
