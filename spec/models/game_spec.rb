@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Game, type: :model do
-   describe 'in_check?' do
+  describe 'in_check?' do
     it 'should return true if king in check' do
       game = FactoryBot.create(:game)
       FactoryBot.create(:king, color: true, game_id: game.id, x_position: 3, y_position: 8)

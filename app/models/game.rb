@@ -42,22 +42,17 @@ class Game < ApplicationRecord
     King.create(game_id: @game.id, y_position: 8, x_position: 5, color: false, htmlcode: '&#9818;')
   end
 
-<<<<<<< HEAD
   def in_check?(color)
     king = chess_pieces.find_by(type: 'King', color: color)
     king_x = king.x_position
     king_y = king.y_position
 
     chess_pieces.each do |piece|
-      if piece.color == !color && piece.valid_move?(king_x, king_y) 
-        return true
-      end
+      return true if piece.color == !color && piece.valid_move?([king_x, king_y])
     end
-      false
+    false
   end
 
-    
-=======
   def forfeit_game(forfeiting_user)
     if forfeiting_user.id == white_player_id
       update_attributes(forfeited: true, winner: black_player_id)
@@ -65,5 +60,4 @@ class Game < ApplicationRecord
       update_attributes(forfeited: true, winner: white_player_id)
     end
   end
->>>>>>> ee266f09ef621db1a2a6eabb98ab5e7b3e6fac50
 end
