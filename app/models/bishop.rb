@@ -20,5 +20,6 @@ class Bishop < ChessPiece
     return false if is_obstructed?(destination)
 
     slope.abs == 1
+    byebug
   end
 end

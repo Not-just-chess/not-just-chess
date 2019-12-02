@@ -29,6 +29,7 @@ class ChessPiece < ApplicationRecord
     else
       return false
     end
+    byebug
   end
 
   def find_piece(x_position, y_position)
@@ -51,18 +52,23 @@ class ChessPiece < ApplicationRecord
     x_delta = x2 - x_position
     y_delta = y2 - y_position
 
-    x_dir = x_delta.zero? ? 0 : x_delta / x_delta.abs # -1
-    y_dir = y_delta.zero? ? 0 : y_delta / y_delta.abs # 1
+    x_dir = x_delta.zero? ? 0 : x_delta / x_delta.abs
+    y_dir = y_delta.zero? ? 0 : y_delta / y_delta.abs
 
     x_move = x_position
     y_move = y_position
+    puts x_position
+    puts y_position
 
     while x_move <= x2 || y_move <= y2
       x_move = x_position + x_dir
       y_move = y_position + y_dir
+      puts x_move
+      puts y_move
 
       blocker = ChessPiece.where(game_id: game_id, x_position: x_move, y_position: y_move, captured: nil).count
-
+      puts blocker
+      byebug
       return false if blocker.zero?
 
       return true
