@@ -6,6 +6,7 @@
 </button>
 <br/>
 <br/>
+<br/>
 
 
 <!-- Forfeit Modal -->
@@ -29,6 +30,19 @@
     </div>
   </div>
 </div>
+
+<div class="check col-2 offset-3">
+    <% if @game.in_check?(true) %>
+        White is in check!
+        <br/>
+        <br/>
+    <% elsif @game.in_check?(false) %>
+        Black is in check!
+        <br/>
+        <br/>
+    <% end %>
+</div>
+
 
 <div class="col-10 center offset-1 game" data-game-id=<%=@game.id %>>
     <table id="chessboard">
@@ -66,6 +80,8 @@
     </table>
 
 </div>
+<br/>
+<br/>
 <script>
 $(document).ready($(function() {
     $('.piece').draggable({
