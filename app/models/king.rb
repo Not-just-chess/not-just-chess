@@ -41,7 +41,7 @@ class King < ChessPiece
   end
 
   def can_castle?(x_destination, y_destination)
-    has_moved == false && (castle_kingside?(x_destination,y_destination) || castle_queenside?(x_destination,y_destination))
+    has_moved == false && is_obstructed?([x_destination, y_destination]) == false && (castle_kingside?(x_destination,y_destination) || castle_queenside?(x_destination,y_destination))
     # A king cannot castle if it is in check and cannot castle if castling will put it in check or if it is currently in check
   end
 
