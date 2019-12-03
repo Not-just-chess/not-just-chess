@@ -27,7 +27,7 @@ class Pawn < ChessPiece
       end
       return false unless moves.include?([x2, y2])
     end
-    is_obstructed?([x2, y2]) && slope.abs != 1
+    !is_obstructed?([x2, y2]) && slope.abs != 1
     @can_capture = true if is_obstructed?([x2, y2]) && slope.abs == 1
     true
   end

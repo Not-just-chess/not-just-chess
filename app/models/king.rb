@@ -24,7 +24,9 @@ class King < ChessPiece
       move[1] += y_position
     end
 
-    return false if off_board?(x2, y2)
+
+    return false if off_board?(x2, y2) || is_obstructed?(destination)
+
 
     return true if @moves.include?([x2, y2])
   end

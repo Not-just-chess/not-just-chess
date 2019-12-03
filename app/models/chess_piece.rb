@@ -17,7 +17,6 @@ class ChessPiece < ApplicationRecord
     x2 = destination[0].to_i
     y2 = destination[1].to_i
     space = find_piece(x2, y2).first
-    puts space
 
     return false unless valid_move?(destination)
 
@@ -45,29 +44,34 @@ class ChessPiece < ApplicationRecord
   end
 
   def is_obstructed?(destination)
-    x2 = destination[0].to_i
-    y2 = destination[1].to_i
+    @x2 = destination[0].to_i
+    @y2 = destination[1].to_i
 
-    x_delta = x2 - x_position
-    y_delta = y2 - y_position
+    x_delta = @x2 - x_position
+    y_delta = @y2 - y_position
 
-    x_dir = x_delta.zero? ? 0 : x_delta / x_delta.abs
-    y_dir = y_delta.zero? ? 0 : y_delta / y_delta.abs
+    @x_dir = x_delta.zero? ? 0 : x_delta / x_delta.abs
+    @y_dir = y_delta.zero? ? 0 : y_delta / y_delta.abs
 
-    x_move = x_position
-    y_move = y_position
+    @x_move = x_position
+    @y_move = y_position
 
-    while x_move <= x2 || y_move <= y2
-      x_move = x_position + x_dir
-      y_move = y_position + y_dir
+    while not_at_destination
+      @x_move = x_position + @x_dir
+      @y_move = y_position + @y_dir
 
-      blocker = ChessPiece.where(game_id: game_id, x_position: x_move, y_position: y_move, captured: nil).count
+      blocker = ChessPiece.where(game_id: game_id, x_position: @x_move, y_position: @y_move, captured: nil).count
 
       return false if blocker.zero?
 
       return true
     end
     false
+  end
+
+  def not_at_destination
+    @x_move.send(@x_dir.positive? ? '<=' : '>=', @x2) ||
+      @y_move.send(@y_dir.positive? ? '<=' : '>=', @y2)
   end
 
   def selected(piece, chess_piece)
