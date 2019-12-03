@@ -9,7 +9,7 @@ class Rook < ChessPiece
     y_delta = (y2 - y_position).abs
 
     return true if !is_obstructed?([x2, y2]) && !off_board?(x2, y2) &&
-                   (x_delta >= 1 && y_delta.zero?) || (y_delta >= 1 && x_delta.zero?)
+                   ((x_delta >= 1 && y_delta.zero?) || (y_delta >= 1 && x_delta.zero?))
 
     false
   end
