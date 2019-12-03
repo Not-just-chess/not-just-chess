@@ -57,7 +57,7 @@ class King < ChessPiece
     if castle_queenside?(x_destination, y_destination)
       rook_queenside.update_attributes(x_position: 4, y_position: y_destination)
     end
-    update_attributes(x_position: x, y_position: y_destination)
+    update_attributes(x_position: x_destination, y_position: y_destination)
   end
 
   # def move_to!(x, y)
