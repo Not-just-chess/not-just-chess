@@ -47,8 +47,9 @@ class Game < ApplicationRecord
     king_x = king.x_position
     king_y = king.y_position
     destination = [king_x, king_y]
-    chess_pieces.each do |piece|
-      return true if piece.color == !color && piece.valid_move?(destination) == true && piece.is_obstructed?(destination) == false
+    active_pieces = chess_pieces.reject { |cp| cp.x_position.nil? }
+    active_pieces.each do |piece|
+      return true if piece.color != color && piece.valid_move?(destination)
     end
     false
   end
