@@ -21,7 +21,7 @@ class GamesController < ApplicationController
   end
 
   def index
-    @games = Game.available
+    @games = Game.available && Game.active
   end
 
   def update
