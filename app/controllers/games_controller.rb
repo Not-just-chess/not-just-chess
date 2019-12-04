@@ -17,6 +17,14 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     @chess_pieces = @game.chess_pieces
 
+    if @game.in_check?(true)
+      flash.now[:white_check] = "White King in check!"
+    end
+
+    if @game.in_check?(false)
+      flash.now[:black_check] = "Black King in check!"
+    end
+
     return render_not_found if @game.blank?
   end
 

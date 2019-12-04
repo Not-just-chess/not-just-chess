@@ -31,17 +31,21 @@
   </div>
 </div>
 
-<div class="check col-2 offset-3">
+<div>
     <% if @game.in_check?(true) %>
-        White is in check!
+      <div class="check alert alert-danger col-3 center offset-2 game">
+        <%=flash[:white_check] %>
         <br/>
         <br/>
     <% end %>
+  </div>
     <% if @game.in_check?(false) %>
-        Black is in check!
+      <div class="check alert alert-danger col-3 center offset-2 game">
+        <%=flash[:black_check] %>
         <br/>
         <br/>
     <% end %>
+  </div>
 </div>
 
 
