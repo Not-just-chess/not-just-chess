@@ -1,5 +1,10 @@
 @import "bootstrap";
 
+html {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 .top-nav {
   background-color: white;
   border-bottom-color: #edeeee;
@@ -17,19 +22,21 @@
 }
 
 .top-nav .add {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .brand {
   color: #31A01C;
   font-size: 30px;
   font-family: 'Pacifico', cursive;
+  margin-left: 10px;
 }
 
 #chessboard {
   width: 690px;
   height: 690px;
   border: 25px solid #333;
+  margin-top: 0;
 }
 
 table td {
@@ -89,4 +96,53 @@ a {
   font-weight: bold;
   text-align: center;
   vertical-align: middle;
+}
+
+.new-game {
+  text-align: center;
+}
+
+.new-game h1 {
+  margin-top: 20px;
+  font-family: 'Oswald', sans-serif;
+}
+
+.new-game .btn {
+  margin-bottom: 20px;
+  font-size: 150%;
+  font-family: 'Oswald', sans-serif;
+}
+
+.new-game .btn:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.index {
+  text-align: center;
+}
+
+.index h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 40px;
+  letter-spacing: 125%;
+  text-align: left;
+}
+
+.games {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.games h2 {
+  margin-bottom: 20px;
+}
+
+.jumbotron {
+  background-image: url(https://images.unsplash.com/photo-1529699211952-734e80c4d42b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.change-z {
+  z-index: -1;
+  padding-top: 20px;
 }
