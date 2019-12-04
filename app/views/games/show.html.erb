@@ -1,13 +1,5 @@
 <br/>
 <br/>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-danger btn-lg col-2 offset-3" data-toggle="modal" data-target="#forfeitModal">
-  Forfeit Game
-</button>
-<br/>
-<br/>
-<br/>
-
 
 <!-- Forfeit Modal -->
 <div class="modal fade" id="forfeitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -31,27 +23,15 @@
   </div>
 </div>
 
-<div class="check col-2 offset-3">
-    <% if @game.in_check?(true) %>
-        White is in check!
-        <br/>
-        <br/>
-    <% end %>
-    <% if @game.in_check?(false) %>
-        Black is in check!
-        <br/>
-        <br/>
-    <% end %>
-</div>
+<div class="row">
 
-
-<div class="col-10 center offset-1 game" data-game-id=<%=@game.id %>>
+<div class="col-4 offset-1 center game" data-game-id="<%=@game.id %>">
     <table id="chessboard">
         <tbody>
             <% [8,7,6,5,4,3,2,1].each do |row| %>
             <tr>
                 <% (1..8).each do |col| %>
-                <td data-x_position=<%=col %> data-y_position =
+                <td data-x_position="<%=col %>" data-y_position =
                     <%= row%>
                     <% if (col + row).odd? %>
                     class="droppable white"
@@ -65,7 +45,7 @@
                     <% y = piece.y_position %>
                     <% htmlcode = piece.htmlcode %>
                     <% if x == col && y == row %>
-                    <div class="piece" data-x-coord=<%=col%> data-y-coord=
+                    <div class="piece" data-x-coord="<%=col%>" data-y-coord=
                         <%= row %> data-piece-id=
                         <%=piece.id%>
                         >
@@ -79,6 +59,27 @@
             <% end %>
         </tbody>
     </table>
+  </div>
+
+  <div class="check col-6">
+    <% if @game.in_check?(true) %>
+        White is in check!
+        <br/>
+        <br/>
+    <% end %>
+    <% if @game.in_check?(false) %>
+        Black is in check!
+        <br/>
+        <br/>
+    <% end %>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#forfeitModal">
+      Forfeit Game
+    </button>
+    <br/>
+    <br/>
+    <br/>
+  </div>
 
 </div>
 <br/>

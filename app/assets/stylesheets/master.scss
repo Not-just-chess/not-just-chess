@@ -1,5 +1,10 @@
 @import "bootstrap";
 
+html {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 .top-nav {
   background-color: white;
   border-bottom-color: #edeeee;
@@ -31,6 +36,7 @@
   width: 690px;
   height: 690px;
   border: 25px solid #333;
+  margin-top: 0;
 }
 
 table td {
