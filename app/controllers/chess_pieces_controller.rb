@@ -11,6 +11,7 @@ class ChessPiecesController < ApplicationController
 
     if @chess_piece.move_to!([params[:x_position], params[:y_position]])
       @chess_piece.update(chess_piece_params)
+      return false unless current_user.id == @chess_piece.game.turn_player_id
 
       next_turn = if @game.turn_player_id == @game.white_player_id
                     @game.black_player_id

@@ -22,7 +22,6 @@ class ChessPiece < ApplicationRecord
     # return false unless game.turn_player_id == current_user.id
 
     byebug
-    puts current_user.id
     # return false unless game.turn_player_id == current_user.id
 
     x2 = destination[0].to_i
