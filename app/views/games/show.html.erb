@@ -49,7 +49,7 @@
     </div>
 
     <div class="row">
-    <div class="col-4 center offset-1 game" data-game-id=<%=@game.id %>>
+    <div class="col-4 center offset-1 game" data-game=<%= @game %> data-game-id=<%=@game.id %>>
         <table id="chessboard">
             <tbody>
                 <% [8,7,6,5,4,3,2,1].each do |row| %>
@@ -116,6 +116,7 @@
             snap: '.droppable',
             revert: 'invalid'
         });
+
         $('.droppable').droppable({
             drop: function(event, ui) {
                 let piece = ui.draggable
@@ -127,6 +128,7 @@
                     x_position: destination_square.data('x_position'),
                     y_position: destination_square.data('y_position')
                 };
+
                 $.ajax({
                     type: 'PATCH',
                     url: '/chess_pieces/' + update_piece.id,
@@ -138,6 +140,7 @@
                         x_position: update_piece.x_position,
                         y_position: update_piece.y_position
                     },
+
                     success: function(data) {
                         destination_square.empty();
                         location.reload(true);
