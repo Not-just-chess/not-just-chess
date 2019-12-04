@@ -57,6 +57,18 @@
     </table>
   </div>
   <div class="check col-6 change-z">
+    <br/>
+    <br/>
+    <% players(@game) %>
+    <%= "It is #{@turn_player.email}'s turn!" %>
+    <br/>
+    <br/>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#forfeitModal">
+      Forfeit Game
+    </button>
+    <br/>
+    <br/>
     <% if @game.in_check?(true) %>
         White is in check!
         <br/>
@@ -67,12 +79,6 @@
         <br/>
         <br/>
     <% end %>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#forfeitModal">
-      Forfeit Game
-    </button>
-    <br/>
-    <br/>
     <br/>
   </div>
 </div>
