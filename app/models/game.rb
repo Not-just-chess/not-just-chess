@@ -43,7 +43,7 @@ class Game < ApplicationRecord
   end
 
   def in_check?(color)
-    king = chess_pieces.find_by(type: 'King', color: [true, false])
+    king = chess_pieces.find_by(type: 'King', color: color)
     king_x = king.x_position
     king_y = king.y_position
     destination = [king_x, king_y]
