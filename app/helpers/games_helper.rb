@@ -1,12 +1,14 @@
 # Games Helper
 module GamesHelper
-  attr_accessor :pieces, :current_player
+  attr_accessor :pieces, :white_player, :black_player, :turn_player
 
   def render_piece(game)
     @pieces = ChessPiece.where(game_id: game.id)
   end
 
-  def current_user
-    @current_player = current_user
+  def players(game)
+    @white_player = User.where(id: game.white_player_id).first
+    @black_player = User.where(id: game.black_player_id).first
+    @turn_player = User.where(id: game.turn_player_id).first
   end
 end
