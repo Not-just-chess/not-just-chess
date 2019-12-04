@@ -19,7 +19,7 @@ class Knight < ChessPiece
     x2 = destination[0].to_i
     y2 = destination[1].to_i
 
-    if(x_position != nil)
+    unless x_position.nil?
       @moves.each do |move|
         move[0] += x_position
         move[1] += y_position

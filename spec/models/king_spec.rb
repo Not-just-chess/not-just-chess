@@ -36,17 +36,17 @@ RSpec.describe King, type: :model do
       ChessPiece.where(game_id: game.id, type: 'Knight').destroy_all
       piece = King.last
 
-      #check if can castle
+      # check if can castle
       piece.can_castle?(7, 8)
       expect(true)
 
       piece.can_castle?(3, 8)
       expect(true)
 
-      piece.can_castle?(7,7)
+      piece.can_castle?(7, 7)
       expect(false)
 
-      piece.can_castle?(6,8)
+      piece.can_castle?(6, 8)
       expect(false)
     end
   end
