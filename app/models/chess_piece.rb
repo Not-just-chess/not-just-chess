@@ -16,6 +16,11 @@ class ChessPiece < ApplicationRecord
   def move_to!(destination)
     x1 = x_position
     y1 = y_position
+
+    byebug
+    puts current_user.id
+    # return false unless game.turn_player_id == current_user.id
+
     x2 = destination[0].to_i
     y2 = destination[1].to_i
     space = find_piece(x2, y2).first
