@@ -19,9 +19,11 @@ class Knight < ChessPiece
     x2 = destination[0].to_i
     y2 = destination[1].to_i
 
-    @moves.each do |move|
-      move[0] += x_position
-      move[1] += y_position
+    if(x_position != nil)
+      @moves.each do |move|
+        move[0] += x_position
+        move[1] += y_position
+      end
     end
 
     return false if off_board?(x2, y2)
