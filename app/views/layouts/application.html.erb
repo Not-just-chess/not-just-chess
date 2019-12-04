@@ -8,16 +8,17 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:400,100,300,600,700' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
   </head>
 
   <body>
-    <div class="top-nav">
-      <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
-        <div class="brand  float-left">
+    <div class="top-nav row">
+      <div class="col-7">
+        <div class="brand">
           <%= link_to 'Not-just-chess', root_path, class: 'brand' %>
         </div>
-        <div class="add float-right">
+      </div>
+        <div class="add col-5">
           <% if current_user %>
             Welcome, <%= current_user.email %>
             <%= link_to "Start New Game", new_game_path %>
@@ -29,8 +30,6 @@
 
           <% end %>
         </div>
-
-      </div>
       <br class="clear-fix" />
     </div>
 

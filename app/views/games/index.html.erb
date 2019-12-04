@@ -1,13 +1,21 @@
-<h1>Welcome to Not-Just-Chess</h1>
+<div class="index container">
+  <header class='jumbotron'>
+    <div class="container">
+      <h1>Welcome to Not-Just-Chess</h1>
+    </div>
+  </header>
 
-<br/><br/>
-<% if @games %>
-  <h2>Available Games to Join:</h2>
-  <%= @games.each do |game| %>
-    <div>
-     <h3><%= link_to "Join Game ##{game.id}", game_path(game.id), method: :patch %></h3>
-    <div>
-  <% end %>
-<% else %>
-  <h2> No available games found. Please start a new game to proceed </h2>
-<% end %> 
+  <br/>
+  <div class="games">
+    <% if @games %>
+      <h2>Available Games to Join:</h2>
+      <% @games.each do |game| %>
+        <div>
+        <h3><%= link_to "Join Game ##{game.id}", game_path(game.id), method: :patch %></h3>
+        <div>
+      <% end %>
+    <% else %>
+      <h2> No available games found. Please start a new game to proceed </h2>
+    <% end %> 
+  </div>
+</div>
