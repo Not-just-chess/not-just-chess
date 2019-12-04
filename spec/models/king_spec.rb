@@ -12,7 +12,16 @@ RSpec.describe King, type: :model do
       piece.valid_move?([5, 7])
       expect(true)
 
+      piece.valid_move?([4, 7])
+      expect(true)
+
+      piece.valid_move?([6, 7])
+      expect(true)
+
       piece.valid_move?([7, 6])
+      expect(false)
+
+      piece.valid_move?([5, 9])
       expect(false)
     end
   end
@@ -31,7 +40,13 @@ RSpec.describe King, type: :model do
       piece.can_castle?(7, 8)
       expect(true)
 
+      piece.can_castle?(3, 8)
+      expect(true)
+
       piece.can_castle?(7,7)
+      expect(false)
+
+      piece.can_castle?(6,8)
       expect(false)
     end
   end

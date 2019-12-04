@@ -70,8 +70,8 @@ class ChessPiece < ApplicationRecord
   end
 
   def not_at_destination
-    @x_move.send(@x_dir.positive? ? '<=' : '>=', @x2) ||
-      @y_move.send(@y_dir.positive? ? '<=' : '>=', @y2)
+    @x_move.send(@x_dir.positive? ? '<' : '>', @x2) ||
+    @y_move.send(@y_dir.positive? ? '<' : '>', @y2)
   end
 
   def selected(piece, chess_piece)

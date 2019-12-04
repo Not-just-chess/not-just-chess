@@ -36,7 +36,8 @@
         White is in check!
         <br/>
         <br/>
-    <% elsif @game.in_check?(false) %>
+    <% end %>
+    <% if @game.in_check?(false) %>
         Black is in check!
         <br/>
         <br/>
