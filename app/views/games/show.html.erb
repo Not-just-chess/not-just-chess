@@ -1,131 +1,143 @@
-<!-- Forfeit Modal -->
-<div class="modal fade" id="forfeitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+  </head>
+
+  <body>
+    <!-- Forfeit Modal -->
+    <div class="modal fade" id="forfeitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <%= simple_form_for @game, url: forfeit_game_path(@game.id) do |f| %>
+            <div class="modal-body">
+              Are you sure you want to forfeit?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <%= f.submit "Forfeit Game", class: 'btn btn-dark' %>
+            </div>
+          <% end %>
+        </div>
       </div>
-      <%= simple_form_for @game, url: forfeit_game_path(@game.id) do |f| %>
-        <div class="modal-body">
-          Are you sure you want to forfeit?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <%= f.submit "Forfeit Game", class: 'btn btn-dark' %>
-        </div>
-      <% end %>
     </div>
-  </div>
-</div>
 
-<div class="row">
-<div class="col-4 center offset-1 game" data-game-id=<%=@game.id %>>
-    <table id="chessboard">
-        <tbody>
-            <% [8,7,6,5,4,3,2,1].each do |row| %>
-            <tr>
-                <% (1..8).each do |col| %>
-                <td data-x_position=<%=col %> data-y_position =
-                    <%= row%>
-                    <% if (col + row).odd? %>
-                    class="droppable white"
-                    <% else %>
-                    class=" droppable black"
-                    <% end %>
-                    >
-                    <% render_piece(@game) %>
-                    <% @pieces.each do |piece| %>
-                    <% x = piece.x_position %>
-                    <% y = piece.y_position %>
-                    <% htmlcode = piece.htmlcode %>
-                    <% if x == col && y == row %>
-                    <div class="piece" data-x-coord=<%=col%> data-y-coord=
-                        <%= row %> data-piece-id=
-                        <%=piece.id%>
+    <div class="row">
+    <div class="col-4 center offset-1 game" data-game=<%= @game %> data-game-id=<%=@game.id %>>
+        <table id="chessboard">
+            <tbody>
+                <% [8,7,6,5,4,3,2,1].each do |row| %>
+                <tr>
+                    <% (1..8).each do |col| %>
+                    <td data-x_position=<%=col %> data-y_position =
+                        <%= row%>
+                        <% if (col + row).odd? %>
+                        class="droppable white"
+                        <% else %>
+                        class=" droppable black"
+                        <% end %>
                         >
-                        <%=  piece.htmlcode.html_safe  %>
-                    </div>
+                        <% render_piece(@game) %>
+                        <% @pieces.each do |piece| %>
+                        <% x = piece.x_position %>
+                        <% y = piece.y_position %>
+                        <% htmlcode = piece.htmlcode %>
+                        <% if x == col && y == row %>
+                        <div class="piece" data-x-coord=<%=col%> data-y-coord=
+                            <%= row %> data-piece-id=
+                            <%=piece.id%>
+                            >
+                            <%=  piece.htmlcode.html_safe  %>
+                        </div>
+                        <% end %>
+                        <% end %>
+                    </td>
                     <% end %>
-                    <% end %>
-                </td>
+                </tr>
                 <% end %>
-            </tr>
-            <% end %>
-        </tbody>
-    </table>
-  </div>
-  <div class="check col-6 change-z">
-    <br/>
-    <br/>
-    <% players(@game) %>
-    <%= "It is #{@turn_player.email}'s turn!" %>
-    <br/>
-    <br/>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#forfeitModal">
-      Forfeit Game
-    </button>
-    <br/>
-    <br/>
-    <% if @game.in_check?(true) %>
-        White is in check!
+            </tbody>
+        </table>
+      </div>
+      <div class="check col-6 change-z">
         <br/>
         <br/>
-    <% end %>
-    <% if @game.in_check?(false) %>
-        Black is in check!
+        <% players(@game) %>
+        <%= "White Player: #{@white_player.email}" %>
+        <br/>
+        <%= "Black Player: #{@black_player.email}" %>
         <br/>
         <br/>
-    <% end %>
-    <br/>
-  </div>
-</div>
+        <%= "It is #{@turn_player.email}'s turn!" %>
+        <br/>
+        <br/>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#forfeitModal">
+          Forfeit Game
+        </button>
+        <br/>
+        <br/>
+        <% if @game.in_check?(true) %>
+            White is in check!
+            <br/>
+            <br/>
+        <% end %>
+        <% if @game.in_check?(false) %>
+            Black is in check!
+            <br/>
+            <br/>
+        <% end %>
+        <br/>
+      </div>
+    </div>
 
-<script>
-$(document).ready($(function() {
-    $('.piece').draggable({
-        snap: '.droppable',
-        revert: 'invalid'
-    });
+    <script>
+    $(document).ready($(function() {
+        $('.piece').draggable({
+            snap: '.droppable',
+            revert: 'invalid'
+        });
 
-    $('.droppable').droppable({
-        drop: function(event, ui) {
-            let piece = ui.draggable
-            let destination_square = $(this);
-            console.log($(this));
-            var update_piece = {
-                id: piece.data('piece-id'),
-                game_id: piece.data('game-id'),
-                x_position: destination_square.data('x_position'),
-                y_position: destination_square.data('y_position')
+        $('.droppable').droppable({
+            drop: function(event, ui) {
+                let piece = ui.draggable
+                let destination_square = $(this);
+                console.log($(this));
+                var update_piece = {
+                    id: piece.data('piece-id'),
+                    game_id: piece.data('game-id'),
+                    x_position: destination_square.data('x_position'),
+                    y_position: destination_square.data('y_position')
+                };
 
+                $.ajax({
+                    type: 'PATCH',
+                    url: '/chess_pieces/' + update_piece.id,
+                    beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')) },
+                    dataType: 'json',
+                    data: {
+                        id: update_piece.id,
+                        game_id: update_piece.game_id,
+                        x_position: update_piece.x_position,
+                        y_position: update_piece.y_position
+                    },
 
+                    success: function(data) {
+                        destination_square.empty();
+                        location.reload(true);
+                    }
+                });
             }
-
-
-
-
-            $.ajax({
-                type: 'PATCH',
-                url: '/chess_pieces/' + update_piece.id,
-                beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')) },
-                dataType: 'json',
-                data: {
-                    id: update_piece.id,
-                    game_id: update_piece.game_id,
-                    x_position: update_piece.x_position,
-                    y_position: update_piece.y_position
-                },
-                success: function(data) {
-                    destination_square.empty();
-                    location.reload(true);
-                }
-            });
-
-        }
-    });
-
-}));
-</script>
+        });
+    }));
+    </script>
+  </body>
+</html>
