@@ -14,9 +14,12 @@ class ChessPiece < ApplicationRecord
   scope :pawns, -> { where(type: 'Pawn') }
 
   def move_to!(destination)
+<<<<<<< HEAD
     x1 = x_position
     y1 = y_position
 
+=======
+>>>>>>> turn logic controller
     x2 = destination[0].to_i
     y2 = destination[1].to_i
     space = find_piece(x2, y2).first
