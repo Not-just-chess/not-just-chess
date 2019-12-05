@@ -86,7 +86,6 @@
       </div>
       <div class="check col-6 change-z">
         <br/>
-        <br/>
         <% players(@game) %>
         <%= "White Player: #{@white_player.email}" %>
         <br/>
@@ -127,7 +126,7 @@
                     game_id: piece.data('game-id'),
                     x_position: destination_square.data('x_position'),
                     y_position: destination_square.data('y_position')
-                }
+                };
 
                 $.ajax({
                     type: 'PATCH',
@@ -140,6 +139,7 @@
                         x_position: update_piece.x_position,
                         y_position: update_piece.y_position
                     },
+
                     success: function(data) {
                         destination_square.empty();
                         location.reload(true);
@@ -149,3 +149,5 @@
         });
     }));
     </script>
+  </body>
+</html>
