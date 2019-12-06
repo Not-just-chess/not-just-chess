@@ -14,6 +14,8 @@ class ChessPiece < ApplicationRecord
   scope :pawns, -> { where(type: 'Pawn') }
 
   def move_to!(destination)
+    x1 = x_position
+    y1 = y_position
     x2 = destination[0].to_i
     y2 = destination[1].to_i
     space = find_piece(x2, y2).first
@@ -28,6 +30,10 @@ class ChessPiece < ApplicationRecord
     else
       return false
     end
+    return true unless game.in_check?(color)
+
+    update_attributes(x_position: x1, y_position: y1)
+    false
   end
 
   def find_piece(x_position, y_position)
