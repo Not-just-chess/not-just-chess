@@ -30,10 +30,10 @@ class ChessPiece < ApplicationRecord
     else
       return false
     end
-    if game.in_check?(color)
-      update_attributes(x_position: x1, y_position: y1) 
-      return false
-    end
+    return true unless game.in_check?(color)
+
+    update_attributes(x_position: x1, y_position: y1)
+    false
   end
 
   def find_piece(x_position, y_position)
@@ -77,7 +77,7 @@ class ChessPiece < ApplicationRecord
 
   def not_at_destination
     @x_move.send(@x_dir.positive? ? '<' : '>', @x2) ||
-    @y_move.send(@y_dir.positive? ? '<' : '>', @y2)
+      @y_move.send(@y_dir.positive? ? '<' : '>', @y2)
   end
 
   def selected(piece, chess_piece)
