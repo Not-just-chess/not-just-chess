@@ -20,6 +20,31 @@
   </div>
 </div>
 
+  <!-- Button trigger modal -->
+    <br />
+    <button type="button" class="btn btn-danger btn-lg offset-6" data-toggle="modal" data-target="#forfeitModal">
+      Forfeit Game
+    </button>
+    <br/>
+    <br />
+<div>
+    <% if @game.in_check?(true) %>
+      <div class="check alert alert-danger col-3 center offset-4 game">
+        <%=flash[:white_check] %>
+        <br/>
+        <br/>
+      <% end %>
+      </div>
+    <% if @game.in_check?(false) %>
+      <div class="check alert alert-danger col-3 center offset-4 game">
+        <%=flash[:black_check] %>
+        <br/>
+        <br/>
+      <% end %>
+      </div>
+</div>
+
+<div class="col-10 center offset-1 game" data-game-id=<%=@game.id %>>
 <div class="row">
 <div class="col-4 center offset-1 game" data-game-id=<%=@game.id %>>
     <table id="chessboard">
@@ -56,26 +81,6 @@
         </tbody>
     </table>
   </div>
-  <div class="check col-6 change-z">
-    <% if @game.in_check?(true) %>
-        White is in check!
-        <br/>
-        <br/>
-    <% end %>
-    <% if @game.in_check?(false) %>
-        Black is in check!
-        <br/>
-        <br/>
-    <% end %>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#forfeitModal">
-      Forfeit Game
-    </button>
-    <br/>
-    <br/>
-    <br/>
-  </div>
-</div>
 
 <script>
 $(document).ready($(function() {
