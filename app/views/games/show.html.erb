@@ -115,7 +115,6 @@
             snap: '.droppable',
             revert: 'invalid'
         });
-
         $('.droppable').droppable({
             drop: function(event, ui) {
                 let piece = ui.draggable
@@ -127,7 +126,6 @@
                     x_position: destination_square.data('x_position'),
                     y_position: destination_square.data('y_position')
                 };
-
                 $.ajax({
                     type: 'PATCH',
                     url: '/chess_pieces/' + update_piece.id,
@@ -139,7 +137,6 @@
                         x_position: update_piece.x_position,
                         y_position: update_piece.y_position
                     },
-
                     success: function(data) {
                         destination_square.empty();
                         location.reload(true);
