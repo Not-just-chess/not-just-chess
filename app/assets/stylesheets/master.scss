@@ -37,6 +37,7 @@ html {
   height: 690px;
   border: 25px solid #333;
   margin-top: 0;
+  position: absolute;
 }
 
 table td {
@@ -92,7 +93,7 @@ a {
 }
 
 .check {
-  font-size: 20;
+  font-size: 26;
   font-weight: bold;
   text-align: center;
   vertical-align: middle;
