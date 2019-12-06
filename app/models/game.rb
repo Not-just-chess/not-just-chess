@@ -3,6 +3,7 @@ class Game < ApplicationRecord
   belongs_to :user
   delegate :kings, :queens, :knights, :rooks, :bishops, :pawns, to: :chess_pieces
   scope :available, -> { where(black_player_id: nil) }
+  scope :active, -> { where(forfeited: false) }
 
   def populate_game
     @game = Game.last
