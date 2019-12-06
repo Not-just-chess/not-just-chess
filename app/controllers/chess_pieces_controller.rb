@@ -7,6 +7,7 @@ class ChessPiecesController < ApplicationController
   def update
     @chess_piece = ChessPiece.find_by_id(params[:id])
     @game = @chess_piece.game
+
     return false if @game.turn_player_id != current_user.id
 
     if @chess_piece.move_to!([params[:x_position], params[:y_position]])
