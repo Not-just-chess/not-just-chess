@@ -67,16 +67,20 @@
             </tbody>
         </table>
       </div>
-      <div class="check col-6 change-z">
+      <div class="check col-6 offset-1 change-z">
         <br/>
         <br/>
         <% players(@game) %>
         <%= "White Player: #{@white_player.email}" %>
         <br/>
-        <%= "Black Player: #{@black_player.email}" %>
-        <br/>
-        <br/>
-        <%= "It is #{@turn_player.email}'s turn!" %>
+        <% if @black_player %>
+            <%= "Black Player: #{@black_player.email}" %>
+            <br/>
+            <br/>
+            <%= "It is #{@turn_player.email}'s turn!" %>
+        <% else %>
+            <%= "Black Player: Awaiting opponent assignment" %>
+        <% end %>
         <br/>
         <br/>
         <!-- Button trigger modal -->
