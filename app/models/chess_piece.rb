@@ -62,12 +62,14 @@ class ChessPiece < ApplicationRecord
     @x_move = x_position
     @y_move = y_position
 
+    chess_pieces = ChessPiece.where(game_id: game_id)
+    possible_blockers = chess_pieces.reject { |cp| cp.x_position.nil? }
+
     while not_at_destination
       @x_move = x_position + @x_dir
       @y_move = y_position + @y_dir
 
-      blocker = ChessPiece.where(game_id: game_id, x_position: @x_move, y_position: @y_move, captured: nil).count
-
+      blocker = possible_blockers.select { |piece| piece.x_position == @x_move && piece.y_position == @y_move }.count
       return false if blocker.zero?
 
       return true
