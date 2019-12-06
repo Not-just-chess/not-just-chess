@@ -19,10 +19,6 @@ RSpec.describe ChessPiecesController, type: :controller do
       expect(@k.y_position).to eq 5
     end
 
-    let :next_player do
-      { turn_player_id: @user2.id }
-    end
-
     it 'should update turn_player_id to opposite player' do
       chess_piece = Pawn.create(x_position: 8, y_position: 2, game_id: @g.id)
       next_player_turn = @g.turn_player_id == @user1.id ? @user2.id : @user1.id
