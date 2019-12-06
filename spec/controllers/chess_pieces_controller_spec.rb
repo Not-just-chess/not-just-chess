@@ -20,7 +20,8 @@ RSpec.describe ChessPiecesController, type: :controller do
     end
 
     it 'should update turn_player_id to opposite player' do
-      chess_piece = Pawn.create(x_position: 8, y_position: 2, game_id: @g.id)
+      @g.populate_game
+      chess_piece = Pawn.where(x_position: 8, y_position: 2, game_id: @g.id).first
       next_player_turn = @g.turn_player_id == @user1.id ? @user2.id : @user1.id
 
       expect(@g.turn_player_id).to eq(@user1.id)
