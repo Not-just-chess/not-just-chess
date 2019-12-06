@@ -7,6 +7,8 @@ class ChessPiecesController < ApplicationController
 
     @chess_piece.update(chess_piece_params) if @chess_piece.move_to!([params[:x_position], params[:y_position]])
 
+    #@chess_piece.update(chess_piece_params) if @chess_piece.pawn_promotion([params[:x_position], params[:y_position]])
+
     respond_to do |format|
       format.html { render :show }
       format.json { render json: @chess_piece, status: :ok }
