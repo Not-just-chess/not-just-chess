@@ -223,6 +223,7 @@ RSpec.describe GamesController, type: :controller do
       game.forfeit_game(user2)
       expect(game.forfeited).to eq(true)
       expect(game.winner).to eq(user1.id)
+      expect(game.loser).to eq(user2.id)
     end
   end
 end
