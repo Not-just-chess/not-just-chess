@@ -2,18 +2,18 @@ module UsersHelper
   attr_accessor :active_games, :prev_games
 
   def user_active_games(user)
-    @active_games = Game.all
-    @active_games.reject do |game|
+    games = Game.all
+    @active_games = games.reject do |game|
       (game.white_player_id != user.id || game.black_player_id != user.id) &&
-        (game.winner.nil? || game.loser.nil? || game.draw.zero?)
+        (!game.loser.nil? || game.draw || game.forfeited)
     end
   end
 
   def user_prev_games(user)
-    @prev_games = Game.all
-    @prev_games.reject do |game|
+    games = Game.all
+    @prev_games = games.reject do |game|
       (game.white_player_id != user.id || game.black_player_id != user.id) &&
-        (!game.winner.nil? || !game.loser.nil? || game.draw == 1)
+        (!game.draw && !game.forfeited && game.loser.nil?)
     end
   end
 end

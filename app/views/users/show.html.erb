@@ -1,3 +1,4 @@
+<br/>
 <div class="booyah-box">
   <div class ="row">
     <div class="col-5 offset-1 info">
@@ -49,14 +50,16 @@
     <div class="col-4 offset-1 past-games">
       <h2>Previous Games:</h2>
       <% user_prev_games(@user) %>
-      <% @prev_games.each do |game| %>
-        Game ID: <%= game.id %>
+      <% prev_games.each do |pg| %>
+        Game ID: <%= pg.id %>
         <br/>
         Status: 
-        <% if game.turn_player_id == @user.id %>
-          Your turn
+        <% if pg.forfeited %>
+          Forfeited
+        <% elsif pg.draw %>
+          Stalemate
         <% else %>
-          Awaiting opponent
+          Game Over
         <% end %>
         <br/>
       <% end %>
