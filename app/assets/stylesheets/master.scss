@@ -174,3 +174,51 @@ a {
   font-weight: bold;
   font-family: 'Happy Monkey', cursive;
 }
+
+.avatar {
+  text-decoration:none;
+  background:#36bed4;
+  color:#36bed4;
+  position:relative;
+  padding-left:55px;
+  width:150px;
+  height:200px;
+  border-radius:250px;
+  display:block;
+  line-height:240%;
+  overflow:hidden;
+}
+.avatar:before, .avatar:after {
+  position:absolute;
+  color:#36bed4;
+  background:white;
+  box-shadow:0 0 10px 0px rgba(0,0,0,0.2);
+}
+.avatar:before {
+  content: "\00a0";
+  border: 0px solid white;
+  border-radius: 75px;
+  top: 20px;
+  left: 43%;
+  height: 100px;
+  width: 100px;
+  line-height: 70%;
+  font-size: 44px;
+  font-weight: normal;
+  text-indent: -1px;
+  margin-left: -25%;
+  z-index:5;
+}
+.avatar:after {
+  content: "\00a0";
+  border-radius: 20px;
+  top: 115px;
+  left: 43%;
+  width: 100px;
+  height: 103px;
+  text-align: center;
+  font-size: 33px;
+  font-weight: bold;
+  line-height: 130%;
+  margin-left: -25%;
+}
