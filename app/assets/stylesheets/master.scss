@@ -1,8 +1,15 @@
 @import "bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Happy+Monkey&display=swap');
 
 html {
   overflow-x: hidden;
   max-width: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background: #DCDCDC;
 }
 
 .top-nav {
@@ -146,4 +153,29 @@ a {
 .change-z {
   z-index: -1;
   padding-top: 20px;
+}
+
+.booyah-box {
+  -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
+  -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
+  box-shadow: 1px 1px 2px 0 #d0d0d0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  margin-left: 150px;
+  margin-right: 150px;
+  padding: 10px;
+  font-family: 'Happy Monkey', cursive;
+}
+
+.booyah-box h2 {
+  font-weight: bold;
+  font-family: 'Happy Monkey', cursive;
+}
+
+.booyah-box h1 {
+  font-weight: bold;
+  font-family: 'Happy Monkey', cursive;
 }

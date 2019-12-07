@@ -1,8 +1,66 @@
-<br/>
-Wins: <%= @user.wins %>
-<br/>
-<br/>
-Losses: <%= @user.losses %>
-<br/>
-<br/>
-Draws: <%= @user.draws %>
+<div class="booyah-box">
+  <div class ="row">
+    <div class="col-5 offset-1 info">
+      <h1>User Information:</h1>
+      <hr>
+      Email: <%= @user.email %>
+      <br/>
+      Joined: <%= @user.created_at.strftime('%m-%d-%Y') %>
+    </div>
+
+    <div class="col-4 offset-1 stats">
+      <h1>Stats:</h1>
+      <hr>
+      Wins: <%= @user.wins %>
+      <br/>
+      <br/>
+      Losses: <%= @user.losses %>
+      <br/>
+      <br/>
+       Draws: <%= @user.draws %>
+    </div>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+<div class="booyah-box">
+  <div class="row">
+    <div class="col-11 offset-1 history center">
+      <h1> Game History:</h1>
+      <hr>
+    </div>
+    <div class="col-5 offset-1 active-games">
+      <h2>Active Games:</h2>
+      <% user_active_games(@user) %>
+      <% active_games.each do |ag| %>
+        Game ID: <%= ag.id %>
+        <br/>
+        Status: 
+        <% if ag.turn_player_id == @user.id %>
+          Your turn
+        <% else %>
+          Awaiting opponent
+        <% end %>
+        <br/>
+      <% end %>
+    </div>
+
+    <div class="col-4 offset-1 past-games">
+      <h2>Previous Games:</h2>
+      <% user_prev_games(@user) %>
+      <% @prev_games.each do |game| %>
+        Game ID: <%= game.id %>
+        <br/>
+        Status: 
+        <% if game.turn_player_id == @user.id %>
+          Your turn
+        <% else %>
+          Awaiting opponent
+        <% end %>
+        <br/>
+      <% end %>
+    </div>
+  </div>
+</div>
+
