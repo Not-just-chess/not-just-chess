@@ -46,6 +46,7 @@
                         data-y-coord=<%=row%> 
                         data-piece-id=<%=piece.id%> 
                         data-piece-type=<%=piece.type%>
+                        data-color=<%=piece.color%>
                         >
                         <%=  piece.htmlcode.html_safe  %>
                     </div>
@@ -87,19 +88,19 @@
 <div id="pawnPromoteModal" class="modal">
 
   <!-- Modal content -->
-  <div class="modal-content">
+  <div id="promote_container" class="modal-content">
     <span class="close">&times;</span>
         <div id="queenSelection" class="promoteBtns">
-            <button id="queenBtn">Queen</button>
+            <button id="queenBtn" value="Queen" htmlcode="&#9813;">Queen</button>
         </div>
         <div id="bishopSelection" class="promoteBtns">
-            <button id="bishopBtn">Bishop</button>
+            <button id="bishopBtn" value="Bishop" htmlcode="&#9815;" >Bishop</button>
         </div>
         <div id="rookSelection" class="promoteBtns">
-            <button id="rookBtn">Rook</button>
+            <button id="rookBtn" value="Rook" htmlcode="&#9814;">Rook</button>
         </div>
         <div id="knightSelection" class="promoteBtns">
-            <button id="knightBtn">Knight</button>
+            <button id="knightBtn" value="Knight" htmlcode="&#9816;">Knight</button>
         </div>
   </div>
 </div>
