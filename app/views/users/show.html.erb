@@ -35,7 +35,7 @@
       <h2>Active Games:</h2>
       <% user_active_games(@user) %>
       <% active_games.each do |ag| %>
-        Game ID: <%= ag.id %>
+        <%= link_to "Game ID: #{ag.id}", game_path(ag.id)%>
         <br/>
         Status: 
         <% if ag.turn_player_id == @user.id %>
