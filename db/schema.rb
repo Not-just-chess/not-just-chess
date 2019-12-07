@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_191_204_052_145) do
+ActiveRecord::Schema.define(version: 20_191_206_041_253) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -43,7 +43,11 @@ ActiveRecord::Schema.define(version: 20_191_204_052_145) do
     t.boolean 'checkmate', default: false
     t.boolean 'forfeited', default: false
     t.integer 'turn_player_id'
+    t.integer 'loser'
+    t.boolean 'draw'
     t.index ['black_player_id'], name: 'index_games_on_black_player_id'
+    t.index ['draw'], name: 'index_games_on_draw'
+    t.index ['loser'], name: 'index_games_on_loser'
     t.index ['turn_player_id'], name: 'index_games_on_turn_player_id'
     t.index ['user_id'], name: 'index_games_on_user_id'
     t.index ['white_player_id'], name: 'index_games_on_white_player_id'

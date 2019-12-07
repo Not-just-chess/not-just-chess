@@ -30,4 +30,16 @@ class User < ApplicationRecord
     )
     user
   end
+
+  def wins
+    @win_count = Game.where(winner: id).count
+  end
+
+  def losses
+    @loss_count = Game.where(loser: id).count
+  end
+
+  def draws
+    @draw_count = Game.where(draw: true).count
+  end
 end

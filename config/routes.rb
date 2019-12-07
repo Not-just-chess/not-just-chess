@@ -6,4 +6,5 @@ Rails.application.routes.draw do
     patch :forfeit, on: :member
   end
   resources :chess_pieces, only: [:new, :create, :show, :update]
+  resources :users, only: :show
 end
