@@ -82,7 +82,7 @@ $(document).ready(function() {
                 },
                 success: function(data) {
                     destination_square.empty();
-                    // location.reload(true);
+                    location.reload(true);
                 }
             })
           })
@@ -100,7 +100,7 @@ $(document).ready(function() {
               },
               success: function(data) {
                   destination_square.empty();
-                  // location.reload(true);
+                  location.reload(true);
               }
           });
         }
