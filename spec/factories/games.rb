@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :game do
-    id { 1 }
+    sequence :id do |n|
+      n + 1
+    end
 
     association :user
   end

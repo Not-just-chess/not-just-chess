@@ -1,8 +1,80 @@
 <br/>
-Wins: <%= @user.wins %>
-<br/>
-<br/>
-Losses: <%= @user.losses %>
-<br/>
-<br/>
-Draws: <%= @user.draws %>
+<div class="booyah-box">
+  <div class ="row">
+    <div class="col-11 offset-1 history center">
+      <h1>User Information:</h1>
+      <hr>
+    </div>
+    <div class="col-6 offset-1 info">
+      <div class ="row">
+        <div class="col-2">
+          <div class="avatar"></div>
+        </div>
+        <div class="col-2 offset-2">
+          <br/>
+          Email: <%= @user.email %>
+          <br/>
+          Joined: <%= @user.created_at.strftime('%m/%d/%Y') %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4 stats">
+      <h2>Stats:</h2>
+      Wins: <%= @user.wins %>
+      <br/>
+      Losses: <%= @user.losses %>
+      <br/>
+       Draws: <%= @user.draws %>
+       <br/>
+       Acitve Game Count: <%= user_active_games(@user).count %>
+       <br/>
+       Previous Game Count: <%= user_prev_games(@user).count %>
+    </div>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+<div class="booyah-box">
+  <div class="row">
+    <div class="col-11 offset-1 history center">
+      <h1>Game History:</h1>
+      <hr>
+    </div>
+    <div class="col-5 offset-1 active-games">
+      <h2>Active Games:</h2>
+      <% user_active_games(@user) %>
+      <% active_games.each do |ag| %>
+        <%= link_to "Game ID: #{ag.id}", game_path(ag.id)%>
+        <br/>
+        Status: 
+        <% if ag.turn_player_id == @user.id %>
+          Your turn
+        <% else %>
+          Awaiting opponent
+        <% end %>
+        <br/>
+      <% end %>
+    </div>
+
+    <div class="col-4 offset-1 past-games">
+      <h2>Previous Games:</h2>
+      <% user_prev_games(@user) %>
+      <% prev_games.each do |pg| %>
+        Game ID: <%= pg.id %>
+        <br/>
+        Status: 
+        <% if pg.forfeited %>
+          Forfeited
+        <% elsif pg.draw %>
+          Stalemate
+        <% else %>
+          Game Over
+        <% end %>
+        <br/>
+      <% end %>
+    </div>
+  </div>
+</div>
+
