@@ -31,10 +31,14 @@ class ChessPiece < ApplicationRecord
     else
       return false
     end
-    return true unless game.in_check?(color)
+    return true unless moving_into_check
 
     update_attributes(x_position: x1, y_position: y1)
     false
+  end
+
+  def moving_into_check
+    game.in_check?(color)
   end
 
   def find_piece(x_position, y_position)
