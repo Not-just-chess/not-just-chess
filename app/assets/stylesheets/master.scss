@@ -1,8 +1,15 @@
 @import "bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Happy+Monkey&display=swap');
 
 html {
   overflow-x: hidden;
   max-width: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background: #DCDCDC;
 }
 
 .top-nav {
@@ -143,7 +150,75 @@ a {
   background-repeat: no-repeat;
 }
 
-.change-z {
-  z-index: -1;
-  padding-top: 20px;
+.booyah-box {
+  -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
+  -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
+  box-shadow: 1px 1px 2px 0 #d0d0d0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  margin-left: 150px;
+  margin-right: 150px;
+  padding: 10px;
+  font-family: 'Happy Monkey', cursive;
+}
+
+.booyah-box h2 {
+  font-weight: bold;
+  font-family: 'Happy Monkey', cursive;
+}
+
+.booyah-box h1 {
+  font-weight: bold;
+  font-family: 'Happy Monkey', cursive;
+}
+
+.avatar {
+  text-decoration:none;
+  background:#36bed4;
+  color:#36bed4;
+  position:relative;
+  padding-left:55px;
+  width:150px;
+  height:200px;
+  border-radius:250px;
+  display:block;
+  line-height:240%;
+  overflow:hidden;
+}
+.avatar:before, .avatar:after {
+  position:absolute;
+  color:#36bed4;
+  background:white;
+  box-shadow:0 0 10px 0px rgba(0,0,0,0.2);
+}
+.avatar:before {
+  content: "\00a0";
+  border: 0px solid white;
+  border-radius: 75px;
+  top: 20px;
+  left: 43%;
+  height: 100px;
+  width: 100px;
+  line-height: 70%;
+  font-size: 44px;
+  font-weight: normal;
+  text-indent: -1px;
+  margin-left: -25%;
+  z-index:5;
+}
+.avatar:after {
+  content: "\00a0";
+  border-radius: 20px;
+  top: 115px;
+  left: 43%;
+  width: 100px;
+  height: 103px;
+  text-align: center;
+  font-size: 33px;
+  font-weight: bold;
+  line-height: 130%;
+  margin-left: -25%;
 }

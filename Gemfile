@@ -87,3 +87,5 @@ gem 'figaro'
 # Add Rails' inbuilt CSRF protection to the POST requests
 gem 'omniauth-rails_csrf_protection', '~> 0.1'
 gem 'jquery-ui-rails'
+
+
