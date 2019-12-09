@@ -8,7 +8,6 @@ $(document).ready(function() {
   });
 
   function canPromote() {
-    console.log(this);
     if (this.type === "Pawn" && this.y_position == 8 || this.y_position == 1)  
       return true;
     else
@@ -66,7 +65,6 @@ $(document).ready(function() {
           document.getElementById("pawnPromoteModal").style.display = "block"
           $('#promote_container button').click(function(e) {
           document.getElementById("pawnPromoteModal").style.display = "none"
-          console.log(chooseCode(update_piece))
             $.ajax({
                 type: 'PATCH',
                 url: '/chess_pieces/' + update_piece.id,
