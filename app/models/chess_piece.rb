@@ -41,6 +41,45 @@ class ChessPiece < ApplicationRecord
     ChessPiece.where(game_id: game_id, x_position: x_position, y_position: y_position)
   end
 
+  def can_be_captured?
+    capture_square = { x_position: x_position, y_position: y_position }
+    opponent_pieces = ChessPiece.where(game_id: game_id, color: !color)
+    opponent_pieces.each do |piece|
+      return true if piece.valid_move?(capture_square)
+    end
+    false
+  end
+
+  def can_be_obstructed?(king_location)
+    x2 = king_location[0]
+    y2 = king_location[1]
+
+    x_delta = x2 - x_position
+    y_delta = y2 - y_position
+
+    @x_dir = x_delta.zero? ? 0 : x_delta / x_delta.abs
+    @y_dir = y_delta.zero? ? 0 : y_delta / y_delta.abs
+
+    x3 = x_position + @x_dir
+    y3 = y_position + @y_dir
+
+    spaces = []
+
+    while x3 != x2 || y3 != y2
+      spaces << [x3,y3]
+      x3 += @x_dir
+      y3 += @y_dir
+    end
+
+    spaces.each do |space|
+      opponent_pieces = ChessPiece.where(game_id: game_id, color: !color)
+      opponent_pieces.each do |piece|
+        return true if piece.valid_move?(space)
+      end
+      false
+    end
+  end
+
   def capture_piece(x_position, y_position)
     target = if color == true
                find_piece(x_position, y_position).first

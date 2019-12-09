@@ -50,9 +50,22 @@ class Game < ApplicationRecord
     destination = [king_x, king_y]
     active_pieces = chess_pieces.reject { |cp| cp.x_position.nil? }
     active_pieces.each do |piece|
+      @capturing_piece = piece
       return true if piece.color != color && piece.valid_move?(destination)
     end
     false
+  end
+
+  def checkmate?(color)
+    if in_check?(color) === true
+      # If the king can move out of it, return false
+      king = chess_pieces.find_by(type: 'King', color: color)
+      if king.move_to!
+      # If the attacking piece can be obstructed, return false
+      return false if capturing_piece.can_be_obstructed?([king.x_position, king.y_position])
+      # If the attacking piece can be captured, return false
+      return false if capturing_piece.can_be_captured?
+    end
   end
 
   def forfeit_game(forfeiting_user)
