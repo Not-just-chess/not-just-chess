@@ -58,13 +58,19 @@ class Game < ApplicationRecord
 
   def checkmate?(color)
     if in_check?(color) === true
-      # If the king can move out of it, return false
       king = chess_pieces.find_by(type: 'King', color: color)
-      if king.move_to!
+      # If the king can move out of it, return false
+      @moves = [ [1, 1], [1, 0], [1, -1], [0, 1], [0, -1], [-1, 1], [-1, 0], [-1, -1] ]
+      @moves.each do |move|
+        return false if king.move_to!([x_position, y_position] + move) === true
+      end
       # If the attacking piece can be obstructed, return false
       return false if capturing_piece.can_be_obstructed?([king.x_position, king.y_position])
       # If the attacking piece can be captured, return false
       return false if capturing_piece.can_be_captured?
+
+      puts "Checkmate!"
+      true
     end
   end
 
