@@ -31,5 +31,4 @@ class Pawn < ChessPiece
     @can_capture = true if is_obstructed?([x2, y2]) && slope.abs == 1
     true
   end
-
 end
