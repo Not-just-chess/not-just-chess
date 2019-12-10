@@ -16,13 +16,16 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     @chess_pieces = @game.chess_pieces
-
+    flash.now[:stalemate] = 'You\'ve hit stalemate!' if @game.stalemate_check
+    
     flash.now[:white_check] = 'White King in check!' if @game.in_check?(true)
 
     flash.now[:black_check] = 'Black King in check!' if @game.in_check?(false)
 
-    return render_not_found if @game.blank?
+    return render_not_found if !@game
   end
+
+
 
   def index
     @games = Game.available&.active

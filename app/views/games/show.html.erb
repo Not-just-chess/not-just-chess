@@ -102,6 +102,11 @@
             <%= "Black Player: Awaiting opponent assignment" %>
         <% end %>
         <br/>
+        <% if @game.stalemate_check %>
+            <br/>
+            <%=flash[:stalemate] %>
+            <br/>
+        <% end %>
         <br/>
 
         <!-- Forfeit button trigger modal -->
@@ -114,7 +119,7 @@
       </div>
     </div>
 
-        <!-- Trigger/Open The Modal -->
+    <!-- Trigger/Open The Modal -->
     <button id="myBtn" style="display: none"></button>
 
     <!-- The Modal -->
@@ -138,3 +143,4 @@
       </div>
     </div>
   </body>
+</html>
