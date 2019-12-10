@@ -102,6 +102,11 @@
             <%= "Black Player: Awaiting opponent assignment" %>
         <% end %>
         <br/>
+        <% if @game.stalemate_check %>
+            <br/>
+            <%=flash[:stalemate] %>
+            <br/>
+        <% end %>
         <br/>
 
         <!-- Forfeit button trigger modal -->

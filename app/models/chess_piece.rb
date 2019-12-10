@@ -12,6 +12,7 @@ class ChessPiece < ApplicationRecord
   scope :knights, -> { where(type: 'Knight') }
   scope :bishops, -> { where(type: 'Bishop') }
   scope :pawns, -> { where(type: 'Pawn') }
+  scope :active, -> { where(captured: nil) }
 
   def move_to!(destination)
     x1 = x_position
