@@ -99,6 +99,11 @@
             <%= "Black Player: Awaiting opponent assignment" %>
         <% end %>
         <br/>
+        <% if @game.stalemate_check %>
+            <br/>
+            <%=flash[:stalemate] %>
+            <br/>
+        <% end %>
         <br/>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#forfeitModal">

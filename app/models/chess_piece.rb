@@ -12,6 +12,7 @@ class ChessPiece < ApplicationRecord
   scope :knights, -> { where(type: 'Knight') }
   scope :bishops, -> { where(type: 'Bishop') }
   scope :pawns, -> { where(type: 'Pawn') }
+  scope :active, -> { where(captured: nil) }
 
   def move_to!(destination)
     x1 = x_position
@@ -31,14 +32,10 @@ class ChessPiece < ApplicationRecord
     else
       return false
     end
-    return true unless moving_into_check
+    return true unless game.in_check?(color)
 
     update_attributes(x_position: x1, y_position: y1)
     false
-  end
-
-  def moving_into_check
-    game.in_check?(color)
   end
 
   def find_piece(x_position, y_position)
