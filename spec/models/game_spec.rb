@@ -21,7 +21,7 @@ RSpec.describe Game, type: :model do
     end
   end
 
-  describe "test stalemate method" do
+  describe 'test stalemate method' do
     it 'should return true if the game is in stalemate' do
       game = FactoryBot.create(:game)
       game.populate_game

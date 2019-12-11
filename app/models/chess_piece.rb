@@ -113,5 +113,4 @@ class ChessPiece < ApplicationRecord
     reload
     state
   end
-
 end
