@@ -17,34 +17,6 @@ $(document).ready(function() {
 // BELOW HERE IS THE PROMOTION MODAL JS  
   var pawnPromoteModal = document.getElementById("pawnPromoteModal");
 
-  // Get the button that opens the modal
-  var btn = document.getElementById("myBtn");
-
-  var queenBtn = document.getElementById("queenBtn")
-
-  // Get the <span> element that closes the modal
-  var span = document.getElementsByClassName("close");
-
-  // When the user clicks on the button, open the modal
-  btn.onclick = function() {
-    document.getElementById("pawnPromoteModal").style.display = "block";
-  }
-
-  queenBtn.onclick = function() {
-    console.log(queenBtn.innerHTML)
-  }
-
-  // When the user clicks on <span> (x), close the modal
-  span.onclick = function() {
-    pawnPromoteModal.style.display = "none";
-  }
-
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-    if (event.target == pawnPromoteModal) {
-      pawnPromoteModal.style.display = "none";
-    }
-  }
 // above here is the promotion modal JS
 
   $('.droppable').droppable({
