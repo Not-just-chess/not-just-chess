@@ -16,7 +16,7 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     @chess_pieces = @game.chess_pieces
-    flash.now[:stalemate] = 'You\'ve hit stalemate!' if @game.stalemate_check
+    flash.now[:stalemate] = 'You\'ve hit stalemate!' if @game.stalemate!
 
     flash.now[:white_check] = 'White King in check!' if @game.in_check?(true)
 

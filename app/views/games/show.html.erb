@@ -102,7 +102,7 @@
             <%= "Black Player: Awaiting opponent assignment" %>
         <% end %>
         <br/>
-        <% if @game.stalemate_check %>
+        <% if @game.stalemate! %>
             <br/>
             <%=flash[:stalemate] %>
             <br/>

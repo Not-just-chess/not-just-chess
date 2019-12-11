@@ -104,12 +104,14 @@ class ChessPiece < ApplicationRecord
     x2 = destination[0].to_i
     y2 = destination[1].to_i
 
+    byebug
     state = false
     ActiveRecord::Base.transaction do
       move_to!([x2, y2])
       state = game.in_check?(color)
       raise ActiveRecord::Rollback
     end
+    # byebug
     reload
     state
   end
