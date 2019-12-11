@@ -64,10 +64,10 @@ class Game < ApplicationRecord
     # hypothetical of IF you move the pieces to one of those spaces
     # plug those moves into in_check?(color_to_check)
     # start with pieces with limited moves (i.e. pawns, knights, etc.)
-    color_to_check = turn_player_id == white_player_id ? true : false
-    pieces_to_check = chess_pieces.active.reject { |cp| cp.color != color_to_check }
-    pieces_to_check.each do |piece|
-      # this leave us with only having to check valid moves on 
+    color_to_check = turn_player_id == white_player_id
+    pieces_to_check = chess_pieces.active.select { |cp| cp.color == color_to_check }
+    pieces_to_check.each do |_piece|
+      # this leave us with only having to check valid moves on
       in_check?(color_to_check)
     end
   end
@@ -75,23 +75,25 @@ class Game < ApplicationRecord
   def stalemate?(color)
     friendly_pieces = chess_pieces.where(color: color, captured: false)
     return false if in_check?(color) == true
-      1.upto(8) do |new_x|
-        1.upto(8) do |new_y|
-          friendly_pieces.each do |piece|
-            if piece.valid_move?([new_x, new_y]) && piece.move_causes_check?([new_x, new_y]) == false
-              return false # if found at least one valid move and doesn't cause check
+
+    1.upto(8) do |new_x|
+      1.upto(8) do |new_y|
+        friendly_pieces.each do |piece|
+          if piece.valid_move?([new_x, new_y]) && piece.move_causes_check?([new_x, new_y]) == false
+            return false # if found at least one valid move and doesn't cause check
           end
         end
       end
     end
-    return true # no valid moves, so results in stalemate
+    true # no valid moves, so results in stalemate
   end
 
   def stalemate!(color)
     # sets game database field if game is in stalemate
     return false unless stalemate?(color) == true
-    self.update_attributes(draw: true) # set database field
-    return true # no valid moves, stalemate!
+
+    update_attributes(draw: true) # set database field
+    true # no valid moves, stalemate!
   end
 
   def pieces_remaining(color)
