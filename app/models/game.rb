@@ -70,7 +70,32 @@ class Game < ApplicationRecord
       # this leave us with only having to check valid moves on 
       in_check?(color_to_check)
     end
-    byebug
+  end
+
+  def stalemate?(color)
+    friendly_pieces = chess_pieces.where(color: color, captured: false)
+    return false if in_check?(color) == true
+      1.upto(8) do |new_x|
+        1.upto(8) do |new_y|
+          friendly_pieces.each do |piece|
+            if piece.valid_move?([new_x, new_y]) && piece.move_causes_check?([new_x, new_y]) == false
+              return false # if found at least one valid move and doesn't cause check
+          end
+        end
+      end
+    end
+    return true # no valid moves, so results in stalemate
+  end
+
+  def stalemate!(color)
+    # sets game database field if game is in stalemate
+    return false unless stalemate?(color) == true
+    self.update_attributes(draw: true) # set database field
+    return true # no valid moves, stalemate!
+  end
+
+  def pieces_remaining(color)
+    chess_pieces.where(color: color).to_a
   end
 
   def forfeit_game(forfeiting_user)
