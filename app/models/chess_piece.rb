@@ -24,6 +24,13 @@ class ChessPiece < ApplicationRecord
 
     return false unless valid_move?(destination)
 
+    move_piece(space, x2, y2)
+    return true unless move_causes_check?(destination)
+
+    false
+  end
+
+  def move_piece(space = nil, x2, y2)
     if space.nil?
       update_attributes(x_position: x2, y_position: y2, has_moved: true)
     elsif space.color != color
@@ -32,10 +39,7 @@ class ChessPiece < ApplicationRecord
     else
       return false
     end
-    return true unless game.in_check?(color)
-
-    update_attributes(x_position: x1, y_position: y1)
-    false
+    true
   end
 
   def find_piece(x_position, y_position)
@@ -104,14 +108,13 @@ class ChessPiece < ApplicationRecord
     x2 = destination[0].to_i
     y2 = destination[1].to_i
 
-    byebug
     state = false
     ActiveRecord::Base.transaction do
-      move_to!([x2, y2])
+      # move to is coming back false, thus not triggering state to change
+      move_piece(x2, y2)
       state = game.in_check?(color)
-      raise ActiveRecord::Rollback
+      raise ActiveRecord::Rollback if state == true
     end
-    # byebug
     reload
     state
   end

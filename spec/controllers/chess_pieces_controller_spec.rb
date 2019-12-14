@@ -5,7 +5,8 @@ RSpec.describe ChessPiecesController, type: :controller do
   describe 'chess_pieces#update' do
     before :each do
       @g = FactoryBot.create(:game)
-      @k = King.create(x_position: 1, y_position: 5, game: @g, color: true)
+      @k1 = King.create(x_position: 1, y_position: 5, game: @g, color: true)
+      @k2 = King.create(x_position: 5, y_position: 2, game: @g, color: false)
       @user1 = FactoryBot.create(:user)
       sign_in @user1
       @user2 = FactoryBot.create(:user)
@@ -14,9 +15,9 @@ RSpec.describe ChessPiecesController, type: :controller do
     end
 
     it 'should update the selected pieces (king) x_position and y_position' do
-      patch :update, params: { id: @k.id, game_id: @g.id, x_position: 1, y_position: 5 }
-      @k.reload
-      expect(@k.y_position).to eq 5
+      patch :update, params: { id: @k1.id, game_id: @g.id, x_position: 1, y_position: 5 }
+      @k1.reload
+      expect(@k1.y_position).to eq 5
     end
 
     it 'should update turn_player_id to opposite player' do
@@ -42,7 +43,7 @@ RSpec.describe ChessPiecesController, type: :controller do
     it 'should allow user to move if their turn' do
       chess_piece = Pawn.create(x_position: 8, y_position: 2, game_id: @g.id, color: true)
       expect(@g.turn_player_id).to eq(@user1.id)
-      # @user1 color == true, so they should not be allowed to move
+      # @user1 color == true, so they should be allowed to move
       expect(chess_piece.move_to!([8, 4])).to eq(true)
     end
   end
