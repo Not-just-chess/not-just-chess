@@ -61,13 +61,11 @@ class Game < ApplicationRecord
     1.upto(8) do |new_x|
       1.upto(8) do |new_y|
         friendly_pieces.each do |piece|
-          if !piece.valid_move?([new_x, new_y])
-            break
-          elsif piece.valid_move?([new_x, new_y]) && !piece.move_causes_check?([new_x, new_y])
-            return false # if found at least one valid move and doesn't cause check
-          else
-            return true
-          end
+          break unless piece.valid_move?([new_x, new_y])
+
+          return false if piece.valid_move?([new_x, new_y]) && !piece.move_causes_check?([new_x, new_y])
+
+          return true
         end
       end
     end

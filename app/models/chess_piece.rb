@@ -15,8 +15,8 @@ class ChessPiece < ApplicationRecord
   scope :active, -> { where(captured: nil) }
 
   def move_to!(destination)
-    x1 = x_position
-    y1 = y_position
+    # x1 = x_position
+    # y1 = y_position
 
     x2 = destination[0].to_i
     y2 = destination[1].to_i
@@ -24,18 +24,18 @@ class ChessPiece < ApplicationRecord
 
     return false unless valid_move?(destination)
 
-    move_piece(space, x2, y2)
+    move_piece(x2, y2, space)
     return true unless move_causes_check?(destination)
 
     false
   end
 
-  def move_piece(space = nil, x2, y2)
+  def move_piece(x_dest, y_dest, space = nil)
     if space.nil?
-      update_attributes(x_position: x2, y_position: y2, has_moved: true)
+      update_attributes(x_position: x_dest, y_position: y_dest, has_moved: true)
     elsif space.color != color
-      update_attributes(x_position: x2, y_position: y2, has_moved: true)
-      space.capture_piece(x2, y2)
+      update_attributes(x_position: x_dest, y_position: y_dest, has_moved: true)
+      space.capture_piece(x_dest, y_dest)
     else
       return false
     end

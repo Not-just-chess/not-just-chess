@@ -45,7 +45,6 @@ RSpec.describe Game, type: :model do
       FactoryBot.create(:pawn, color: false, game_id: @game.id, x_position: 5, y_position: 4)
       FactoryBot.create(:pawn, color: false, game_id: @game.id, x_position: 4, y_position: 5)
       # it is white players turn, so it should only check for the true pieces/king
-      expect(@game.turn_player_id).to eq(@user1.id)
       expect(@game.stalemate?(true)).to eq(false)
       expect(@game.stalemate!).to eq(false)
       expect(@game.draw?).to eq false
