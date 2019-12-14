@@ -1,6 +1,7 @@
 # Create ChessPiece parent model
 class ChessPiece < ApplicationRecord
   belongs_to :game
+  after_commit :notify_pusher, on: [:update]
 
   def self.types
     %w[King Queen Rook Knight Bishop Pawn]
@@ -13,6 +14,10 @@ class ChessPiece < ApplicationRecord
   scope :bishops, -> { where(type: 'Bishop') }
   scope :pawns, -> { where(type: 'Pawn') }
 
+  def notify_pusher
+    Pusher.trigger('chess_piece', 'new', self.as_json)
+  end
+  
   def move_to!(destination)
     x1 = x_position
     y1 = y_position
