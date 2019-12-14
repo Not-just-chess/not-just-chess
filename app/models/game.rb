@@ -48,11 +48,28 @@ class Game < ApplicationRecord
     king_x = king.x_position
     king_y = king.y_position
     destination = [king_x, king_y]
-    active_pieces = chess_pieces.reject { |cp| cp.x_position.nil? }
-    active_pieces.each do |piece|
+    # using active scope on chess_pieces instead of creating new array
+    chess_pieces.active.each do |piece|
       return true if piece.color != color && piece.valid_move?(destination)
     end
     false
+  end
+
+  def stalemate_check
+    #####  part 1
+    # find active pieces
+    # check to see if there are any possible moves for user
+
+    ##### part 2
+    # hypothetical of IF you move the pieces to one of those spaces
+    # plug those moves into in_check?(color_to_check)
+    # start with pieces with limited moves (i.e. pawns, knights, etc.)
+    color_to_check = turn_player_id == white_player_id
+    pieces_to_check = chess_pieces.active.select { |cp| cp.color == color_to_check }
+    pieces_to_check.each do |_piece|
+      # this leave us with only having to check valid moves on
+      in_check?(color_to_check)
+    end
   end
 
   def forfeit_game(forfeiting_user)
