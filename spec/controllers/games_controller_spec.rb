@@ -7,6 +7,20 @@ RSpec.describe GamesController, type: :controller do
       get :index
       expect(response).to have_http_status(:success)
     end
+
+    it 'should successfully display only active & available games' do
+      u1 = FactoryBot.create(:user)
+      g1 = FactoryBot.create(:game)
+      g2 = FactoryBot.create(:game)
+      g3 = FactoryBot.create(:game)
+
+      g1.update_attributes(black_player_id: nil, forfeited: false)
+      g2.update_attributes(black_player_id: u1.id, draw: true)
+      g3.update_attributes(black_player_id: nil, forfeited: true)
+
+      get :index
+      expect(Game.available&.active).to match_array([g1])
+    end
   end
 
   describe 'games#new action' do
