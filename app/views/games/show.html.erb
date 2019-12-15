@@ -45,19 +45,12 @@
         </div>
     </div>
     <div class="booyah-box chatbox ">
-        <% @messages.each do |message| %>
-        <div class="message-box">
-            <p>
-                <%= message.content %>
-            </p>
-        </div>
-        <% end %>
+        <div class="all-messages"></div>
     </div>
-    <div class="all-messages"></div>
     <h1> Messages
     </h1>
     <%= form_for @message, url: game_messages_path(@game), remote: true do |form| %>
-    <%= form.label :content,  prompt: "Enter your message" %>
+    <%= form.label "Chat:" %>
     <%= form.text_field :content, class: "enter-message-box", value: "" %>
     <div class="chatbutton">
         <%= form.submit "Send", class: "add-message btn-chat submit-message", remote: true %>
@@ -189,19 +182,14 @@
 
             var lastMessage = values[lastId];
             console.log(lastMessagePageShown.id);
-            console.log(lastMessage.id);
+            console.log(lastMessage);
 
             if (lastMessagePageShown.id <= lastMessage.id) {
-                $('.all-messages').append("<div class= 'message-box'><p>" + lastMessage.content + "</p></div>");
+
+                $('.all-messages').append("<div class= 'message-box'><p>Player " + lastMessage.user_id + " says: " + lastMessage.content + "</p></div>");
+                $('#message_content').val("");
             }
         });
     };
-    </script>
-    <script>
-    $(function() {
-        $(".submit-message").click(function() {
-            $(".enter-message-box").text("Enter your message");
-        });
-    });
     </script>
 </body>
