@@ -4,6 +4,7 @@ class Rook < ChessPiece
     # Rook can move horizontally and vertically without obstructions
     x2 = destination[0].to_i
     y2 = destination[1].to_i
+    return false if x2 == x_position && y2 == y_position
 
     x_delta = (x2 - x_position).abs
     y_delta = (y2 - y_position).abs

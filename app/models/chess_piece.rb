@@ -21,11 +21,11 @@ class ChessPiece < ApplicationRecord
     x2 = destination[0].to_i
     y2 = destination[1].to_i
     space = find_piece(x2, y2).first
-
     return false unless valid_move?(destination)
 
-    move_piece(x2, y2, space)
-    return true unless move_causes_check?(destination)
+    return false if move_causes_check?(destination)
+
+    return true if move_piece(x2, y2, space)
 
     false
   end
@@ -113,7 +113,7 @@ class ChessPiece < ApplicationRecord
       # move to is coming back false, thus not triggering state to change
       move_piece(x2, y2)
       state = game.in_check?(color)
-      raise ActiveRecord::Rollback if state == true
+      raise ActiveRecord::Rollback
     end
     reload
     state

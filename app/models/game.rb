@@ -61,18 +61,29 @@ class Game < ApplicationRecord
     1.upto(8) do |new_x|
       1.upto(8) do |new_y|
         friendly_pieces.each do |piece|
-          break unless piece.valid_move?([new_x, new_y])
+          # break unless piece.valid_move?([new_x, new_y])
 
-          return false if piece.valid_move?([new_x, new_y]) && !piece.move_causes_check?([new_x, new_y])
+          # byebug
+          # return false if piece.valid_move?([new_x, new_y]) && !piece.move_causes_check?([new_x, new_y])
 
-          return true
+          # # byebug
+          # return true if piece.valid_move?([new_x, new_y]) && piece.move_causes_check?([new_x, new_y])
+          if piece.valid_move?([new_x, new_y]) && !piece.move_causes_check?([new_x, new_y])
+            return false
+          elsif piece.valid_move?([new_x, new_y]) && piece.move_causes_check?([new_x, new_y])
+            return true
+          else
+            false
+          end
         end
       end
     end
-    true # no valid moves, so results in stalemate
+    # true # no valid moves, so results in stalemate
   end
 
   def stalemate!
+    return false if black_player_id.nil?
+
     color = turn_player_id == white_player_id
     return false unless stalemate?(color)
 

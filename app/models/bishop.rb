@@ -6,6 +6,7 @@ class Bishop < ChessPiece
     # destination_x and destination_y
     x2 = destination[0].to_i
     y2 = destination[1].to_i
+    return false if x2 == x_position && y2 == y_position
 
     # verify that destination is on the board
     return false if off_board?(x2, y2)
