@@ -45,10 +45,10 @@
         </div>
     </div>
     <div class="booyah-box chatbox ">
+        <h1> Messages
+        </h1>
         <div class="all-messages"></div>
     </div>
-    <h1> Messages
-    </h1>
     <%= form_for @message, url: game_messages_path(@game), remote: true do |form| %>
     <%= form.label "Chat:" %>
     <%= form.text_field :content, class: "enter-message-box", value: "" %>
@@ -181,12 +181,11 @@
             var lastId = ids[ids.length - 1];
 
             var lastMessage = values[lastId];
-            console.log(lastMessagePageShown.id);
-            console.log(lastMessage);
+            console.log("<%=@white_player.email%>");
+            var player = lastMessage.user_id === 1 ? "<%=@white_player.email%>" : "<%=@black_player.email%>"
+            if (lastMessagePageShown.id < lastMessage.id) {
 
-            if (lastMessagePageShown.id <= lastMessage.id) {
-
-                $('.all-messages').append("<div class= 'message-box'><p>Player " + lastMessage.user_id + " says: " + lastMessage.content + "</p></div>");
+                $('.all-messages').append("<div class= 'message-box'><p> " + player + " says: " + lastMessage.content + "</p></div>");
                 $('#message_content').val("");
             }
         });
