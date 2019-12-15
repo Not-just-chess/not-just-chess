@@ -117,7 +117,7 @@ class ChessPiece < ApplicationRecord
     @x2 = destination[0].to_i
     @y2 = destination[1].to_i
     obstruction_array = build_obstruction_array(@x2, @y2)
-    obstruction_array.any? { |square| game.contains_piece?(square[0], square[1]) == true }
+    obstruction_array.any? { |coordinate| game.contains_piece?(coordinate[0], coordinate[1]) == true }
   end
 
   def selected(piece, chess_piece)
