@@ -17,6 +17,7 @@ RSpec.describe Game, type: :model do
       ChessPiece.where(game_id: game.id, type: 'Pawn').destroy_all
       FactoryBot.create(:king, color: true, game_id: game.id, x_position: 5, y_position: 1)
       FactoryBot.create(:bishop, color: false, game_id: game.id, x_position: 7, y_position: 4)
+      FactoryBot.create(:pawn, color: true, game_id: game.id, x_position: 4, y_position: 2) # Obstructing the bishop
       expect(game.in_check?(true)).to eq(false)
     end
   end

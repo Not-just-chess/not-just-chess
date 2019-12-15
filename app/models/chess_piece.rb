@@ -55,37 +55,69 @@ class ChessPiece < ApplicationRecord
     target.update_attributes(captured: true, x_position: nil, y_position: nil)
   end
 
+  # Commenting out the previous is_obstructed method
+  #
+  #   def is_obstructed?(destination)
+  #     @x2 = destination[0].to_i
+  #     @y2 = destination[1].to_i
+  #
+  #     x_delta = @x2 - x_position
+  #     y_delta = @y2 - y_position
+  #
+  #     @x_dir = x_delta.zero? ? 0 : x_delta / x_delta.abs
+  #     @y_dir = y_delta.zero? ? 0 : y_delta / y_delta.abs
+  #
+  #     @x_move = x_position
+  #     @y_move = y_position
+  #
+  #     chess_pieces = ChessPiece.where(game_id: game_id)
+  #     possible_blockers = chess_pieces.reject { |cp| cp.x_position.nil? }
+  #
+  #     while not_at_destination
+  #       @x_move = x_position + @x_dir
+  #       @y_move = y_position + @y_dir
+  #
+  #       blocker = possible_blockers.select { |piece| piece.x_position == @x_move && piece.y_position == @y_move }.count
+  #       return false if blocker.zero?
+  #
+  #       return true
+  #     end
+  #     false
+  #   end
+  #
+  #   def not_at_destination
+  #     @x_move.send(@x_dir.positive? ? '<' : '>', @x2) ||
+  #       @y_move.send(@y_dir.positive? ? '<' : '>', @y2)
+  #   end
+  #
+
+  def build_obstruction_array(x_end, y_end)
+    y_change = y_position - y_end
+    x_change = x_position - x_end
+
+    # Build array squares which the piece must move through
+    obstruction_array = []
+    if x_change.abs.zero? # If it's moving vertically
+      (1..(y_change.abs - 1)).each do |i|
+        obstruction_array << [x_position, y_position - (y_change / y_change.abs) * i]
+      end
+    elsif y_change.abs.zero? # If it's moving horizontally
+      (1..(x_change.abs - 1)).each do |i|
+        obstruction_array << [x_position - (x_change / x_change.abs) * i, y_position]
+      end
+    elsif y_change.abs == x_change.abs # if it's moving diagonally
+      (1..(y_change.abs - 1)).each do |i|
+        obstruction_array << [x_position - (x_change / x_change.abs) * i, y_position - (y_change / y_change.abs) * i]
+      end
+    end
+    obstruction_array
+  end
+
   def is_obstructed?(destination)
     @x2 = destination[0].to_i
     @y2 = destination[1].to_i
-
-    x_delta = @x2 - x_position
-    y_delta = @y2 - y_position
-
-    @x_dir = x_delta.zero? ? 0 : x_delta / x_delta.abs
-    @y_dir = y_delta.zero? ? 0 : y_delta / y_delta.abs
-
-    @x_move = x_position
-    @y_move = y_position
-
-    chess_pieces = ChessPiece.where(game_id: game_id)
-    possible_blockers = chess_pieces.reject { |cp| cp.x_position.nil? }
-
-    while not_at_destination
-      @x_move = x_position + @x_dir
-      @y_move = y_position + @y_dir
-
-      blocker = possible_blockers.select { |piece| piece.x_position == @x_move && piece.y_position == @y_move }.count
-      return false if blocker.zero?
-
-      return true
-    end
-    false
-  end
-
-  def not_at_destination
-    @x_move.send(@x_dir.positive? ? '<' : '>', @x2) ||
-      @y_move.send(@y_dir.positive? ? '<' : '>', @y2)
+    obstruction_array = build_obstruction_array(@x2, @y2)
+    obstruction_array.any? { |square| game.contains_piece?(square[0], square[1]) == true }
   end
 
   def selected(piece, chess_piece)
