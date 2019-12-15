@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_07_012424) do
+ActiveRecord::Schema.define(version: 2019_12_14_161118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2019_12_07_012424) do
     t.boolean "draw", default: false
     t.index ["black_player_id"], name: "index_games_on_black_player_id"
     t.index ["draw"], name: "index_games_on_draw"
+    t.index ["id"], name: "index_games_on_id"
     t.index ["loser"], name: "index_games_on_loser"
     t.index ["turn_player_id"], name: "index_games_on_turn_player_id"
     t.index ["user_id"], name: "index_games_on_user_id"
@@ -61,6 +62,14 @@ ActiveRecord::Schema.define(version: 2019_12_07_012424) do
   end
 
   create_table "knights", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "content"
+    t.integer "game_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -91,6 +100,7 @@ ActiveRecord::Schema.define(version: 2019_12_07_012424) do
     t.string "provider"
     t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["id"], name: "index_users_on_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

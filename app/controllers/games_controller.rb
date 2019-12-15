@@ -4,6 +4,7 @@ class GamesController < ApplicationController
 
   def new
     @game = Game.new
+    
   end
 
   def create
@@ -11,11 +12,16 @@ class GamesController < ApplicationController
     @game.update_attributes(white_player_id: current_user.id, turn_player_id: current_user.id)
     @game.populate_game
     redirect_to game_path(@game.id)
+    
   end
+
+  
 
   def show
     @game = Game.find(params[:id])
     @chess_pieces = @game.chess_pieces
+    @message = Message.new
+    @messages = @game.messages
 
     flash.now[:white_check] = 'White King in check!' if @game.in_check?(true)
 
@@ -23,6 +29,7 @@ class GamesController < ApplicationController
 
     return render_not_found if @game.blank?
   end
+
 
   def index
     @games = Game.available && Game.active
@@ -45,4 +52,5 @@ class GamesController < ApplicationController
   def game_params
     params.permit(:user)
   end
+  
 end

@@ -5,6 +5,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2]
   has_many :games
+  has_many :messages, through: :games
+
 
   def google_oauth2
     # You need to implement the method below in your model (e.g. app/models/user.rb)

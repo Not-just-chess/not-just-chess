@@ -7,4 +7,9 @@ Rails.application.routes.draw do
   end
   resources :chess_pieces, only: [:new, :create, :show, :update]
   resources :users, only: :show
-end
+  resources :games do 
+  	resources :messages, only: [:new, :create, :show]
+  end
+  	
+  end
+
