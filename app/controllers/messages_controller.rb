@@ -3,15 +3,17 @@ before_action :authenticate_user!
 
 
 def create
-current_game.messages.create(message_params.merge(user_id: current_user))
-redirect_to current_game
+
+@message= current_game.messages.create(message_params.merge(user_id: current_user))
+
+render json: @message
 
 end
 
 private 
 
 def message_params
-params.require(:message).permit(:content, :game_id, :user_id)
+params.require(:message).permit(:content, :game_id, :user_id, :id)
 end
 
 helper_method :current_game
