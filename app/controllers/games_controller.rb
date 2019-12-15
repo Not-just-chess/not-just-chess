@@ -18,8 +18,11 @@ class GamesController < ApplicationController
     @chess_pieces = @game.chess_pieces
 
     flash.now[:white_check] = 'White King in check!' if @game.in_check?(true)
+    flash.now[:white_checkmate] = 'White King in checkmate!' if @game.in_check?(true)
 
     flash.now[:black_check] = 'Black King in check!' if @game.in_check?(false)
+
+    flash.now[:black_checkmate] = 'Black King in checkmate!' if @game.checkmate?(false)
 
     return render_not_found if @game.blank?
   end

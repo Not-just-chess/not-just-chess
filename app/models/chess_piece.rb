@@ -21,6 +21,7 @@ class ChessPiece < ApplicationRecord
     y2 = destination[1].to_i
     space = find_piece(x2, y2).first
 
+    
     return false unless valid_move?(destination)
 
     if space.nil?
@@ -29,6 +30,7 @@ class ChessPiece < ApplicationRecord
       update_attributes(x_position: x2, y_position: y2, has_moved: true)
       space.capture_piece(x2, y2)
     else
+      
       return false
     end
     return true unless game.in_check?(color)

@@ -7,11 +7,8 @@ class Queen < ChessPiece
     y_delta = (y2 - y_position)
     x_delta = (x2 - x_position)
 
-    slope = if y_delta.zero? || x_delta.zero?
-              0
-            else
-              y_delta.abs / x_delta.abs
-            end
+    slope = y_delta.abs == x_delta.abs ? 1 : 0
+
 
     # Check if the destination location is of off the board
     off_board?(x2, y2)

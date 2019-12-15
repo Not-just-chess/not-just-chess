@@ -49,28 +49,27 @@ class Game < ApplicationRecord
     king_y = king.y_position
     destination = [king_x, king_y]
     active_pieces = chess_pieces.reject { |cp| cp.x_position.nil? }
-    active_pieces.each do |piece|
-      @capturing_piece = piece
-      return true if piece.color != color && piece.valid_move?(destination)
-    end
-    false
+    active_pieces = active_pieces.reject { |cp| cp.color == color }
+    @capturing_piece = active_pieces.find { |cp| cp.valid_move?(destination) }
+    Rails.logger.debug(@capturing_piece.inspect)
+    
+    return @capturing_piece
   end
 
   def checkmate?(color)
-    if in_check?(color) === true
+    king_can_move = false
+    capturing_piece_can_be_blocked = false
+    if in_check?(color)
       king = chess_pieces.find_by(type: 'King', color: color)
       # If the king can move out of it, return false
-      @moves = [ [1, 1], [1, 0], [1, -1], [0, 1], [0, -1], [-1, 1], [-1, 0], [-1, -1] ]
-      @moves.each do |move|
-        return false if king.move_to!([x_position, y_position] + move) === true
-      end
+      # @moves = [ [1, 1], [1, 0], [1, -1], [0, 1], [0, -1], [-1, 1], [-1, 0], [-1, -1] ]
+      # @moves.each do |move|
+      #   return false if king.move_to!([x_position, y_position] + move) === true
+      # end
       # If the attacking piece can be obstructed, return false
-      return false if capturing_piece.can_be_obstructed?([king.x_position, king.y_position])
+      # return false if capturing_piece.can_be_obstructed?([king.x_position, king.y_position])
       # If the attacking piece can be captured, return false
-      return false if capturing_piece.can_be_captured?
-
-      puts "Checkmate!"
-      true
+      return !@capturing_piece.can_be_captured?
     end
   end
 
