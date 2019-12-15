@@ -92,22 +92,22 @@ class ChessPiece < ApplicationRecord
   #
 
   def build_obstruction_array(x_end, y_end)
-    y_change = y_position - y_end
-    x_change = x_position - x_end
+    y_delta = y_position - y_end
+    x_delta = x_position - x_end
 
     # Build array squares which the piece must move through
     obstruction_array = []
-    if x_change.abs.zero? # If it's moving vertically
-      (1..(y_change.abs - 1)).each do |i|
-        obstruction_array << [x_position, y_position - (y_change / y_change.abs) * i]
+    if x_delta.abs.zero? # If it's moving vertically
+      (1..(y_delta.abs - 1)).each do |i|
+        obstruction_array << [x_position, y_position - (y_delta / y_delta.abs) * i]
       end
-    elsif y_change.abs.zero? # If it's moving horizontally
-      (1..(x_change.abs - 1)).each do |i|
-        obstruction_array << [x_position - (x_change / x_change.abs) * i, y_position]
+    elsif y_delta.abs.zero? # If it's moving horizontally
+      (1..(x_delta.abs - 1)).each do |i|
+        obstruction_array << [x_position - (x_delta / x_delta.abs) * i, y_position]
       end
-    elsif y_change.abs == x_change.abs # if it's moving diagonally
-      (1..(y_change.abs - 1)).each do |i|
-        obstruction_array << [x_position - (x_change / x_change.abs) * i, y_position - (y_change / y_change.abs) * i]
+    elsif y_delta.abs == x_delta.abs # if it's moving diagonally
+      (1..(y_delta.abs - 1)).each do |i|
+        obstruction_array << [x_position - (x_delta / x_delta.abs) * i, y_position - (y_delta / y_delta.abs) * i]
       end
     end
     obstruction_array
