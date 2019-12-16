@@ -1,10 +1,23 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
+console.log('<%= ENV["PUSHER_KEY"] %>');
+var pusher;
+var channel;
 
 $(document).ready(function() {
   $('.piece').draggable({
       snap: '.droppable',
       revert: 'invalid'
+  });
+
+  pusher = new Pusher('<%= ENV["PUSHER_KEY"] %>', {
+    cluster: '<%= ENV["PUSHER_CLUSTER"] %>',
+    encrypted: true
+  });
+  channel = pusher.subscribe('chess_piece');
+  channel.bind('new', function(data) {
+    console.log(data);
+    location.reload(true);
   });
 
   function canPromote() {
@@ -13,6 +26,8 @@ $(document).ready(function() {
     else
       return false;
   };
+
+
 
 // BELOW HERE IS THE PROMOTION MODAL JS  
   var pawnPromoteModal = document.getElementById("pawnPromoteModal");
@@ -79,11 +94,12 @@ $(document).ready(function() {
                     htmlcode: chooseCode(update_piece.color, $(e.target).val())
                 },
                 success: function(data) {
-                    destination_square.empty();
+                   destination_square.empty();
+
                     location.reload(true);
                 }
             })
-          })
+         })
         } else {
           $.ajax({
               type: 'PATCH',
@@ -98,7 +114,7 @@ $(document).ready(function() {
               },
               success: function(data) {
                   destination_square.empty();
-                  location.reload(true);
+                  // location.reload(true);
               }
           });
         }
