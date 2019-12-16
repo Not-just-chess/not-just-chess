@@ -4,6 +4,7 @@ class King < ChessPiece
     x2 = destination[0].to_i
     y2 = destination[1].to_i
     return false if x2 == x_position && y2 == y_position
+    return false if move_causes_check?(destination)
 
     @moves = [
       [1, 1],

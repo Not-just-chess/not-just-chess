@@ -67,7 +67,14 @@ class Game < ApplicationRecord
       
       return false if @capturing_piece.can_be_captured?
 
-      return in_check?(color)
+      # @moves = [ [1, 1], [1, 0], [1, -1], [0, 1], [0, -1], [-1, 1], [-1, 0], [-1, -1] ]
+      # @moves.each do |move|
+      #   return false if king.valid_move?([(king_x + move[0]), (king_y + move[1])]) === true
+      # end
+
+      # return false if @capturing_piece.can_be_obstructed?([king_x, king_y])
+
+      return true
     end
   end
 
