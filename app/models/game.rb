@@ -57,8 +57,6 @@ class Game < ApplicationRecord
   end
 
   def checkmate?(color)
-    king_can_move = false
-    capturing_piece_can_be_blocked = false
     if in_check?(color)
       king = chess_pieces.find_by(type: 'King', color: color)
       # If the king can move out of it, return false
@@ -69,7 +67,30 @@ class Game < ApplicationRecord
       # If the attacking piece can be obstructed, return false
       # return false if capturing_piece.can_be_obstructed?([king.x_position, king.y_position])
       # If the attacking piece can be captured, return false
+      king_x = king.x_position
+      king_y = king.y_position
+      destination = [king_x, king_y]
+      active_pieces = chess_pieces.reject { |cp| cp.x_position.nil? }
+      active_pieces = active_pieces.reject { |cp| cp.color == color }
+      @capturing_piece = active_pieces.find { |cp| cp.valid_move?(destination) }
       return !@capturing_piece.can_be_captured?
+    end
+  end
+
+  def stalemate_check
+    #####  part 1
+    # find active pieces
+    # check to see if there are any possible moves for user
+
+    ##### part 2
+    # hypothetical of IF you move the pieces to one of those spaces
+    # plug those moves into in_check?(color_to_check)
+    # start with pieces with limited moves (i.e. pawns, knights, etc.)
+    color_to_check = turn_player_id == white_player_id
+    pieces_to_check = chess_pieces.active.select { |cp| cp.color == color_to_check }
+    pieces_to_check.each do |_piece|
+      # this leave us with only having to check valid moves on
+      in_check?(color_to_check)
     end
   end
 

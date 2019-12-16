@@ -46,4 +46,32 @@ RSpec.describe ChessPiecesController, type: :controller do
       expect(chess_piece.move_to!([8, 4])).to eq(true)
     end
   end
+
+  describe 'user_turn' do
+    before :each do
+      @game = FactoryBot.create(:game)
+      @piece = Pawn.create(x_position: 1, y_position: 5, game_id: @game.id, color: true)
+      @k1 = King.create(x_position: 2, y_position: 5, game_id: @game.id, color: false)
+      @k2 = King.create(x_position: 5, y_position: 2, game_id: @game.id, color: true)
+      @user1 = FactoryBot.create(:user)
+      sign_in @user1
+      @user2 = FactoryBot.create(:user)
+      sign_in @user2
+      @game.update_attributes(white_player_id: @user1.id, black_player_id: @user2.id, turn_player_id: @user1.id)
+    end
+
+    it 'moves piece if whiteplayer\'s turn & piece is white' do
+      @piece.move_to!([1, 6])
+      patch :update, params: { id: @piece.id }
+      expect(@game.turn_player_id).to eq(@user1.id)
+      expect(@piece.y_position).to eq(6)
+    end
+
+    it 'doesn\'t move piece if whiteplayer\'s turn & piece is black' do
+      @k1.move_to!([2, 6])
+      patch :update, params: { id: @piece.id }
+      expect(@game.turn_player_id).to eq(@user1.id)
+      expect(@piece.y_position).to eq(5)
+    end
+  end
 end

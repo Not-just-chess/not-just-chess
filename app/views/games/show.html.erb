@@ -32,29 +32,19 @@
     </div>
 
     <div>
-          <% if @game.checkmate?(true) %>
-            <div class="check alert alert-danger col-3 center offset-4 game">
-            <%=flash[:white_checkmate] %>
-            <br/>
-            <br/>
-        <% elsif @game.in_check?(true) %>
+        <% if @game.in_check?(true) %>
           <div class="check alert alert-danger col-3 center offset-4 game">
             <%=flash[:white_check] %>
             <br/>
             <br/>
           <% end %>
-          <% if @game.checkmate?(false) %>
-            <div class="check alert alert-danger col-3 center offset-4 game">
-            <%=flash[:black_checkmate] %>
-            <br/>
-            <br/>
-        <% elsif @game.in_check?(false) %>
+          </div>
+        <% if @game.in_check?(false) %>
           <div class="check alert alert-danger col-3 center offset-4 game">
             <%=flash[:black_check] %>
             <br/>
             <br/>
           <% end %>
-
           </div>
     </div>
 
@@ -79,11 +69,14 @@
                         <% y = piece.y_position %>
                         <% htmlcode = piece.htmlcode %>
                         <% if x == col && y == row %>
-                        <div class="piece" data-x-coord=<%=col%> data-y-coord=
-                            <%= row %> data-piece-id=
-                            <%=piece.id%>
-                            >
-                            <%=  piece.htmlcode.html_safe  %>
+                        <div class="piece" 
+                        data-x-coord=<%=col%>
+                        data-y-coord=<%=row%> 
+                        data-piece-id=<%=piece.id%> 
+                        data-piece-type=<%=piece.type%>
+                        data-color=<%=piece.color%>
+                        >
+                        <%=  piece.htmlcode.html_safe  %>
                         </div>
                         <% end %>
                         <% end %>
@@ -109,8 +102,14 @@
             <%= "Black Player: Awaiting opponent assignment" %>
         <% end %>
         <br/>
+        <% if @game.stalemate_check %>
+            <br/>
+            <%=flash[:stalemate] %>
+            <br/>
+        <% end %>
         <br/>
-        <!-- Button trigger modal -->
+
+        <!-- Forfeit button trigger modal -->
         <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#forfeitModal">
           Forfeit Game
         </button>
@@ -120,45 +119,27 @@
       </div>
     </div>
 
-    <script>
-    $(document).ready($(function() {
-        $('.piece').draggable({
-            snap: '.droppable',
-            revert: 'invalid'
-        });
+        <!-- Trigger/Open The Modal -->
+    <button id="myBtn"></button>
 
-        $('.droppable').droppable({
-            drop: function(event, ui) {
-                let piece = ui.draggable
-                let destination_square = $(this);
-                console.log($(this));
-                var update_piece = {
-                    id: piece.data('piece-id'),
-                    game_id: piece.data('game-id'),
-                    x_position: destination_square.data('x_position'),
-                    y_position: destination_square.data('y_position')
-                };
+    <!-- The Modal -->
+    <div id="pawnPromoteModal" class="modal">
 
-                $.ajax({
-                    type: 'PATCH',
-                    url: '/chess_pieces/' + update_piece.id,
-                    beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')) },
-                    dataType: 'json',
-                    data: {
-                        id: update_piece.id,
-                        game_id: update_piece.game_id,
-                        x_position: update_piece.x_position,
-                        y_position: update_piece.y_position
-                    },
-
-                    success: function(data) {
-                        destination_square.empty();
-                        location.reload(true);
-                    }
-                });
-            }
-        });
-    }));
-    </script>
+      <!-- Modal content -->
+      <div id="promote_container" class="modal-content">
+        <span class="close">&times;</span>
+            <div id="queenSelection" class="promoteBtns">
+                <button id="queenBtn" value="Queen" htmlcode="&#9813;">Queen</button>
+            </div>
+            <div id="bishopSelection" class="promoteBtns">
+                <button id="bishopBtn" value="Bishop" htmlcode="&#9815;" >Bishop</button>
+            </div>
+            <div id="rookSelection" class="promoteBtns">
+                <button id="rookBtn" value="Rook" htmlcode="&#9814;">Rook</button>
+            </div>
+            <div id="knightSelection" class="promoteBtns">
+                <button id="knightBtn" value="Knight" htmlcode="&#9816;">Knight</button>
+            </div>
+      </div>
+    </div>
   </body>
-</html>
