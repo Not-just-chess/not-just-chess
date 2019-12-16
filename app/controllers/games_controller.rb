@@ -22,7 +22,11 @@ class GamesController < ApplicationController
 
     flash.now[:white_check] = 'White King in check!' if @game.in_check?(true)
 
+    flash.now[:white_checkmate] = 'White King in checkmate!' if @game.checkmate?(true)
+
     flash.now[:black_check] = 'Black King in check!' if @game.in_check?(false)
+
+    flash.now[:black_checkmate] = 'Black King in checkmate!' if @game.checkmate?(false)
   end
 
   def index

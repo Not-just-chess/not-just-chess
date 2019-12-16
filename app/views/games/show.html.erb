@@ -35,6 +35,7 @@
         <% if @game.in_check?(true) %>
           <div class="check alert alert-danger col-3 center offset-4 game">
             <%=flash[:white_check] %>
+            <%=flash[:white_checkmate] %>
             <br/>
             <br/>
           <% end %>
@@ -42,6 +43,7 @@
         <% if @game.in_check?(false) %>
           <div class="check alert alert-danger col-3 center offset-4 game">
             <%=flash[:black_check] %>
+            <%=flash[:black_checkmate] %>
             <br/>
             <br/>
           <% end %>

@@ -55,6 +55,15 @@ class ChessPiece < ApplicationRecord
     target.update_attributes(captured: true, x_position: nil, y_position: nil)
   end
 
+  def can_be_captured?
+    capture_square = [x_position, y_position]
+    opponent_pieces = ChessPiece.where(game_id: game_id, color: !color)
+    opponent_pieces.each do |piece|
+      return true if piece.valid_move?(capture_square)
+    end
+    false
+  end
+
   def is_obstructed?(destination)
     @x2 = destination[0].to_i
     @y2 = destination[1].to_i
