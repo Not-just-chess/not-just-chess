@@ -1,7 +1,7 @@
 # Create ChessPiece parent model
 class ChessPiece < ApplicationRecord
   belongs_to :game
-  after_save :notify_pusher
+  after_commit :notify_pusher
 
   def self.types
     %w[King Queen Rook Knight Bishop Pawn]
