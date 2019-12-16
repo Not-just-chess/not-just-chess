@@ -18,7 +18,7 @@ class GamesController < ApplicationController
     return record_not_found unless @game
 
     @chess_pieces = @game.chess_pieces
-    # flash.now[:stalemate] = 'You\'ve hit stalemate!' if @game.stalemate_check
+    flash.now[:stalemate] = 'You\'ve hit stalemate!' if @game.stalemate!
 
     flash.now[:white_check] = 'White King in check!' if @game.in_check?(true)
 

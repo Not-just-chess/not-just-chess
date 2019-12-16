@@ -3,6 +3,7 @@ class Queen < ChessPiece
   def valid_move?(destination)
     x2 = destination[0].to_i
     y2 = destination[1].to_i
+    return false if x2 == x_position && y2 == y_position
 
     y_delta = (y2 - y_position)
     x_delta = (x2 - x_position)

@@ -55,21 +55,44 @@ class Game < ApplicationRecord
     false
   end
 
-  def stalemate_check
-    #####  part 1
-    # find active pieces
-    # check to see if there are any possible moves for user
+  def stalemate?(color)
+    friendly_pieces = chess_pieces.active.where(color: color)
 
-    ##### part 2
-    # hypothetical of IF you move the pieces to one of those spaces
-    # plug those moves into in_check?(color_to_check)
-    # start with pieces with limited moves (i.e. pawns, knights, etc.)
-    color_to_check = turn_player_id == white_player_id
-    pieces_to_check = chess_pieces.active.select { |cp| cp.color == color_to_check }
-    pieces_to_check.each do |_piece|
-      # this leave us with only having to check valid moves on
-      in_check?(color_to_check)
+    1.upto(8) do |new_x|
+      1.upto(8) do |new_y|
+        friendly_pieces.each do |piece|
+          # break unless piece.valid_move?([new_x, new_y])
+
+          # byebug
+          # return false if piece.valid_move?([new_x, new_y]) && !piece.move_causes_check?([new_x, new_y])
+
+          # # byebug
+          # return true if piece.valid_move?([new_x, new_y]) && piece.move_causes_check?([new_x, new_y])
+          if piece.valid_move?([new_x, new_y]) && !piece.move_causes_check?([new_x, new_y])
+            return false
+          elsif piece.valid_move?([new_x, new_y]) && piece.move_causes_check?([new_x, new_y])
+            return true
+          else
+            false
+          end
+        end
+      end
     end
+    # true # no valid moves, so results in stalemate
+  end
+
+  def stalemate!
+    return false if black_player_id.nil?
+
+    color = turn_player_id == white_player_id
+    return false unless stalemate?(color)
+
+    update_attributes(draw: true) # set database field
+    true # no valid moves, stalemate!
+  end
+
+  def pieces_remaining(color)
+    chess_pieces.where(color: color).to_a
   end
 
   def forfeit_game(forfeiting_user)
