@@ -1,8 +1,5 @@
 # Not Just Chess
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
 ### Getting Started
 * Create an account or sign in with Gmail
 * Start a new game
