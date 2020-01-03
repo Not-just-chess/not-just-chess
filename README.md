@@ -1,24 +1,33 @@
-# README
+# Not Just Chess
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
-Things you may want to cover:
+### Getting Started
+* Create an account or sign in with Gmail
+* Start a new game
+* Have another player join that game
+* Drag and drop pieces to move them, invalid moves will automatically be called back
 
-* Ruby version
+### Technologies
+* Ruby 2.5.3
+* Rails 5.2.3
+* PostgreSQL
+* TravisCI
+* Bootstrap 4.3.1
+* Rspec 3.5
+* FactoryBot
+* Rubocop
+* jQuery
+* Figaro
+* Omniauth
 
-* System dependencies
+### Installing
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. Clone the repo
+> git clone https://github.com/Not-just-chess/not-just-chess.git
+2. Run bundle install inside project root
+> bundle install
+3. Start server
+> rails server -b 0.0.0.0 -p 3000
+4. Play!
