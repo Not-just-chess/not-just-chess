@@ -1,5 +1,7 @@
 # Not Just Chess
 
+### Link to live [app](https://not-just-chess.herokuapp.com/)
+
 ### Getting Started
 * Create an account or sign in with Gmail
 * Start a new game
