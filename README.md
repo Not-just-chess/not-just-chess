@@ -10,16 +10,16 @@
 
 ### Technologies
 * Ruby 2.5.3
-* Rails 5.2.3
-* PostgreSQL
-* TravisCI
-* Bootstrap 4.3.1
-* Rspec 3.5
-* FactoryBot
-* Rubocop
-* jQuery
-* Figaro
-* Omniauth
+* [Rails](https://rubyonrails.org/) 5.2.3
+* [PostgreSQL](https://www.postgresql.org/)
+* [TravisCI](https://travis-ci.org/)
+* [Bootstrap 4.3.1](https://getbootstrap.com/)
+* [Rspec](https://rspec.info/documentation/) 3.5
+* [FactoryBot](https://github.com/thoughtbot/factory_bot)
+* [Rubocop](https://github.com/rubocop-hq/rubocop) 0.79.0
+* [jQuery](https://jquery.com/)
+* [Figaro](https://github.com/laserlemon/figaro)
+* [Omniauth](https://github.com/omniauth/omniauth)
 
 ### Installing
 
