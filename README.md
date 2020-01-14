@@ -2,6 +2,9 @@
 
 ### Link to live [app](https://not-just-chess.herokuapp.com/)
 
+### Demo
+![Chess Demo](https://i.imgur.com/93fY6OP.gif)
+
 ### Getting Started
 * Create an account or sign in with Gmail
 * Start a new game
