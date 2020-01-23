@@ -1,6 +1,6 @@
 # Not Just Chess
 
-### Link to live [app](https://not-just-chess.herokuapp.com/)
+### [Link](https://not-just-chess.herokuapp.com/) to live app
 
 ### Demo
 ![Chess Demo](https://i.imgur.com/93fY6OP.gif)
