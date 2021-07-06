@@ -55,6 +55,29 @@ class Game < ApplicationRecord
     false
   end
 
+  def checkmate?(color)
+    if in_check?(color)
+      king = chess_pieces.find_by(type: 'King', color: color)
+      king_x = king.x_position
+      king_y = king.y_position
+      destination = [king_x, king_y]
+      active_pieces = chess_pieces.reject { |cp| cp.x_position.nil? }
+      active_pieces = active_pieces.reject { |cp| cp.color == color }
+      @capturing_piece = active_pieces.find { |cp| cp.valid_move?(destination) }
+      
+      return false if @capturing_piece.can_be_captured?
+
+      # @moves = [ [1, 1], [1, 0], [1, -1], [0, 1], [0, -1], [-1, 1], [-1, 0], [-1, -1] ]
+      # @moves.each do |move|
+      #   return false if king.valid_move?([(king_x + move[0]), (king_y + move[1])]) === true
+      # end
+
+      # return false if @capturing_piece.can_be_obstructed?([king_x, king_y])
+
+      return true
+    end
+  end
+
   def stalemate?(color)
     friendly_pieces = chess_pieces.active.where(color: color)
 
