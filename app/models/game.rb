@@ -102,4 +102,12 @@ class Game < ApplicationRecord
       update_attributes(forfeited: true, winner: white_player_id, loser: black_player_id)
     end
   end
+
+  def contains_piece?(x_position, y_position)
+    if chess_pieces.where('(x_position = ? AND y_position = ?)', x_position, y_position).any?
+      true
+    else
+      false
+    end
+  end
 end

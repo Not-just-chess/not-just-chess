@@ -108,7 +108,7 @@ RSpec.describe ChessPiece, type: :model do
       expect(king.y_position).to eq(8)
       expect(king.game_id).to eq(game.id)
 
-      is_obs = king.is_obstructed?([5, 7])
+      is_obs = king.is_obstructed?([5, 6]) # king should be obstructed by Pawn at [5, 7]
       expect(is_obs).to be_truthy
     end
   end
